@@ -1,0 +1,135 @@
+<UserControl x:Class="Rxbit.Brigade.Controll.Views.Shop5View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F5F7FA">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="Shop5Primary" Color="#00B578" />
+        <SolidColorBrush x:Key="Shop5Text" Color="#303133" />
+        <SolidColorBrush x:Key="Shop5TextSecondary" Color="#606266" />
+        <SolidColorBrush x:Key="Shop5TextLight" Color="#909399" />
+        <SolidColorBrush x:Key="Shop5Card" Color="#FFFFFF" />
+    </UserControl.Resources>
+
+    <Grid Background="#F5F7FA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Tabs + 分类筛选 -->
+        <Border Grid.Row="0" Background="{StaticResource Shop5Card}" Padding="24,0">
+            <StackPanel>
+                <!-- 标签页 -->
+                <StackPanel Orientation="Horizontal" Height="48">
+                    <ItemsControl ItemsSource="{Binding Tabs}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="Transparent" Padding="16,12" Cursor="Hand">
+                                    <TextBlock Text="{Binding Label}" FontSize="14" FontWeight="{Binding IsActive, Converter={StaticResource BoolToFontWeightConverter}}"
+                                               Foreground="{Binding IsActive, Converter={StaticResource ShopNullConverter2}}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <!-- 分类筛选 -->
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,12">
+                    <StackPanel Orientation="Horizontal">
+                        <ItemsControl ItemsSource="{Binding CategoryFilters}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{Binding IsActive, Converter={StaticResource ShopNullConverter}}"
+                                            BorderBrush="{Binding IsActive, Converter={StaticResource ShopNullConverter3}}"
+                                            BorderThickness="1"
+                                            CornerRadius="14"
+                                            Padding="12,5"
+                                            Margin="0,0,8,0"
+                                            Cursor="Hand">
+                                        <TextBlock Text="{Binding Label}" FontSize="12" Foreground="{Binding IsActive, Converter={StaticResource ShopNullConverter4}}" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- 壁纸网格 -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
+            <ItemsControl ItemsSource="{Binding Wallpapers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="6" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{StaticResource Shop5Card}" CornerRadius="10" Height="140" Cursor="Hand">
+                            <Grid>
+                                <Border Background="#E6F4EA" CornerRadius="10" Padding="16">
+                                    <TextBlock Text="{Binding Icon}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8">
+                                    <Border Background="#80000000" CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="{Binding Downloads}" FontSize="10" Foreground="White" HorizontalAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- 底部设置栏 -->
+        <Border Grid.Row="2" Background="{StaticResource Shop5Card}" BorderBrush="{StaticResource Shop5Card}" BorderThickness="0,1,0,0" Padding="24,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="轮播场景" FontSize="13" Foreground="{StaticResource Shop5TextSecondary}" Margin="0,0,12,0" />
+                    <Border Background="#F0F9F4" CornerRadius="14" Padding="12,4" Margin="0,0,16,0">
+                        <TextBlock Text="桌面" FontSize="12" Foreground="{StaticResource Shop5Primary}" HorizontalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="轮播开关" FontSize="13" Foreground="{StaticResource Shop5TextSecondary}" Margin="0,0,12,0" />
+                    <Border Background="{StaticResource Shop5Primary}" CornerRadius="10" Padding="16,4" Margin="0,0,16,0">
+                        <TextBlock Text="开" FontSize="12" Foreground="White" HorizontalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="轮播频率" FontSize="13" Foreground="{StaticResource Shop5TextSecondary}" Margin="0,0,12,0" />
+                    <Border Background="#F5F7FA" CornerRadius="14" Padding="12,4" Margin="0,0,16,0">
+                        <TextBlock Text="5分钟" FontSize="12" Foreground="{StaticResource Shop5Text}" HorizontalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="轮播列表" FontSize="13" Foreground="{StaticResource Shop5TextSecondary}" Margin="0,0,12,0" />
+                    <Border Background="#F5F7FA" CornerRadius="14" Padding="12,4" Margin="0,0,16,0">
+                        <TextBlock Text="3840 利玛" FontSize="12" Foreground="{StaticResource Shop5Text}" HorizontalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="动态壁纸开关" FontSize="13" Foreground="{StaticResource Shop5TextSecondary}" Margin="0,0,12,0" />
+                    <Border Background="{StaticResource Shop5Primary}" CornerRadius="10" Padding="16,4">
+                        <TextBlock Text="开" FontSize="12" Foreground="White" HorizontalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

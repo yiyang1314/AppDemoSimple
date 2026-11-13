@@ -1,0 +1,59 @@
+<UserControl x:Class="Rxbit.Brigade.Controll.Views.HmiShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#0A1020">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="HmiShellBg" Color="#0A1020" />
+        <SolidColorBrush x:Key="HmiShellSidebar" Color="#142238" />
+        <SolidColorBrush x:Key="HmiShellSidebarActive" Color="#1C9CFF" />
+        <SolidColorBrush x:Key="HmiShellTop" Color="#0F1B2E" />
+        <SolidColorBrush x:Key="HmiShellText" Color="#A0B4D0" />
+        <SolidColorBrush x:Key="HmiShellTextActive" Color="#FFFFFF" />
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource HmiShellBg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部栏 -->
+        <Border Grid.Row="0" Background="{StaticResource HmiShellTop}" BorderBrush="#1E3A5F" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                    <Rectangle Width="20" Height="20" RadiusX="4" RadiusY="4" Fill="#1C9CFF" />
+                    <TextBlock Text="HMI 人机界面集" FontSize="15" FontWeight="Bold"
+                               Foreground="#FFFFFF" VerticalAlignment="Center" Margin="10,0,0,0" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Text="HMI Control Center" FontSize="12" Foreground="#6A8CAF"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,16,0">
+                    <Ellipse Width="28" Height="28" Fill="#2A4565" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 主体 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧导航 -->
+            <Border Grid.Column="0" Background="{StaticResource HmiShellSidebar}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="HmiMenuPanel" Margin="8,12,8,12" />
+                </ScrollViewer>
+            </Border>
+
+            <!-- 内容区 -->
+            <Grid Grid.Column="1" x:Name="HmiContentArea" Background="#0A1628" />
+        </Grid>
+    </Grid>
+</UserControl>

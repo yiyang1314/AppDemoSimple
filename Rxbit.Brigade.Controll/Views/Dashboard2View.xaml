@@ -1,0 +1,303 @@
+﻿<UserControl x:Class="Rxbit.Brigade.Controll.Views.Dashboard2View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Rxbit.Brigade.Controll.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="700" d:DesignWidth="1060"
+             Background="#F5F7FA">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="LightBgBrush" Color="#F5F7FA" />
+        <SolidColorBrush x:Key="LightCardBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="LightTextPrimary" Color="#303133" />
+        <SolidColorBrush x:Key="LightTextSecondary" Color="#606266" />
+        <SolidColorBrush x:Key="LightTextPlaceholder" Color="#909399" />
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2F54EB" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#13C2C2" />
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource LightBgBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部标题栏 -->
+        <Border Grid.Row="0" Height="50" Background="{StaticResource LightCardBrush}">
+            <Grid>
+                <TextBlock Text="仪表板 / 电子商务" Foreground="{StaticResource LightTextPrimary}"
+                           FontSize="16" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="16,0,0,0" />
+            </Grid>
+        </Border>
+
+        <!-- 面包屑 -->
+        <Border Grid.Row="1" Height="40" Background="{StaticResource LightCardBrush}" Margin="0,1,0,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                <TextBlock Text="仪表板" Foreground="{StaticResource LightTextPlaceholder}" FontSize="13" />
+                <TextBlock Text=" / " Foreground="{StaticResource LightTextPlaceholder}" FontSize="13" />
+                <TextBlock Text="电子商务" Foreground="{StaticResource LightTextPrimary}" FontSize="13" />
+            </StackPanel>
+        </Border>
+
+        <!-- 主内容区 -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- 第一行：柱状图 + 环形图 + KPI -->
+                <!-- 销售趋势柱状图 -->
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource LightCardStyle}">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="销售趋势" Foreground="{StaticResource LightTextPrimary}"
+                                       FontSize="14" FontWeight="Bold" />
+                            <TextBlock Text="月度销售对比" Foreground="{StaticResource LightTextSecondary}"
+                                       FontSize="12" Margin="0,4,0,12" />
+
+                            <!-- 柱状图 -->
+                            <Grid Height="140">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 柱子 -->
+                                <Rectangle Grid.Row="0" Grid.Column="1"
+                                           Height="60" VerticalAlignment="Bottom"
+                                           RadiusX="3" RadiusY="3"
+                                           Fill="#1890FF" Margin="6,0" />
+                                <Rectangle Grid.Row="0" Grid.Column="2"
+                                           Height="48" VerticalAlignment="Bottom"
+                                           RadiusX="3" RadiusY="3"
+                                           Fill="#1890FF" Margin="6,0" />
+                                <Rectangle Grid.Row="0" Grid.Column="3"
+                                           Height="78" VerticalAlignment="Bottom"
+                                           RadiusX="3" RadiusY="3"
+                                           Fill="#1890FF" Margin="6,0" />
+                                <Rectangle Grid.Row="0" Grid.Column="4"
+                                           Height="100" VerticalAlignment="Bottom"
+                                           RadiusX="3" RadiusY="3"
+                                           Fill="#1890FF" Margin="6,0" />
+
+                                <!-- 标签 -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="一月"
+                                           FontSize="11" Foreground="{StaticResource LightTextSecondary}"
+                                           HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="二月"
+                                           FontSize="11" Foreground="{StaticResource LightTextSecondary}"
+                                           HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="三月"
+                                           FontSize="11" Foreground="{StaticResource LightTextSecondary}"
+                                           HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                <TextBlock Grid.Row="1" Grid.Column="3" Text="四月"
+                                           FontSize="11" Foreground="{StaticResource LightTextSecondary}"
+                                           HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                <TextBlock Grid.Row="1" Grid.Column="4" Text="五月"
+                                           FontSize="11" Foreground="{StaticResource LightTextSecondary}"
+                                           HorizontalAlignment="Center" Margin="0,6,0,0" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- 销售分类环形图 -->
+                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource LightCardStyle}">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="销售分类" Foreground="{StaticResource LightTextPrimary}"
+                                       FontSize="14" FontWeight="Bold" />
+                            <TextBlock Text="按产品类别" Foreground="{StaticResource LightTextSecondary}"
+                                       FontSize="12" Margin="0,4,0,12" />
+
+                            <Grid Height="140">
+                                <Ellipse Width="120" Height="120"
+                                         Stroke="#E4E7ED" StrokeThickness="18"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Ellipse Width="120" Height="120"
+                                         Stroke="#1890FF" StrokeThickness="18"
+                                         StrokeDashArray="283 377"
+                                         StrokeDashCap="Round"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                                         RenderTransformOrigin="0.5,0.5">
+                                    <Ellipse.RenderTransform>
+                                        <RotateTransform Angle="-90" />
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <TextBlock Text="¥300,458" FontSize="14" FontWeight="Bold"
+                                           Foreground="{StaticResource LightTextPrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- KPI 卡片组 -->
+                <StackPanel Grid.Row="0" Grid.Column="2">
+                    <Border Style="{StaticResource StatCardLightStyle}" Height="90" Margin="8">
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="14.5k" FontSize="20" FontWeight="Bold"
+                                           Foreground="{StaticResource LightTextPrimary}" />
+                                <TextBlock Text="访问量" FontSize="12"
+                                           Foreground="{StaticResource LightTextSecondary}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Ellipse Width="40" Height="40" Fill="#E6F7FF"
+                                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0" />
+                            <TextBlock Text="◉" FontSize="18" Foreground="#1890FF"
+                                       HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,12,0" />
+                        </Grid>
+                    </Border>
+                    <Border Style="{StaticResource StatCardLightStyle}" Height="90" Margin="8">
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="12%" FontSize="20" FontWeight="Bold"
+                                           Foreground="{StaticResource LightTextPrimary}" />
+                                <TextBlock Text="转化率" FontSize="12"
+                                           Foreground="{StaticResource LightTextSecondary}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Rectangle Width="60" Height="30" Fill="#FFF1B8" RadiusX="4" RadiusY="4"
+                                       HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0" />
+                        </Grid>
+                    </Border>
+                    <Border Style="{StaticResource StatCardLightStyle}" Height="90" Margin="8">
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="2545" FontSize="20" FontWeight="Bold"
+                                           Foreground="{StaticResource LightTextPrimary}" />
+                                <TextBlock Text="购物车转化率" FontSize="12"
+                                           Foreground="{StaticResource LightTextSecondary}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                            <Polyline Points="0,20 10,15 20,25 30,10 40,20 50,5"
+                                      Stroke="#1890FF" StrokeThickness="2"
+                                      HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,12,0" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- 第二行：热销商品 + 年度销售额 + 最近活动 -->
+                <!-- 热销商品折线图 -->
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource LightCardStyle}">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="热销商品" Foreground="{StaticResource LightTextPrimary}"
+                                       FontSize="14" FontWeight="Bold" />
+                            <TextBlock Text="本周销售排行" Foreground="{StaticResource LightTextSecondary}"
+                                       FontSize="12" Margin="0,4,0,12" />
+                            <Canvas Height="100">
+                                <Polyline Points="10,70 40,50 70,60 100,30 130,40 160,20 190,35 220,15 250,25"
+                                          Stroke="#1890FF" StrokeThickness="2" Fill="#1890FF20" />
+                                <Polyline Points="10,70 40,50 70,60 100,30 130,40 160,20 190,35 220,15 250,25 250,100 10,100"
+                                          Fill="#1890FF20" />
+                            </Canvas>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- 年度销售额柱状图 -->
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource LightCardStyle}">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="年度销售额" Foreground="{StaticResource LightTextPrimary}"
+                                       FontSize="14" FontWeight="Bold" />
+                            <TextBlock Text="数据概览" Foreground="{StaticResource LightTextSecondary}"
+                                       FontSize="12" Margin="0,4,0,12" />
+                            <Grid Height="100">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Column="0" Height="60" VerticalAlignment="Bottom"
+                                           Fill="#2F54EB" Margin="4" RadiusX="2" RadiusY="2" />
+                                <Rectangle Grid.Column="1" Height="75" VerticalAlignment="Bottom"
+                                           Fill="#2F54EB" Margin="4" RadiusX="2" RadiusY="2" />
+                                <Rectangle Grid.Column="2" Height="55" VerticalAlignment="Bottom"
+                                           Fill="#2F54EB" Margin="4" RadiusX="2" RadiusY="2" />
+                                <Rectangle Grid.Column="3" Height="85" VerticalAlignment="Bottom"
+                                           Fill="#2F54EB" Margin="4" RadiusX="2" RadiusY="2" />
+                                <Rectangle Grid.Column="4" Height="70" VerticalAlignment="Bottom"
+                                           Fill="#2F54EB" Margin="4" RadiusX="2" RadiusY="2" />
+                                <Rectangle Grid.Column="5" Height="95" VerticalAlignment="Bottom"
+                                           Fill="#2F54EB" Margin="4" RadiusX="2" RadiusY="2" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- 最近活动列表 -->
+                <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource LightCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="最近活动" Foreground="{StaticResource LightTextPrimary}"
+                                   FontSize="14" FontWeight="Bold" />
+                        <TextBlock Text="订单处理通知" Foreground="{StaticResource LightTextSecondary}"
+                                   FontSize="12" Margin="0,4,0,12" />
+
+                        <StackPanel>
+                            <Grid Margin="0,6">
+                                <Ellipse Width="32" Height="32" Fill="#E6F7FF"
+                                         HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Text="📦" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                           Margin="6,0,0,0" />
+                                <StackPanel Margin="44,0,0,0">
+                                    <TextBlock Text="新订单 #30291" FontSize="12"
+                                               Foreground="{StaticResource LightTextPrimary}" />
+                                    <TextBlock Text="5分钟前" FontSize="11"
+                                               Foreground="{StaticResource LightTextPlaceholder}" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="0,6">
+                                <Ellipse Width="32" Height="32" Fill="#FFF1F0"
+                                         HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Text="↩" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                           Foreground="#FA541C" Margin="6,0,0,0" />
+                                <StackPanel Margin="44,0,0,0">
+                                    <TextBlock Text="退款申请 #12945" FontSize="12"
+                                               Foreground="{StaticResource LightTextPrimary}" />
+                                    <TextBlock Text="10分钟前" FontSize="11"
+                                               Foreground="{StaticResource LightTextPlaceholder}" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Margin="0,6">
+                                <Ellipse Width="32" Height="32" Fill="#F6FFED"
+                                         HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Text="✓" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                           Foreground="#52C41A" Margin="10,0,0,0" />
+                                <StackPanel Margin="44,0,0,0">
+                                    <TextBlock Text="库存更新" FontSize="12"
+                                               Foreground="{StaticResource LightTextPrimary}" />
+                                    <TextBlock Text="20分钟前" FontSize="11"
+                                               Foreground="{StaticResource LightTextPlaceholder}" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
+

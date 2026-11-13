@@ -1,0 +1,260 @@
+<UserControl x:Class="Rxbit.Brigade.Controll.Views.Hmi3View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#0A1020">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="CoreBg" Color="#0A1020" />
+        <SolidColorBrush x:Key="CorePanel" Color="#10223A" />
+        <SolidColorBrush x:Key="CoreCardBg" Color="#122A48" />
+        <SolidColorBrush x:Key="CorePrimary" Color="#55C7FF" />
+        <SolidColorBrush x:Key="CoreAlert" Color="#B8282D" />
+        <SolidColorBrush x:Key="CoreRunning" Color="#1E4263" />
+        <SolidColorBrush x:Key="CoreStopped" Color="#2A3344" />
+        <SolidColorBrush x:Key="CoreText" Color="#C8D8EE" />
+        <SolidColorBrush x:Key="CoreTextActive" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="CoreTextDim" Color="#5B7BA4" />
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource CoreBg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部标题 -->
+        <Border Grid.Row="0" Background="{StaticResource CorePanel}" BorderBrush="#1E4263" BorderThickness="0,0,0,1" Padding="16,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Width="20" Height="20" Fill="#E65D4C" />
+                    <TextBlock Text="核应用程序[服务端]" FontSize="16" FontWeight="Bold"
+                               Foreground="{StaticResource CoreTextActive}" VerticalAlignment="Center"
+                               Margin="10,0,0,0" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Border Width="30" Height="30" CornerRadius="4" Background="#1E4263" Margin="4,0,4,0">
+                        <TextBlock Text="⚙" FontSize="16" Foreground="{StaticResource CoreText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Border Width="30" Height="30" CornerRadius="4" Background="#1E4263" Margin="4,0,4,0">
+                        <TextBlock Text="—" FontSize="16" Foreground="{StaticResource CoreText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Border Width="30" Height="30" CornerRadius="4" Background="#1E4263" Margin="4,0,4,0">
+                        <TextBlock Text="▢" FontSize="14" Foreground="{StaticResource CoreText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Border Width="30" Height="30" CornerRadius="4" Background="#B8282D" Margin="4,0,0,0">
+                        <TextBlock Text="×" FontSize="16" Foreground="#FFF" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 主体 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧栏 -->
+            <Border Grid.Column="0" Background="{StaticResource CorePanel}" BorderBrush="#1E4263" BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- 用户区 -->
+                    <Grid Grid.Row="0" Margin="16,16,16,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="{Binding OperatorName}" FontSize="18" FontWeight="Bold"
+                                       Foreground="{StaticResource CoreTextActive}" />
+                            <TextBlock Text="{Binding OperatorTitle}" FontSize="12"
+                                       Foreground="{StaticResource CoreTextDim}" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                            <Border Width="32" Height="32" CornerRadius="4" Background="#1E4263" Margin="0,0,0,6">
+                                <TextBlock Text="⚙" FontSize="14" Foreground="{StaticResource CoreText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <Border Width="32" Height="32" CornerRadius="4" Background="#1E4263">
+                                <TextBlock Text="🔄" FontSize="14" Foreground="{StaticResource CoreText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 菜单项 -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding SideMenu}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{Binding IsActive, Converter={StaticResource NullConverter5}}"
+                                            Padding="16,14" BorderBrush="{StaticResource CorePrimary}"
+                                            BorderThickness="{Binding IsActive, Converter={StaticResource NullConverter6}}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="28" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Rectangle Width="4" Height="4" Fill="{StaticResource CorePrimary}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Label}"
+                                                       FontSize="14" Foreground="{Binding IsActive, Converter={StaticResource NullConverter7}}"
+                                                       VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- 底部状态 -->
+                    <Grid Grid.Row="2" Margin="16,16,16,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="🖥" FontSize="18" Foreground="{StaticResource CoreTextDim}" HorizontalAlignment="Center" />
+                            <TextBlock Text="DCS" FontSize="11" Foreground="{StaticResource CoreTextDim}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                            <TextBlock Text="🖥" FontSize="18" Foreground="{StaticResource CoreGreen}" HorizontalAlignment="Center" />
+                            <TextBlock Text="运行" FontSize="11" Foreground="{StaticResource CorePrimary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                            <TextBlock Text="🖥" FontSize="18" Foreground="{StaticResource CoreGreen}" HorizontalAlignment="Center" />
+                            <TextBlock Text="服务器" FontSize="11" Foreground="{StaticResource CorePrimary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- 右侧主区域 -->
+            <Grid Grid.Column="1" Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- 顶部按钮组 -->
+                <Grid Grid.Row="0" Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <StackPanel Margin="0,0,20,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="▶" FontSize="20" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="启动" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="🔄" FontSize="20" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="初始化" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="↻" FontSize="20" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="重启" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="■" FontSize="16" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="停止" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="⚙" FontSize="20" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="设置" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="🖌" FontSize="18" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="更新" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,0">
+                            <Border Width="50" Height="50" CornerRadius="6" Background="#1E4263">
+                                <TextBlock Text="⚙" FontSize="20" Foreground="{StaticResource CorePrimary}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock Text="加载" FontSize="12" Foreground="{StaticResource CoreText}"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="⇅ 状态" FontSize="13" Foreground="{StaticResource CoreTextDim}" VerticalAlignment="Center" Margin="0,0,16,0" />
+                        <TextBlock Text="▦ 名称" FontSize="13" Foreground="{StaticResource CoreTextDim}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- 分隔线 -->
+                <Border Grid.Row="1" Height="1" Background="#1E4263" Margin="0,0,0,16" />
+
+                <!-- 应用卡片网格 -->
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Apps}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" Rows="4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Border Background="{StaticResource CoreCardBg}" CornerRadius="4" Margin="8"
+                                            BorderBrush="{StaticResource CorePrimary}" BorderThickness="1">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold"
+                                                       Foreground="{StaticResource CoreTextActive}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Border Grid.Row="1" Background="{Binding IsAlert, Converter={StaticResource NullConverter8}}"
+                                                    CornerRadius="0,0,4,4" Padding="0,6">
+                                                <TextBlock Text="{Binding Status}" FontSize="12"
+                                                           Foreground="{StaticResource CoreTextActive}"
+                                                           HorizontalAlignment="Center" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

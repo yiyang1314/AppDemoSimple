@@ -1,0 +1,73 @@
+<UserControl x:Class="Rxbit.Brigade.Controll.Views.AdminShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F2F2F2">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="AdminSidebarBrush" Color="#304156" />
+        <SolidColorBrush x:Key="AdminSidebarActiveBrush" Color="#263445" />
+        <SolidColorBrush x:Key="AdminTopBarBrush" Color="#23262E" />
+        <SolidColorBrush x:Key="AdminPrimaryBrush" Color="#16B779" />
+        <SolidColorBrush x:Key="AdminTextBrush" Color="#C0CCDA" />
+        <SolidColorBrush x:Key="AdminTextActiveBrush" Color="#FFFFFF" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部导航栏 -->
+        <Border Grid.Row="0" Background="{StaticResource AdminTopBarBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo -->
+                <Border Grid.Column="0" Background="#2B2F36" Height="40">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="X" FontSize="16" FontWeight="Bold"
+                                   Foreground="{StaticResource AdminPrimaryBrush}" Margin="0,0,4,0" />
+                        <TextBlock Text="-admin v2.2" FontSize="12"
+                                   Foreground="{StaticResource AdminTextBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- 中间 -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                    <Button Content="≡" Background="Transparent" Foreground="#FFF"
+                            BorderThickness="0" FontSize="16" Cursor="Hand" Padding="8,4" />
+                    <Button Content="新增 ▾" Background="Transparent" Foreground="{StaticResource AdminTextBrush}"
+                            BorderThickness="0" FontSize="12" Cursor="Hand" Padding="12,4" Margin="8,0,0,0" />
+                </StackPanel>
+
+                <!-- 右侧 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
+                    <TextBlock Text="admin" FontSize="12" Foreground="{StaticResource AdminTextBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <TextBlock Text="前台首页" FontSize="12" Foreground="{StaticResource AdminTextBrush}" VerticalAlignment="Center" Cursor="Hand" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 主体 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 侧边栏 -->
+            <Border Grid.Column="0" Background="{StaticResource AdminSidebarBrush}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="SidebarPanel" />
+                </ScrollViewer>
+            </Border>
+
+            <!-- 内容区 -->
+            <ContentControl Grid.Column="1" x:Name="AdminContent" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Rxbit.Brigade.Controll</RootNamespace>
+    <AssemblyName>Rxbit.Brigade.Controll</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Platforms>x86</Platforms>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <ProjectReference Include="..\Wpf.CustomControl\Wpf.CustomControl.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\assets\common\LOGO.ico">
+      <Link>Assets\app.ico</Link>
+    </Resource>
+    <Resource Include="..\assets\common\LOGO.png">
+      <Link>Assets\logo.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.200" />
+  </ItemGroup>
+</Project>

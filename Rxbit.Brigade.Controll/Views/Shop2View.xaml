@@ -1,0 +1,131 @@
+<UserControl x:Class="Rxbit.Brigade.Controll.Views.Shop2View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F5F7FA">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="Shop2Primary" Color="#00B578" />
+        <SolidColorBrush x:Key="Shop2Text" Color="#303133" />
+        <SolidColorBrush x:Key="Shop2TextSecondary" Color="#606266" />
+        <SolidColorBrush x:Key="Shop2TextLight" Color="#909399" />
+        <SolidColorBrush x:Key="Shop2Card" Color="#FFFFFF" />
+    </UserControl.Resources>
+
+    <Grid Background="#F5F7FA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Banner区 -->
+        <Border Grid.Row="0" Background="{StaticResource Shop2Card}" Margin="24,20" CornerRadius="12" Padding="24">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="320" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <Border Background="#0D000000" CornerRadius="20" Padding="8,2" Width="80" HorizontalAlignment="Left" Margin="0,0,0,12">
+                        <TextBlock Text="🎮" FontSize="14" HorizontalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="{Binding BannerTitle}" FontSize="36" FontWeight="Bold" Foreground="{StaticResource Shop2Text}" />
+                    <TextBlock Text="{Binding BannerSubtitle}" FontSize="16" Foreground="{StaticResource Shop2TextSecondary}" Margin="0,8,0,0" />
+                    <Border Background="{StaticResource Shop2Primary}" CornerRadius="6" Padding="24,10" Margin="0,16,0,0" HorizontalAlignment="Left" Cursor="Hand">
+                        <TextBlock Text="安装" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Border Background="#FFF0E6" CornerRadius="8" Width="120" Height="160" Margin="8,0">
+                        <TextBlock Text="🎮" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Border Background="#E6F4EA" CornerRadius="8" Width="120" Height="160" Margin="8,0">
+                        <TextBlock Text="⚔" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 精选推荐 -->
+        <Grid Grid.Row="1" Margin="24,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="精选推荐" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Shop2Text}" />
+                <TextBlock Grid.Column="1" Text="更多" FontSize="13" Foreground="{StaticResource Shop2Primary}" VerticalAlignment="Center" Cursor="Hand" />
+            </Grid>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,12,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <ItemsControl ItemsSource="{Binding RecommendApps}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="{StaticResource Shop2Card}" CornerRadius="10" Width="140" Margin="0,0,16,0" Padding="12" Cursor="Hand">
+                                    <StackPanel>
+                                        <Border Width="120" Height="80" CornerRadius="8" Background="#F0F9F4" HorizontalAlignment="Center" Margin="0,0,0,8">
+                                            <TextBlock Text="{Binding Icon}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" FontSize="13" Foreground="{StaticResource Shop2Text}" TextAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock Text="{Binding Downloads}" FontSize="11" Foreground="{StaticResource Shop2TextLight}" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- 热门游戏推荐 -->
+        <Grid Grid.Row="2" Margin="24,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="热门游戏推荐" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Shop2Text}" />
+                <TextBlock Grid.Column="1" Text="≡" FontSize="14" Foreground="{StaticResource Shop2TextSecondary}" VerticalAlignment="Center" />
+            </Grid>
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding HotGames}" Margin="0,16,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="8" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{StaticResource Shop2Card}" CornerRadius="10" Height="180" Cursor="Hand">
+                            <StackPanel>
+                                <Border Height="130" Background="#F0F9F4" CornerRadius="10,10,0,0" HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding Icon}" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <StackPanel Margin="12,8">
+                                    <TextBlock Text="{Binding Name}" FontSize="13" Foreground="{StaticResource Shop2Text}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="{Binding Downloads}" FontSize="11" Foreground="{StaticResource Shop2TextLight}" Margin="0,4,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>

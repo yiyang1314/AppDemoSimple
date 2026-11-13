@@ -1,0 +1,222 @@
+<Window x:Class="Rxbit.Brigade.Controll.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Brigade Controll - 工业界面集"
+        Height="780" Width="1300"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/app.ico"
+        Style="{StaticResource DsWindowStyle}">
+
+    <Window.Resources>
+        <Style x:Key="ControllNavStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource DsTextSecondaryBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="{StaticResource DsFontSizeBody}" />
+            <Setter Property="Padding" Value="14,9" />
+            <Setter Property="Margin" Value="8,1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{StaticResource DsRadiusControl}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource DsSurfaceHoverBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DsTextPrimaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ControllNavActiveStyle" TargetType="Button" BasedOn="{StaticResource ControllNavStyle}">
+            <Setter Property="Background" Value="{StaticResource DsSelectionBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource DsAccentBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{StaticResource DsRadiusControl}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Border Width="3" HorizontalAlignment="Left"
+                                        Background="{StaticResource DsAccentBrush}"
+                                        CornerRadius="2" Margin="0,2" />
+                                <ContentPresenter Margin="10,0,0,0"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NavGroupTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource DsTextMutedBrush}" />
+            <Setter Property="FontSize" Value="{StaticResource DsFontSizeCaption}" />
+            <Setter Property="Margin" Value="16,14,16,4" />
+        </Style>
+
+        <Style x:Key="NavGlyphStyle" TargetType="TextBlock">
+            <Setter Property="Width" Value="22" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="FontFamily" Value="Segoe UI Symbol, Microsoft YaHei UI" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Border Grid.Row="0"
+                Background="{StaticResource DsTitleBarBrush}"
+                BorderBrush="{StaticResource DsBorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="16,0">
+            <Grid Height="56">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/Assets/logo.png" Width="26" Height="26" Margin="0,0,10,0" />
+                    <TextBlock Text="Brigade Controll"
+                               FontSize="{StaticResource DsFontSizeH1}"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource DsTextPrimaryBrush}"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text="工业界面集"
+                               Style="{StaticResource DsCaptionStyle}"
+                               Margin="10,0,0,0" />
+                </StackPanel>
+                <Border Style="{StaticResource DsBadgeBorderStyle}" HorizontalAlignment="Right">
+                    <TextBlock Text="WPF 界面示例集" Style="{StaticResource DsBadgeTextStyle}" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 侧边栏 -->
+            <Border Grid.Column="0" Style="{StaticResource DsSidebarBorderStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,6">
+                    <StackPanel x:Name="NavPanel">
+                        <TextBlock Text="仪表板" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav1" Style="{StaticResource ControllNavActiveStyle}" Click="BtnNav_Click" Tag="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◉" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="图标库" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnNav2" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◈" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="电商分析" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnNav3" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="3">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◆" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="数据分析" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnNav4" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◍" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="工作台" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnNav5" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="●" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="暗色仪表板" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="后台管理" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav6" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="6">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="▣" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="Admin 后台" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="HMI 人机界面" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav7" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="7">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="▤" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="HMI 界面集" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="PLC 工业控制" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav8" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="8">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚙" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="PLC 界面集" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="应用商店" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav9" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="9">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◇" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="ShopWindows 商店" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="系统监控" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav10" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="▥" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="MonitorWindows 监控" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="机器视觉 &amp; 总线分析" Style="{StaticResource NavGroupTextStyle}" />
+                        <Button x:Name="BtnNav11" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="11"
+                                ToolTip="打开独立模块 Rxbit.Brigade.HalconVision">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◎" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="HalconVision 视觉" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnNav12" Style="{StaticResource ControllNavStyle}" Click="BtnNav_Click" Tag="12"
+                                ToolTip="打开独立模块 Rxbit.Brigade.ZcanPro">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⌁" Style="{StaticResource NavGlyphStyle}" />
+                                <TextBlock Text="ZcanPro 总线分析" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <TextBlock Text="Alt+1~9 快速切换" Style="{StaticResource NavGroupTextStyle}"
+                                   Margin="16,16,16,10" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- 主内容区 -->
+            <Border Grid.Column="1" Background="{StaticResource DsBgBrush}">
+                <Grid x:Name="ContentArea" />
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
