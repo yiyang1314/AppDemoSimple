@@ -37,7 +37,6 @@ publish/
 */build/
 */dist/
 dist/
-assets/
 */node_modules/
 # Visual Studio 2015/2017 cache/options directory
 .vs/
