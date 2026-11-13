@@ -1,0 +1,162 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:icons="clr-namespace:Wpf.CustomControl.Icons"
+                    xmlns:win="clr-namespace:Wpf.CustomControl.Windowing">
+
+    <!-- CustomWindow 模板：无边框窗口 + 自定义标题栏 -->
+    <Style TargetType="{x:Type win:CustomWindow}">
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="False" />
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type win:CustomWindow}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding BorderRadius}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{TemplateBinding TitleBarHeight}" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <!-- 标题栏 -->
+                            <Border x:Name="PART_TitleBar"
+                                    Grid.Row="0"
+                                    Background="{TemplateBinding TitleBarBackground}"
+                                    CornerRadius="{TemplateBinding BorderRadius}"
+                                    Margin="0,0,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Logo + 标题 -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                                        <ContentPresenter x:Name="PART_Logo"
+                                                          Content="{TemplateBinding Logo}"
+                                                          ContentTemplate="{TemplateBinding LogoTemplate}"
+                                                          VerticalAlignment="Center"
+                                                          Margin="0,0,10,0"
+                                                          Cursor="Hand" />
+                                        <TextBlock x:Name="PART_Title"
+                                                   Text="{TemplateBinding Title}"
+                                                   Foreground="{TemplateBinding TitleBarForeground}"
+                                                   FontSize="13"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,16,0" />
+                                    </StackPanel>
+
+                                    <!-- 窗口控制按钮 -->
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <!-- 最小化 -->
+                                        <Button x:Name="PART_MinimizeButton"
+                                                Style="{StaticResource TitleBarButtonStyle}"
+                                                ToolTip="最小化"
+                                                Visibility="{TemplateBinding ShowMinimizeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <icons:IconElement IconKind="Minimize" Foreground="{TemplateBinding TitleBarForeground}" Width="12" Height="12" />
+                                        </Button>
+
+                                        <!-- 最大化/还原（状态感知） -->
+                                        <Button x:Name="PART_MaximizeButton"
+                                                Style="{StaticResource TitleBarButtonStyle}"
+                                                ToolTip="最大化/还原"
+                                                Visibility="{TemplateBinding ShowMaximizeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <StackPanel>
+                                                <icons:IconElement x:Name="MaximizeIcon"
+                                                                   IconKind="Maximize" 
+                                                                   Foreground="{TemplateBinding TitleBarForeground}" 
+                                                                   Width="12" Height="12"
+                                                                   Visibility="{TemplateBinding MaximizeIconVisibility}" />
+                                                <icons:IconElement x:Name="RestoreIcon"
+                                                                   IconKind="Restore" 
+                                                                   Foreground="{TemplateBinding TitleBarForeground}" 
+                                                                   Width="12" Height="12"
+                                                                   Visibility="{TemplateBinding RestoreIconVisibility}" />
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- 关闭 -->
+                                        <Button x:Name="PART_CloseButton"
+                                                Style="{StaticResource TitleBarCloseButtonStyle}"
+                                                ToolTip="关闭"
+                                                Visibility="{TemplateBinding ShowCloseButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <icons:IconElement IconKind="Close" Foreground="White" Width="12" Height="12" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- 内容区 -->
+                            <ContentPresenter Grid.Row="1" Margin="0" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 标题栏按钮基础样式 -->
+    <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="44" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#33FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#55FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Background" Value="Transparent" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 关闭按钮样式（红色悬停） -->
+    <Style x:Key="TitleBarCloseButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="44" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#E81123" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#C40F1F" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Background" Value="Transparent" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

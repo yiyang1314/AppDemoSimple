@@ -1,0 +1,123 @@
+<Window x:Class="Wpf.CustomControl.Notifications.NotificationBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Notification" Height="80" Width="340"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" WindowStartupLocation="Manual"
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        ShowActivated="False">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dialogs/DialogResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- 通知类型配色 -->
+            <SolidColorBrush x:Key="NotifyInfoBrush" Color="#4FD1DE" />
+            <SolidColorBrush x:Key="NotifySuccessBrush" Color="#34C759" />
+            <SolidColorBrush x:Key="NotifyWarningBrush" Color="#F5A524" />
+            <SolidColorBrush x:Key="NotifyErrorBrush" Color="#FF5B5B" />
+
+            <!-- 通知根容器样式 -->
+            <Style x:Key="NotificationRootStyle" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource DialogBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource DialogBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Effect" Value="{StaticResource DialogDropShadowEffect}" />
+                <Setter Property="Clip">
+                    <Setter.Value>
+                        <RectangleGeometry RadiusX="8" RadiusY="8">
+                            <RectangleGeometry.Rect>
+                                <Rect X="0" Y="0" Width="338" Height="78" />
+                            </RectangleGeometry.Rect>
+                        </RectangleGeometry>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- 关闭按钮样式 -->
+            <Style x:Key="NotifyCloseButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{StaticResource DialogTextSecondaryBrush}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="Microsoft YaHei UI, Segoe UI" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Width" Value="22" />
+                <Setter Property="Height" Value="22" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="bd"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="11">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bd" Property="Background" Value="#2A2F3A" />
+                                    <Setter Property="Foreground" Value="{StaticResource DialogTextPrimaryBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border x:Name="RootBorder" Style="{StaticResource NotificationRootStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- 左侧彩色条 -->
+                <Border x:Name="AccentBar" Grid.Column="0"
+                        Background="{StaticResource NotifyInfoBrush}" />
+
+                <!-- 图标 -->
+                <Border Grid.Column="1" Width="36" Height="36" CornerRadius="18"
+                        Background="{StaticResource NotifyInfoBrush}"
+                        Margin="12,0,12,0" VerticalAlignment="Center"
+                        x:Name="IconBackground">
+                    <TextBlock x:Name="TxtIcon" Text="i" FontSize="18" FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+
+                <!-- 标题 + 消息 -->
+                <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,8,0">
+                    <TextBlock x:Name="TxtTitle" Text="通知" FontSize="12" FontWeight="Bold"
+                               FontFamily="Microsoft YaHei UI, Segoe UI"
+                               Foreground="{StaticResource DialogTextPrimaryBrush}"
+                               Margin="0,0,0,2" />
+                    <TextBlock x:Name="TxtMessage" Text="消息内容" FontSize="12"
+                               FontFamily="Microsoft YaHei UI, Segoe UI"
+                               Foreground="{StaticResource DialogTextSecondaryBrush}"
+                               TextTrimming="CharacterEllipsis" TextWrapping="Wrap"
+                               MaxHeight="40" />
+                </StackPanel>
+
+                <!-- 关闭按钮 -->
+                <Button Grid.Column="3" x:Name="BtnClose"
+                        Style="{StaticResource NotifyCloseButtonStyle}"
+                        Content="✕" Margin="0,2,6,0"
+                        HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="BtnClose_Click" />
+
+                <!-- 倒计时进度条 -->
+                <Border x:Name="ProgressBar" Grid.Column="0" Grid.ColumnSpan="4"
+                        VerticalAlignment="Bottom" Height="3"
+                        Background="{StaticResource NotifyInfoBrush}"
+                        HorizontalAlignment="Left"
+                        Width="338" Opacity="0.85" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
