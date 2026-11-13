@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{40D4E5C3-AA3D-4C47-9869-3470F0E04E96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Rxbit.Brigade.CanDevices</RootNamespace>
+    <AssemblyName>Rxbit.Brigade.CanDevices</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>8.0</LangVersion>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Kvaser.CanLib, Version=1.19.358.0, Culture=neutral, PublicKeyToken=de45d0b2dbaf25b3, processorArchitecture=MSIL">
+      <HintPath>..\Rxbit.BrigadeApp\packages\Kvaser.CanLib.1.19.358\lib\netstandard2.0\Kvaser.CanLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Rxbit.BrigadeApp\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Rxbit.BrigadeApp\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Rxbit.BrigadeApp\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\CanMessageWrapper.cs" />
+    <Compile Include="Config\ConfigBus.cs" />
+    <Compile Include="Config\DeviceConfig.cs" />
+    <Compile Include="Config\DeviceInfo.cs" />
+    <Compile Include="Config\FrameTimeConfig.cs" />
+    <Compile Include="Config\UniformFileNaming.cs" />
+    <Compile Include="Converters\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="CxkjCanConnector.cs" />
+    <Compile Include="CxkjCanFDConnector.cs" />
+    <Compile Include="GcanConnector.cs" />
+    <Compile Include="GcanFdConnector.cs" />
+    <Compile Include="IServices\CanLiveService.cs" />
+    <Compile Include="IServices\ILiveService.cs" />
+    <Compile Include="IServices\IRecordingService.cs" />
+    <Compile Include="Parsers\CanMessageParser.cs" />
+    <Compile Include="Parsers\CanMessageRecorder.cs" />
+    <Compile Include="Parsers\DeviceCategory.cs" />
+    <Compile Include="PeakCanConnector.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Config\ChannelBaudRate.cs" />
+    <Compile Include="Config\ChannelConfig.cs" />
+    <Compile Include="Services\CanCommService.cs" />
+    <Compile Include="IServices\CanReplayService.cs" />
+    <Compile Include="Services\CxkjCanChannelService.cs" />
+    <Compile Include="Services\CxkjCanFDChannelService.cs" />
+    <Compile Include="Services\GCanChannelService.cs" />
+    <Compile Include="Services\GCanFDChannelService.cs" />
+    <Compile Include="Services\ICanChannelService.cs" />
+    <Compile Include="IServices\IReplayService.cs" />
+    <Compile Include="Services\KvaserChannelService.cs" />
+    <Compile Include="Services\PeakCanChannelService.cs" />
+    <Compile Include="Services\ZlgCanChannelService.cs" />
+    <Compile Include="Structs\CxkjCan.cs" />
+    <Compile Include="Structs\Gcan.cs" />
+    <Compile Include="Structs\GcanFD.cs" />
+    <Compile Include="Structs\PCAN.cs" />
+    <Compile Include="Structs\RXCanMessage.cs" />
+    <Compile Include="Structs\Zlgcan.cs" />
+    <Compile Include="ZlgcanConnector.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RadarEcu\bsiss_flashdrive.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="zlgcan\kerneldlls\devices_property\candtu.ini" />
+    <None Include="zlgcan\kerneldlls\devices_property\default\candtu.ini" />
+    <None Include="zlgcan\kerneldlls\dll_cfg.ini" />
+    <None Include="zlgcan\uds_service_editor.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="binlog.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cxkjcan\ControlCAN.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cxkjcan\ControlCANFD.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ECANFDVCI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="gcanfd\ECANFDVCI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="gcanfd\GCANUSB_x86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GCANUSB_x86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="gcan\CHUSBDLL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="gcan\ECanVci.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="peakcan\PCANBasic.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RadarEcu\bsiss_SeednKey.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sub-exe\bin2hex.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sub-exe\hex2bin.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="zlgcan\kerneldlls\CANDevCore.dll" />
+    <Content Include="zlgcan\kerneldlls\CANDevice.dll" />
+    <Content Include="zlgcan\kerneldlls\CANDTU_NET.dll" />
+    <Content Include="zlgcan\kerneldlls\CANETE.dll" />
+    <Content Include="zlgcan\kerneldlls\CANET_TCP.dll" />
+    <Content Include="zlgcan\kerneldlls\CANFDCOM.dll" />
+    <Content Include="zlgcan\kerneldlls\CANFDNET.dll" />
+    <Content Include="zlgcan\kerneldlls\CANWIFI_TCP.dll" />
+    <Content Include="zlgcan\kerneldlls\CANWIFI_UDP.dll" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\can.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\candtu-100ur.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\candtu-200ur.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\candtu-net-400.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\candtu-net.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canet-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canet-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdblue-200u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdcom-100ie.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet100-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet100-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet30cascade-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet30cascade-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet400u-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet400u-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet600u-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet600u-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet800u-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdnet800u-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdwifi-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canfdwifi-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\canscope.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\can.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\candtu-100ur.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\candtu-200ur.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\candtu-net-400.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\candtu-net.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canet-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canet-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdblue-200u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdcom-100ie.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet100-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet100-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet30cascade-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet30cascade-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet400u-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet400u-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet600u-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet600u-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet800u-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdnet800u-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdwifi-tcp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canfdwifi-udp.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\canscope.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\device_locale_strings.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pci-5010-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pci-5020-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pcie-canfd-100u-ex.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pcie-canfd-100u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pcie-canfd-200u-ex.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pcie-canfd-200u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pcie-canfd-400u-ex.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\pcie-canfd-400u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan-2e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan-4e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan-8e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan-e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan1.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan2.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcan4.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcanfd-100u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcanfd-200u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcanfd-400u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\usbcanfd-800u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\default\virtual.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\device_locale_strings.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pci-5010-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pci-5020-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pcie-canfd-100u-ex.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pcie-canfd-100u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pcie-canfd-200u-ex.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pcie-canfd-200u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pcie-canfd-400u-ex.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\pcie-canfd-400u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan-2e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan-4e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan-8e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan-e-u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan1.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan2.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcan4.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcanfd-100u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcanfd-200u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcanfd-400u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\usbcanfd-800u.xml" />
+    <Resource Include="zlgcan\kerneldlls\devices_property\virtual.xml" />
+    <Content Include="zlgcan\kerneldlls\usbcan.dll" />
+    <Resource Include="zlgcan\kerneldlls\USBCAN.xml" />
+    <Content Include="zlgcan\kerneldlls\USBCANFD.dll" />
+    <Content Include="zlgcan\kerneldlls\USBCANFD800U.dll" />
+    <Resource Include="zlgcan\kerneldlls\VCI_USBCAN2.xml" />
+    <Content Include="zlgcan\kerneldlls\VirtualUSBCAN.dll" />
+    <Content Include="zlgcan\kerneldlls\ZlgCloud.dll" />
+    <Content Include="zlgcan\zlgcan.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
