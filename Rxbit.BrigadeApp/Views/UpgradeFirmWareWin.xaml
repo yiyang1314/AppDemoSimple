@@ -1,0 +1,328 @@
+﻿<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.UpgradeFirmWareWin"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 mc:Ignorable="d"
+                 WindowStartupLocation="CenterScreen"
+                 Title="Upgrade FirmWare"
+                 Height="400"
+                 Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Base:WindowBase.DataContext>
+        <vm:UpgradeFirmWareWinModel />
+    </Base:WindowBase.DataContext>
+    <Grid Background="#1a1a2e"
+          Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <!-- Channel config -->
+        <Border Grid.Row="0"
+                Margin="20 10"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <StackPanel>
+                <!-- Header -->
+                <Border Background="#0f3460"
+                        CornerRadius="8 8 0 0"
+                        Padding="16 12">
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Rectangle Width="3"
+                                   Height="16"
+                                   Fill="#00d9ff"
+                                   Margin="0 0 12 0" />
+                        <TextBlock Text="Upgrade FirmWare Configuration"
+                                   Foreground="#00d9ff"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                    </StackPanel>
+                </Border>
+
+                <DockPanel LastChildFill="False" Margin="16 10">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock  Width="100"
+                                    Text="App Hex File:"
+                                    Foreground="White"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Margin="0 8" />
+                        <TextBox Text="888"  Width="400" Height="34" VerticalContentAlignment="Center"
+                                 Foreground="White"
+                                 Background="#0f3460"
+                                   FontSize="12" BorderThickness="0 0 0 1" BorderBrush="Green"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                        <Button Content="..."
+                                Width="40"
+                                Height="34"
+                                Padding="5 2"
+                                IsEnabled="{Binding IsRunning}"
+                                Margin="12 0 0 0"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding SelectedCommand}" />
+                        <Button Content="Upgrade FirmWare"
+                                Width="150"
+                                Height="34"
+                                Padding="5 2"
+                                IsEnabled="{Binding IsRunning}"
+                                Margin="12 0 0 0"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding UpdataFlashCommand}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="Upgrade Flow:"
+                                   Width="100"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{Binding FlowTitle}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="2 8" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock Text="Flow Message:"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   Width="100"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                        <ProgressBar Grid.Column="1"
+                                     Width="400"
+                                     Margin="0 10"
+                                     Height="28"
+                                     Maximum="{Binding TotalFlows}"
+                                     Foreground="Green"
+                                     Background="White"
+                                     Value="{Binding FlowIndex}"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Center" />
+                        <TextBlock Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="2 8">
+                            <Run Text="{Binding FlowIndex}" />
+                            <Run Text="/" />
+                            <Run Text="{Binding TotalFlows}" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock Text="Flash Progress:"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   Width="120"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                        <ProgressBar Width="400"
+                                     Margin="0 10"
+                                     Height="28"
+                                     Maximum="100"
+                                     Foreground="Green"
+                                     Background="White"
+                                     Value="{Binding FlashBarProgress}"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Center" />
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{Binding FlashBarProgress,StringFormat='{}{0}%'}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="2 8" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock  Width="100"
+                                    Text="App Progress:"
+                                    Foreground="White"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Margin="0 8" />
+                        <ProgressBar Grid.Column="1"
+                                     Width="400"
+                                     Margin="0 10"
+                                     Height="28"
+                                     Foreground="Green"
+                                     Background="White"
+                                     Value="{Binding AppBarProgress}"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Center" />
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{Binding AppBarProgress,StringFormat='{}{0}%'}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="2 8" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock  Width="120"
+                                    Text="File Blocks:"
+                                    Foreground="White"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Margin="0 8" />
+                        <ProgressBar Grid.Column="1"
+                                     Width="400"
+                                     Margin="0 10"
+                                     Height="28"
+                                     Foreground="Green"
+                                     Background="White"
+                                     Value="{Binding BlockIndex}"
+                                     Maximum="{Binding FileBlocks}"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Center" />
+                        <TextBlock Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="2 8">
+                                <Run Text="{Binding BlockIndex}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding FileBlocks}" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock Width="100"
+                                   Text="Tip Message:"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                        <TextBlock Text="{Binding ErrorMsg}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock  Width="100"
+                                    Text="Error UdsCode:"
+                                    Foreground="White"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Margin="0 8" />
+                        <TextBlock Text="{Binding UdsCode}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Top" Visibility="{Binding TestStatus,Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                        <Border DockPanel.Dock="Top"
+                                Padding="20 10"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Visibility="{Binding IsExeCateStatus,Converter={StaticResource InverseToVisibilityConverter}}">
+                            <!-- 方框+X -->
+                            <Path Stroke="Red"
+                                  StrokeThickness="3"
+                                  Width="100"
+                                  Height="100"
+                                  Fill="Transparent"
+                                  Stretch="Uniform">
+                                <Path.Data>
+                                    <!-- 基准画布：0,0 → 100,100 虚拟正方形，Stretch自动拉伸适配父容器 -->
+                                    <!-- 外框：M0,0 L100,0 L100,100 L0,100 Z 闭合方框 -->
+                                    <!-- √：M25,35 L45,75 L75,25 相对坐标 -->
+                                    <Geometry>M0,0 L100,0 L100,100 L0,100 Z M20,20 L80,80 M80,20 L20,80</Geometry>
+                                </Path.Data>
+                            </Path>
+                        </Border>
+
+                        <Border DockPanel.Dock="Top"
+                                Padding="40 10"
+                                Grid.Column="1"
+                                Visibility="{Binding IsExeCateStatus,Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <!-- 方框+√ -->
+                            <Path Stroke="Green"
+                                  Width="100"
+                                  Height="100"
+                                  StrokeThickness="3"
+                                  Fill="Transparent"
+                                  Stretch="Uniform">
+                                <Path.Data>
+                                    <!-- 基准画布：0,0 → 100,100 虚拟正方形，Stretch自动拉伸适配父容器 -->
+                                    <!-- 外框：M0,0 L100,0 L100,100 L0,100 Z 闭合方框 -->
+                                    <!-- √：M25,35 L45,75 L75,25 相对坐标 -->
+                                    <Geometry>M0,0 L100,0 L100,100 L0,100 Z M25,35 L45,75 L75,25</Geometry>
+                                </Path.Data>
+                            </Path>
+                        </Border>
+
+                        <TextBlock Text=""
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsExeCateStatus}"
+                                                     Value="true">
+                                            <Setter Property="Foreground"
+                                                    Value="Green" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsExeCateStatus}"
+                                                     Value="true">
+                                            <Setter Property="Foreground"
+                                                    Value="Red" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Bottom buttons -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20 5">
+
+
+            <Button Content="Close"
+                    Width="100"
+                    Height="34"
+                    Margin="12 0 0 0"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Command="{Binding CloseCommand}" />
+        </StackPanel>
+    </Grid>
+</Base:WindowBase>

@@ -1,0 +1,298 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.CanDeviceView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 mc:Ignorable="d"
+                 Title="CAN Tools"
+                 Height="520"
+                 Width="700"
+                 WindowStartupLocation="CenterScreen"
+                 DataContext="{Binding Path=CanDeviceVM,Source={StaticResource Locator}}"
+                 Style="{StaticResource {x:Type Base:WindowBase}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadConmand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Background="#1a1a2e"
+          Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <!-- Title / Version row -->
+        <Grid Grid.Row="0"
+              Margin="20 0"
+              Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <Rectangle Width="24"
+                           Height="24"
+                           Fill="#00d9ff"
+                           RadiusX="6"
+                           RadiusY="6"
+                           Margin="0 0 12 0">
+                    <Rectangle.Effect>
+                        <DropShadowEffect Color="#00d9ff"
+                                          BlurRadius="10"
+                                          Opacity="0.6" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <TextBlock Text="CAN Tools"
+                           FontSize="24"
+                           FontStyle="Normal"
+                           FontWeight="Bold"
+                           Foreground="#ffffff"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+
+            <TextBlock Grid.Column="2"
+                       Text="{Binding Version}"
+                       FontSize="12"
+                       Foreground="#888888"
+                       VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- Separator -->
+        <Border Grid.Row="1"
+                Height="1"
+                Background="#2a2a3e"
+                Margin="0 5" />
+
+        <!-- Channel config -->
+        <Border Grid.Row="2"
+                Margin="20 10"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <StackPanel>
+                <!-- Header -->
+                <Border Background="#0f3460"
+                        CornerRadius="8 8 0 0"
+                        Padding="16 12">
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Rectangle Width="3"
+                                   Height="16"
+                                   Fill="#00d9ff"
+                                   Margin="0 0 12 0" />
+                        <TextBlock Text="{StaticResource CanDevice_Title}"
+                                   Foreground="#00d9ff"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Content -->
+                <DockPanel VerticalAlignment="Top">
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <!-- Row 0: Manufacturer -->
+                        <TextBlock Text="{StaticResource CanDevice_CANType}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   Width="120"
+                                   VerticalAlignment="Center"
+                                   Margin="15 8 0 8" />
+                        <ComboBox ItemsSource="{Binding DeviceTypes}"
+                                  Width="180"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding SelectedDeviceType}"
+                                  VerticalAlignment="Center"
+                                  Margin="0 8"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <!-- Row 1: Device Type -->
+                        <TextBlock Width="120"
+                                   Text="{StaticResource CanDevice_DeviceType}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="15 8 0 8" />
+                        <ComboBox ItemsSource="{Binding CanCategorys}"
+                                  Width="180"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding SelectCategory}"
+                                  VerticalAlignment="Center"
+                                  Margin="0 8"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+                        <!-- Row 2: Device Index -->
+                        <TextBlock Width="120"
+                                   Text="{StaticResource CanDevice_Deviceindex}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="15 8 0 8" />
+                        <ComboBox ItemsSource="{Binding CanIndexs}"
+                                  Width="180"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding Config.CanIndex}"
+                                  VerticalAlignment="Center"
+                                  Margin="0 8"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <!-- Row 3: Channel Index -->
+                        <TextBlock Width="120"
+                                   Text="{StaticResource Common_Channel}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="15 8 0 8" />
+                        <ComboBox ItemsSource="{Binding ChannelIndexs}"
+                                  Width="180"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding Config.ChannelIndex}"
+                                  VerticalAlignment="Center"
+                                  Margin="0 8"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Visibility="Collapsed" DockPanel.Dock="Top">
+                        <!-- Row 4: Protocol -->
+                        <TextBlock Width="120"
+                                   Text="{StaticResource CanDevice_Protocol}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="15 8 0 8" />
+                        <ComboBox IsEnabled="{Binding IsCanfdEnabled}"
+                                  ItemsSource="{Binding DataProtocols}"
+                                  Width="180"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding SelectProtocol}"
+                                  VerticalAlignment="Center"
+                                  Margin="0 8"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Visibility="Collapsed"  DockPanel.Dock="Top">
+                        <!-- Row 5: Baud Rate -->
+                        <TextBlock Width="120"
+                                   Text="{StaticResource CanDevice_BaudRate}"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="15 8 0 8" />
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="0 8">
+                            <ComboBox ItemsSource="{Binding BaudRates}"
+                                      SelectedItem="{Binding Config.BaudRate}"
+                                      Width="180"
+                                      Style="{StaticResource SensorComboBoxStyle}" />
+                            <TextBlock Text="Kbps"
+                                       Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="8 0" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+                        <!-- Row 6: Data Baud Rate -->
+                        <TextBlock  Width="120"
+                                    Text="{StaticResource CanDevice_DataBaudRate}"
+                                    Foreground="White"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Margin="15 8 0 8" />
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="0 8">
+                            <ComboBox ItemsSource="{Binding DataBaudRates}"
+                                      Visibility="Visible"
+                                      SelectedItem="{Binding Config.DataBaudRate}"
+                                      Width="180"
+                                      Style="{StaticResource SensorComboBoxStyle}" />
+                            <TextBlock Text="Kbps"
+                                       Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="8 0" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed" >
+                        <!-- Row 7: Resistance -->
+                        <TextBlock  Width="120"
+                                    Text="Resistance"
+                                    Foreground="White"
+                                    FontSize="12"
+                                    VerticalAlignment="Center"
+                                    Margin="15 8 0 8" />
+                        <ComboBox ItemsSource="{Binding ResistanceEnableStates}"
+                                  SelectedItem="{Binding Config.IsResistanceEnable}"
+                                  Width="180"
+                                  HorizontalAlignment="Left"
+                                  Margin="0 8"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Bottom buttons -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20 5">
+            <Button Content="{StaticResource CanDevice_CloseDevice}"
+                    Width="100"
+                    Height="34"
+                    Margin="12 0 12 0"
+                    Style="{StaticResource RadarButtonStyle}"
+                    Command="{Binding DisConnectCanCommand}" />
+            <Button Content="{StaticResource CanDevice_OpenDevice}"
+                    Width="100"
+                    Height="34"
+                    Style="{StaticResource RadarButtonStyle}"
+                    Command="{Binding ConnectCanCommand}" />
+
+            <Button Content="Save"
+                    Visibility="Collapsed"
+                    Width="100"
+                    Height="34"
+                    Margin="12 0 0 0"
+                    Style="{StaticResource RadarButtonStyle}"
+                    Command="{Binding ToggleDeviceCommand}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="20 5">
+            <TextBlock VerticalAlignment="Center"
+                       Text="Sensor Status: "
+                       FontSize="14"
+                       HorizontalAlignment="Left"
+                       Foreground="White" />
+            <ToggleButton Content=""
+                          IsChecked="{Binding IsCanConnected}"
+                          Height="14"
+                          Width="14"
+                          Style="{DynamicResource StateIndicatorToggle}" />
+
+            <TextBlock VerticalAlignment="Center"
+                       Margin="15 0"
+                       Foreground="White"
+                       HorizontalAlignment="Left">
+                        <Run Text="{Binding ErrorMsg}" />
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Base:WindowBase>

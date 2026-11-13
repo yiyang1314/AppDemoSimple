@@ -1,0 +1,264 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.ScreenRecorderView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 mc:Ignorable="d"
+                 Title="Screen Recording"
+                 Height="420"
+                 Width="620"
+                 WindowStartupLocation="CenterOwner"
+                 Style="{StaticResource {x:Type Base:WindowBase}}">
+
+    <Grid Background="#1a1a2e">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <Grid Grid.Row="0"
+              Margin="20 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <Rectangle Width="24"
+                           Height="24"
+                           Fill="#00d9ff"
+                           RadiusX="6"
+                           RadiusY="6"
+                           Margin="0 0 12 0">
+                    <Rectangle.Effect>
+                        <DropShadowEffect Color="#00d9ff"
+                                          BlurRadius="10"
+                                          Opacity="0.6" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <TextBlock Text="Screen Recording"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#ffffff"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+
+            <Border Grid.Column="2"
+                    Padding="10 4"
+                    CornerRadius="4"
+                    VerticalAlignment="Center"
+                    Background="#16213e"
+                    BorderBrush="#2a2a3e"
+                    BorderThickness="1">
+                <TextBlock Text="{Binding RecordingStateText}"
+                           FontSize="13"
+                           FontWeight="Bold">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground"
+                                    Value="#4ade80" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRecording}"
+                                             Value="True">
+                                    <Setter Property="Foreground"
+                                            Value="#f87171" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1"
+                Height="1"
+                Background="#2a2a3e"
+                Margin="0 5" />
+
+        <!-- 录制参数 -->
+        <Border Grid.Row="2"
+                Margin="20 10 20 5"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <StackPanel>
+                <Border Background="#0f3460"
+                        CornerRadius="8 8 0 0"
+                        Padding="16 10">
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Rectangle Width="3"
+                                   Height="16"
+                                   Fill="#00d9ff"
+                                   Margin="0 0 12 0" />
+                        <TextBlock Text="Capture Settings"
+                                   Foreground="#00d9ff"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                    </StackPanel>
+                </Border>
+
+                <Grid Margin="20 14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Capture Target:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <ComboBox Grid.Row="0"
+                              Grid.Column="1"
+                              ItemsSource="{Binding TargetOptions}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding SelectedTarget, Mode=TwoWay}"
+                              Height="32"
+                              HorizontalAlignment="Left"
+                              Width="220"
+                              IsEnabled="{Binding IsIdle}"
+                              Style="{StaticResource SensorComboBoxStyle}"
+                              Margin="0 6" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Frame Rate:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <ComboBox Grid.Row="1"
+                              Grid.Column="1"
+                              ItemsSource="{Binding FrameRateOptions}"
+                              SelectedItem="{Binding SelectedFrameRate, Mode=TwoWay}"
+                              Height="32"
+                              HorizontalAlignment="Left"
+                              Width="120"
+                              IsEnabled="{Binding IsIdle}"
+                              Style="{StaticResource SensorComboBoxStyle}"
+                              Margin="0 6" />
+
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Output Folder:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                        <TextBlock Text="{Binding OutputFolder}"
+                                   Foreground="#00d9ff"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8 10 8"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding OutputFolder}" />
+                        <Button Content="Open Folder"
+                                Command="{Binding OpenFolderCommand}"
+                                Height="28"
+                                Margin="0 4"
+                                Style="{StaticResource RadarButtonStyle}" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- 录制状态 -->
+        <Border Grid.Row="3"
+                Margin="20 5"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <Grid Margin="20 14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Elapsed"
+                           Foreground="#9ca3af"
+                           FontSize="11" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Frames"
+                           Foreground="#9ca3af"
+                           FontSize="11" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="{Binding ElapsedText}"
+                           Foreground="#ffffff"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0 2 0 8" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding FrameCountText}"
+                           Foreground="#ffffff"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0 2 0 8" />
+
+                <TextBlock Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding StatusMessage}"
+                           Foreground="#00d9ff"
+                           FontSize="12"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
+        <!-- 操作按钮 -->
+        <StackPanel Grid.Row="4"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20 0">
+            <Button Content="● Start Recording"
+                    Width="150"
+                    Height="34"
+                    Margin="0 0 12 0"
+                    IsEnabled="{Binding IsIdle}"
+                    Command="{Binding StartCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+            <Button Content="■ Stop Recording"
+                    Width="150"
+                    Height="34"
+                    Margin="0 0 12 0"
+                    IsEnabled="{Binding IsRecording}"
+                    Command="{Binding StopCommand}"
+                    Style="{StaticResource RadarButtonStyle}" />
+            <Button Content="Close"
+                    Width="90"
+                    Height="34"
+                    Click="CloseButton_Click"
+                    Style="{StaticResource RadarButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</Base:WindowBase>

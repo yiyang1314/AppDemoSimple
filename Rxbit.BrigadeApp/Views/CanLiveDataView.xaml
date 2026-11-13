@@ -1,0 +1,181 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.CanLiveDataView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 mc:Ignorable="d"
+                 Title="{StaticResource CanLiveDataTitle}"
+                 Height="350"
+                 DataContext="{Binding Path =CanDataVM,Source={StaticResource Locator}}"
+                 Width="850"
+                 Style="{DynamicResource MonitorWindowStyle}"
+                 WindowStyle="ToolWindow"
+                 ResizeMode="CanResize">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Grid Grid.Row="0"
+              Background="#0f3460">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Content="{StaticResource CanLiveDataTitle}"
+                   FontSize="12"
+                   FontWeight="Bold"
+                   Foreground="#00d9ff"
+                   Margin="8 4" />
+            <Label Grid.Column="1"
+                   Content="{Binding MessageCount, StringFormat={}{0} msgs}"
+                   FontSize="11"
+                   Foreground="#00d9ff"
+                   Margin="8 4" />
+        </Grid>
+
+        <!-- 工具栏 -->
+        <Border Grid.Row="1"
+                Background="#16213e">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button Grid.Column="0"
+                            Content="{StaticResource Common_Clear}"
+                            Command="{Binding ClearCommand}"
+                            Style="{DynamicResource PrimaryButtonStyle}"
+                            Margin="8 4 8 4" />
+                    <Button Grid.Column="1"
+                            Content="{StaticResource Menu_ExportCsv}"
+                            Command="{Binding ExportCommand}"
+                            Style="{DynamicResource PrimaryButtonStyle}"
+                            Margin="8 4 8 4" />
+                </StackPanel>
+
+                <ToggleButton IsChecked="{Binding IsPaused}"
+                              Grid.Column="1"
+                              Content="{StaticResource Common_Pause}"
+                              Margin="8 4 4 4"
+                              Width="120"
+                              VerticalAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              HorizontalAlignment="Right"
+                              Foreground="White"
+                              Style="{DynamicResource PurpleToggleSwitch_TextLeft}" />
+            </Grid>
+        </Border>
+
+        <!-- 主显示区域 -->
+        <Border Grid.Row="2"
+                Background="#16213e"
+                Margin="5 2">
+            <DataGrid ItemsSource="{Binding CanMessages}"
+                      Style="{StaticResource DataGridStyle}"
+                      RowStyle="{StaticResource DataGridRowStyle}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                      CellStyle="{StaticResource DataGridCellStyle}"
+                      VerticalAlignment="Stretch"
+                      local:DataGridScrollAttach.AutoScrollToBottom="True"
+                      HorizontalAlignment="Stretch"
+                      VerticalContentAlignment="Center"
+                      BorderThickness="1"
+                      GridLinesVisibility="All"
+                      HorizontalGridLinesBrush="#24304a"
+                      VerticalGridLinesBrush="#24304a"
+                      HeadersVisibility="Column"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      CanUserDeleteRows="False"
+                      EnableRowVirtualization="True"
+                      EnableColumnVirtualization="True"
+                      VirtualizingStackPanel.IsVirtualizing="True"
+                      VirtualizingStackPanel.VirtualizationMode="Recycling"
+                      VirtualizingPanel.ScrollUnit="Item"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.IsDeferredScrollingEnabled="True"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      FontSize="12"
+                      CanUserResizeColumns="False"
+                      HorizontalContentAlignment="Left"
+                      RowHeight="28"
+                      VirtualizingStackPanel.CacheLength="20"
+                      ColumnHeaderHeight="32">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Time"
+                                        Binding="{Binding Time, StringFormat=HH:mm:ss.fff}"
+                                        Width="Auto"
+                                        MinWidth="130" />
+
+                    <DataGridTextColumn Header="Dir"
+                                        Binding="{Binding Direction}"
+                                        Width="60">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell"
+                                   BasedOn="{StaticResource DataGridCellStyle}">
+                                <Setter Property="Foreground"
+                                        Value="#4ade80" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Direction}"
+                                                 Value="Tx">
+                                        <Setter Property="Foreground"
+                                                Value="#f87171" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="CANID"
+                                        Binding="{Binding CanId,StringFormat='0x{0:x}'}"
+                                        Width="120" />
+                    <DataGridTextColumn Header="DLC"
+                                        Binding="{Binding Dlc}"
+                                        Width="60" />
+                    <DataGridTextColumn Header="Message"
+                                        Binding="{Binding Message}"
+                                        Width="Auto"
+                                        MinWidth="180" />
+                    <DataGridTextColumn Header="Data (B0..B7)"
+                                        Binding="{Binding Data}"
+                                        Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- 状态栏 -->
+        <Grid Grid.Row="3"
+              Background="#0f3460"
+              Height="40">
+            <Label Content="333"
+                   FontSize="10"
+                   Foreground="#00d9ff"
+                   Margin="8 2"
+                   Visibility="Collapsed"
+                   VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+</Base:WindowBase>

@@ -1,0 +1,131 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.Blf2AscWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 mc:Ignorable="d"
+                 Title="Asc 2 Radar Info"
+                 Height="320"
+                 Width="600"
+                 WindowStartupLocation="CenterScreen"
+                 Background="#3e4141">
+
+    <Base:WindowBase.DataContext>
+        <vm:Blf2AscViewModel />
+    </Base:WindowBase.DataContext>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Background="#0f3460"
+                CornerRadius="8"
+                Padding="16 12"
+                Margin="0 0 0 15">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <Rectangle Width="3"
+                           Height="16"
+                           Fill="#00d9ff"
+                           Margin="0 0 12 0" />
+                <TextBlock Text="Asc 2 Radar Info"
+                           Foreground="#00d9ff"
+                           FontSize="14"
+                           FontWeight="SemiBold" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0 0 0 12">
+            <TextBlock Text="{StaticResource inPutPath_Tip}"
+                       Foreground="#d0d0d0"
+                       FontSize="12"
+                       Width="100"
+                       VerticalAlignment="Center" />
+            <TextBox Text="{Binding SourceFilePath}"
+                     IsReadOnly="True"
+                     Background="#1e2a3d"
+                     Foreground="#d0d0d0"
+                     BorderBrush="#3a4a5d"
+                     BorderThickness="1"
+                     FontSize="12"
+                     Width="380"
+                     Height="32"
+                     VerticalContentAlignment="Center" />
+            <Button Content="..."
+                    Command="{Binding SelectFileCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    FontSize="12"
+                    Width="40"
+                    Height="32"
+                    Margin="8 0 0 0"
+                    BorderBrush="#00d9ff"
+                    BorderThickness="1" />
+            <Button Content="BLF → ASC"
+                    Command="{Binding BlfToCsvCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    FontSize="12"
+                    Width="120"
+                    Height="32"
+                    Margin="18 0 0 0"
+                    BorderBrush="#00d9ff"
+                    BorderThickness="1" />
+        </StackPanel>
+        <Border Grid.Row="2"
+                Background="#1e2a3d"
+                BorderBrush="#3a4a5d"
+                BorderThickness="1"
+                Padding="12"
+                Margin="0 0 0 12">
+            <StackPanel>
+                <TextBlock Text="{StaticResource OutPutPath_Tip}"
+                           Foreground="#8899aa"
+                           FontSize="11"
+                           Margin="0 0 0 4" />
+                <TextBox Text="{Binding OutputFilePath}"
+                         IsReadOnly="True"
+                         Background="#1e2a3d"
+                         BorderThickness="1"
+                         BorderBrush="#686868"
+                         Foreground="#00d9ff"
+                         FontSize="12"
+                         Height="28"
+                         VerticalContentAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="3"
+                Background="#1e2a3d"
+                BorderBrush="#686868"
+                BorderThickness="1"
+                Padding="12"
+                Margin="0 0 0 12">
+            <TextBlock Text="{Binding StatusMessage}"
+                       Foreground="#00d9ff"
+                       FontSize="12"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Top" />
+        </Border>
+
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="{StaticResource Common_Close}"
+                    Click="CloseButton_Click"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    FontSize="12"
+                    Width="80"
+                    Height="32"
+                    BorderBrush="#5a6a7d"
+                    BorderThickness="1" />
+        </StackPanel>
+    </Grid>
+</Base:WindowBase>

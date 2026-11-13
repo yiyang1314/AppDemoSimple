@@ -1,0 +1,853 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.DetectionSensorInfoView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:Con="clr-namespace:Rxbit.BrigadeApp.Converters"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 mc:Ignorable="d"
+                 Background="#0f3460"
+                 Title="{StaticResource Detection_Title}"
+                 Height="780"
+                 Width="1080"
+                 Style="{DynamicResource MonitorWindowStyle}"
+                 DataContext="{Binding Path=DetectionVM ,Source={StaticResource Locator}}"
+                 WindowStyle="ToolWindow"
+                 ResizeMode="CanResize">
+    <Base:WindowBase.Resources>
+        <Con:OkNgConverter  x:Key="OkNgConverter" />
+        <Con:InverseBooleanToVisibilityConverter x:Key="InverseToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <!-- 1. 单元格内文本高亮样式 -->
+        <Style x:Key="DisplayTextHighlightStyle"
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="6,0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="#FFE6F7FF" />
+                    <Setter Property="Foreground"
+                            Value="Red" />
+                    <Setter Property="FontWeight"
+                            Value="Bold" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CellTextHighlightStyle"
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="6,2" />
+            <Setter Property="Background"
+                    Value="#686868" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="Padding"
+                    Value="10 2" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="#5d6b99" />
+                    <Setter Property="Foreground"
+                            Value="Red" />
+                    <Setter Property="FontWeight"
+                            Value="Bold" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- 单元格内文本样式 -->
+        <Style x:Key="RadarColumnTextStyle"
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="FontSize"
+                    Value="11" />
+        </Style>
+        <!-- DataGridCell样式 - 确保内容拉伸填充 -->
+        <Style x:Key="RadarDataGridCellStyle"
+               TargetType="DataGridCell">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#e4e4e4" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="0">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- DataGridColumnHeader样式 - 移除表头内边距 -->
+        <Style x:Key="RadarDataGridColumnHeaderStyle"
+               TargetType="DataGridColumnHeader">
+            <Setter Property="Background"
+                    Value="#16213e" />
+            <Setter Property="Foreground"
+                    Value="#00d9ff" />
+            <Setter Property="FontSize"
+                    Value="11" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="BorderThickness"
+                    Value="0 0 1 1" />
+            <Setter Property="BorderBrush"
+                    Value="#00d9ff" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border x:Name="HeaderBorder"
+                                Background="#16213e"
+                                BorderBrush="#00d9ff"
+                                BorderThickness="0 0 1 1"
+                                Padding="0"
+                                Margin="0">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="HeaderBorder"
+                                        Property="Background"
+                                        Value="#0f3460" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- 单元格高亮边框样式 -->
+        <Style x:Key="RadarCellBorderStyle"
+               TargetType="Border">
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="BorderThickness"
+                    Value="0 0 1 0" />
+            <Setter Property="BorderBrush"
+                    Value="#2a3a4d" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="#0F7979" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- 可复用动态数据列模板 -->
+        <DataTemplate x:Key="RadarCellTemplate">
+            <ItemsControl ItemsSource="{Binding Items}"
+                          Margin="0"
+                          Padding="0"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="VerticalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource RadarCellBorderStyle}"
+                                Width="100">
+                            <TextBlock Text="{Binding Value}"
+                                       Style="{StaticResource RadarColumnTextStyle}" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DataTemplate>
+        <!-- 表头高亮边框样式 -->
+        <Style x:Key="RadarHeaderBorderStyle"
+               TargetType="Border">
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="BorderThickness"
+                    Value="0 0 1 0" />
+            <Setter Property="BorderBrush"
+                    Value="#00d9ff" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="#0F7979" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- 【只封装列表头模板】 可无限复用 -->
+        <DataTemplate x:Key="RadarGen1HeaderTemplate">
+            <ItemsControl ItemsSource="{Binding DataContext.Gen1Radar.FirstRowItems,
+        RelativeSource={RelativeSource AncestorType=DataGrid},
+        FallbackValue={x:Null}, TargetNullValue={x:Null}}"
+                          Padding="0"
+                          Margin="0"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="VerticalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource RadarHeaderBorderStyle}"
+                                Width="100">
+                            <TextBlock Style="{StaticResource RadarColumnTextStyle}"
+                                       Cursor="Hand"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    <Binding Path="Id"
+                                             StringFormat="ID {0:D2}" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DataTemplate>
+        <DataTemplate x:Key="RadarGen2HeaderTemplate">
+            <ItemsControl ItemsSource="{Binding DataContext.Gen2Radar.FirstRowItems,
+        RelativeSource={RelativeSource AncestorType=DataGrid},
+        FallbackValue={x:Null}, TargetNullValue={x:Null}}"
+                          Margin="0"
+                          Padding="0"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="VerticalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource RadarHeaderBorderStyle}"
+                                Width="100">
+                            <TextBlock Style="{StaticResource RadarColumnTextStyle}"
+                                       Cursor="Hand"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    <Binding Path="Id"
+                                             StringFormat="ID {0:D2}" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DataTemplate>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background"
+                    Value="#16213e" />
+            <Setter Property="BorderThickness"
+                    Value="0 0 0 1" />
+            <Setter Property="BorderBrush"
+                    Value="#00d9ff" />
+        </Style>
+
+        <Style x:Key="TodayThemeScrollBarStyle"
+               TargetType="{x:Type ScrollBar}">
+            <Setter Property="Background"
+                    Value="#FFFFFF" />
+            <Setter Property="Foreground"
+                    Value="#6200EE" />
+            <Setter Property="Width"
+                    Value="6" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding Background}"
+                                       Opacity="0.5" />
+                            <Track x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb Background="{TemplateBinding Foreground}">
+                                        <Thumb.Style>
+                                            <Style TargetType="{x:Type Thumb}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Thumb}">
+                                                            <Border Background="{TemplateBinding Background}"
+                                                                    CornerRadius="3"
+                                                                    Opacity="0.6">
+                                                                <Border.Style>
+                                                                    <Style TargetType="{x:Type Border}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver"
+                                                                                     Value="True">
+                                                                                <Setter Property="Opacity"
+                                                                                        Value="0.8" />
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Thumb.Style>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernScrollBarStyle"
+               TargetType="{x:Type ScrollBar}">
+            <Setter Property="Background"
+                    Value="#FAFAFA" />
+            <Setter Property="Foreground"
+                    Value="#1976D2" />
+            <Setter Property="Width"
+                    Value="8" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding Background}"
+                                       RadiusX="4"
+                                       RadiusY="4" />
+
+                            <Track x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb Background="{TemplateBinding Foreground}">
+                                        <Thumb.Style>
+                                            <Style TargetType="{x:Type Thumb}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Thumb}">
+                                                            <Border Background="{TemplateBinding Background}"
+                                                                    CornerRadius="4"
+                                                                    Margin="0,1">
+                                                                <Border.Style>
+                                                                    <Style TargetType="{x:Type Border}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver"
+                                                                                     Value="True">
+                                                                                <Setter Property="Opacity"
+                                                                                        Value="0.7" />
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter Property="MinHeight"
+                                                        Value="20" />
+                                            </Style>
+                                        </Thumb.Style>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Width"
+                            Value="12" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- 直接在DataGrid中定义滚动条样式 -->
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Background"
+                    Value="#5d6b99" />
+            <Setter Property="Foreground"
+                    Value="#4CAF50" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Rectangle Fill="{TemplateBinding Background}"
+                                       RadiusX="5"
+                                       RadiusY="5" />
+                            <Track x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb Background="{TemplateBinding Foreground}">
+                                        <Thumb.Style>
+                                            <Style TargetType="{x:Type Thumb}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Thumb}">
+                                                            <Rectangle Fill="{TemplateBinding Background}"
+                                                                       RadiusX="5"
+                                                                       RadiusY="5"
+                                                                       Margin="1,0" />
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Thumb.Style>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Base:WindowBase.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedCommand}" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Margin="5 2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Grid Grid.Row="0"
+              Margin="0 2"
+              Background="#16213e">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#00d9ff"
+                           Margin="8 4">
+                    <Run Text="Detection &amp; Sensor Info" />
+                    <Run Text="{Binding Path= SensorConfigVM.CurrSensor.CanID,StringFormat='{}- 0x{0:x}',Source={StaticResource Locator}}" />
+                </TextBlock>
+            </StackPanel>
+            <ToggleButton Grid.Column="1"
+                          VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Right"
+                          Content="{StaticResource Common_Pause}"
+                          FontSize="12"
+                          Foreground="White"
+                          FontWeight="Bold"
+                          IsChecked="{Binding IsPaused}"
+                          Margin="8 4 20 4"
+                          Style="{DynamicResource  PurpleToggleSwitch_TextLeft}" />
+
+        </Grid>
+
+        <!-- 主显示区域 -->
+        <Grid Grid.Row="1"
+              Background="#16213e">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Margin="20 10"
+                    BorderBrush="#2a2a3e"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Visibility="{Binding IsGen1Type,Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Background="#16213e">
+                <StackPanel>
+                    <!-- Header -->
+                    <Border Background="#0f3460"
+                            CornerRadius="8 8 0 0"
+                            Padding="16 12">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <Rectangle Width="3"
+                                       Height="16"
+                                       Fill="#00d9ff"
+                                       Margin="0 0 12 0" />
+                            <TextBlock Text="Frame Info"
+                                       Foreground="#00d9ff"
+                                       FontSize="14"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <UniformGrid Grid.Row="0"
+                                     Columns="3"
+                                     Margin="40 5">
+                            <TextBlock  Foreground="White"
+                                        HorizontalAlignment="Left"
+                                        FontSize="12"
+                                        VerticalAlignment="Center"
+                                        Margin="0 8">
+                                <Run Text="{StaticResource Playback_FrameID}" />
+                                <Run Text="{Binding Gen1Radar.FrameId}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Playback_ObjCount}" />
+                                <Run Text="{Binding Gen1Radar.DetectedObjects}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Voltage}" />
+                                <Run Text="{Binding Gen1Radar.Voltage,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Frequency}" />
+                                <Run Text="{Binding Gen1Radar.MMIC,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Temperature}" />
+                                <Run Text="{Binding Gen1Radar.Temp,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Occlusion}" />
+                                <Run Text="{Binding Gen1Radar.CanStatus,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                        </UniformGrid>
+
+                        <Border Grid.Row="1"
+                                Background="#0f3460"
+                                CornerRadius="8 8 0 0"
+                                Padding="16 12">
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <Rectangle Width="3"
+                                           Height="16"
+                                           Fill="#00d9ff"
+                                           Margin="0 0 12 0" />
+                                <TextBlock Text="Data List"
+                                           Foreground="#00d9ff"
+                                           FontSize="14"
+                                           FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Border>
+
+                        <DataGrid Grid.Row="2"
+                                  ItemsSource="{Binding Gen1Radar.Gen1Items}"
+                                  Name="gen1"
+                                  AutoGenerateColumns="False"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  Margin="5 15"
+                                  Style="{DynamicResource DataGridStyle}"
+                                  SelectionMode="Extended"
+                                  SelectionUnit="Cell"
+                                  ColumnHeaderHeight="30"
+                                  RowHeight="28"
+                                  RowStyle="{DynamicResource DataGridRowStyle}"
+                                  CellStyle="{StaticResource RadarDataGridCellStyle}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sensor Parameter"
+                                                    Binding="{Binding ColulmsName}"
+                                                    Width="140"
+                                                    HeaderStyle="{StaticResource RxbitColumnHeaderStyle}"
+                                                    CellStyle="{StaticResource DG1CellStyle}" />
+                                <DataGridTextColumn Header="unit(m)"
+                                                    Binding="{Binding Unit}"
+                                                    Width="80"
+                                                    HeaderStyle="{StaticResource RxbitColumnHeaderStyle}"
+                                                    CellStyle="{StaticResource DG1CellStyle}" />
+                                <DataGridTemplateColumn Width="SizeToCells"
+                                                        CellTemplate="{StaticResource RadarCellTemplate}"
+                                                        HeaderTemplate="{StaticResource RadarGen1HeaderTemplate}"
+                                                        HeaderStyle="{StaticResource RadarDataGridColumnHeaderStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border Margin="20 10"
+                    Visibility="{Binding IsGen1Type,Converter={StaticResource InverseToVisibilityConverter}}"
+                    BorderBrush="#2a2a3e"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Background="#16213e">
+                <StackPanel>
+                    <!-- Header -->
+                    <Border Background="#0f3460"
+                            CornerRadius="8 8 0 0"
+                            Padding="16 12">
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <Rectangle Width="3"
+                                       Height="16"
+                                       Fill="#00d9ff"
+                                       Margin="0 0 12 0" />
+                            <TextBlock Text="Frame Info"
+                                       Foreground="#00d9ff"
+                                       FontSize="14"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Content 310-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <UniformGrid Grid.Row="0"
+                                     Columns="4"
+                                     Margin="50 10">
+                            <TextBlock  Foreground="White"
+                                        FontSize="12"
+                                        VerticalAlignment="Center"
+                                        Margin="0 8">
+                                <Run Text="{StaticResource Ecu_FrameID}" />
+                                <Run Text=": " />
+                                <Run Text="{Binding Gen2Radar.FrameId}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Playback_ObjCount}" />
+                                <Run Text="{Binding Gen2Radar.DetectedObjects}" />
+                            </TextBlock>
+
+                            <TextBlock  Foreground="White"
+                                        FontSize="12"
+                                        VerticalAlignment="Center"
+                                        Margin="0 8">
+                                <Run Text="{StaticResource Detection_Ground_Speed}" />
+                                <Run Text="{Binding Gen2Radar.GroundSpeed}" />
+                                <Run Text="km/h" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="Identification Flag:" />
+                                <Run Text="{Binding Gen2Radar.IdentiType}" />
+                            </TextBlock>
+
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Voltage}" />
+                                <Run Text="{Binding Gen2Radar.Voltage,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Frequency}" />
+                                <Run Text="{Binding Gen2Radar.MMIC,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Temperature}" />
+                                <Run Text="{Binding Gen2Radar.Temp,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                            <TextBlock Foreground="White"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="0 8">
+                                <Run Text="{StaticResource Detection_Occlusion}" />
+                                <Run Text="{Binding Gen2Radar.CanStatus,Converter={StaticResource OkNgConverter}}" />
+                            </TextBlock>
+                        </UniformGrid>
+                        <Border Grid.Row="1"
+                                Background="#0f3460"
+                                CornerRadius="8 8 0 0"
+                                Padding="16 12">
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <Rectangle Width="3"
+                                           Height="16"
+                                           Fill="#00d9ff"
+                                           Margin="0 0 12 0" />
+                                <TextBlock Text="Data List"
+                                           Foreground="#00d9ff"
+                                           FontSize="14"
+                                           FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Border>
+                        <DataGrid Grid.Row="2"
+                                  ItemsSource="{Binding Gen2Radar.Gen2Items}"
+                                  x:Name="gen2"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  Margin="5 15"
+                                  ColumnHeaderHeight="30"
+                                  AutoGenerateColumns="False"
+                                  Style="{DynamicResource DataGridStyle}"
+                                  SelectionMode="Extended"
+                                  SelectionUnit="Cell"
+                                  RowHeight="28"
+                                  RowStyle="{DynamicResource DataGridRowStyle}"
+                                  CellStyle="{StaticResource RadarDataGridCellStyle}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sensor Parameter"
+                                                    Binding="{Binding ColulmsName}"
+                                                    Width="140"
+                                                    HeaderStyle="{StaticResource RxbitColumnHeaderStyle}"
+                                                    CellStyle="{StaticResource DG1CellStyle}" />
+                                <DataGridTextColumn Header="unit(m)"
+                                                    Binding="{Binding Unit}"
+                                                    Width="80"
+                                                    HeaderStyle="{StaticResource RxbitColumnHeaderStyle}"
+                                                    CellStyle="{StaticResource DG1CellStyle}" />
+                                <DataGridTemplateColumn Width="SizeToCells"
+                                                        CellTemplate="{StaticResource RadarCellTemplate}"
+                                                        HeaderTemplate="{StaticResource RadarGen2HeaderTemplate}"
+                                                        HeaderStyle="{StaticResource RadarDataGridColumnHeaderStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <Grid Grid.Row="2"
+              Background="#0f3460"
+              Height="40">
+            <Label Content="Detection &amp; Sensor Info - Parameter Table"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   Foreground="#00d9ff"
+                   Margin="8 2" />
+        </Grid>
+    </Grid>
+</Base:WindowBase>

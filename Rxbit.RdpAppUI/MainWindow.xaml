@@ -1,0 +1,169 @@
+<Window x:Class="Rxbit.RdpAppUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Brigade 远程桌面"
+        Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/app.ico"
+        Style="{StaticResource DsWindowStyle}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Border Grid.Row="0"
+                Background="{StaticResource DsTitleBarBrush}"
+                BorderBrush="{StaticResource DsBorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="16,0">
+            <Grid Height="56">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/Assets/logo.png" Width="26" Height="26" Margin="0,0,10,0" />
+                    <TextBlock Text="Brigade 远程桌面"
+                               FontSize="{StaticResource DsFontSizeH1}"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource DsTextPrimaryBrush}"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+                <Border Style="{StaticResource DsBadgeBorderStyle}" HorizontalAlignment="Right">
+                    <TextBlock Text="RDP 远程控制" Style="{StaticResource DsBadgeTextStyle}" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- 连接工具栏 -->
+        <Border Grid.Row="1" Style="{StaticResource DsToolBarBorderStyle}">
+            <WrapPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="主机地址" Style="{StaticResource DsCaptionStyle}" Margin="0,0,0,4" />
+                    <TextBox x:Name="txtHost" Width="160" Text="{Binding Host, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="远程主机 IP 或计算机名" />
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="端口" Style="{StaticResource DsCaptionStyle}" Margin="0,0,0,4" />
+                    <TextBox x:Name="txtPort" Width="80" Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="RDP 端口，默认 3389" />
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="用户名" Style="{StaticResource DsCaptionStyle}" Margin="0,0,0,4" />
+                    <TextBox x:Name="txtUsername" Width="140" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,16,0">
+                    <TextBlock Text="密码" Style="{StaticResource DsCaptionStyle}" Margin="0,0,0,4" />
+                    <PasswordBox x:Name="pwdPassword" Width="140" PasswordChanged="PasswordChanged" />
+                </StackPanel>
+                <Button Content="连接"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Padding="20,7" Margin="0,15,8,0"
+                        Click="Connect_Click" />
+                <Button Content="断开"
+                        Style="{StaticResource DangerButtonStyle}"
+                        Padding="20,7" Margin="0,15,16,0"
+                        Click="Disconnect_Click" />
+                <Button Content="上传文件"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Padding="14,7" Margin="0,15,8,0"
+                        Click="UploadFile_Click" />
+                <Button Content="下载文件"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Padding="14,7" Margin="0,15,0,0"
+                        Click="DownloadFile_Click" />
+            </WrapPanel>
+        </Border>
+
+        <!-- 远程画面 -->
+        <Grid Grid.Row="2" Margin="12">
+            <Border Background="#000000"
+                    BorderBrush="{StaticResource DsBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource DsRadiusCard}">
+                <Image x:Name="imgRemoteScreen" Stretch="Uniform"
+                       Source="{Binding RemoteScreen}"
+                       MouseMove="Image_MouseMove"
+                       MouseDown="Image_MouseDown"
+                       MouseUp="Image_MouseUp"
+                       MouseWheel="Image_MouseWheel" />
+            </Border>
+
+            <Border Background="{StaticResource DsSurfaceBrush}"
+                    BorderBrush="{StaticResource DsBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource DsRadiusCard}"
+                    Padding="32"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel>
+                    <TextBlock Text="尚未连接远程桌面"
+                               Style="{StaticResource DsSectionTitleStyle}"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,6" />
+                    <TextBlock Text="填写主机地址与凭据后点击“连接”，即可开始远程操作"
+                               Style="{StaticResource DsHintTextStyle}"
+                               MaxWidth="380" />
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="loadingOverlay"
+                    Background="#CC000000"
+                    CornerRadius="{StaticResource DsRadiusCard}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsReconnecting}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressBar IsIndeterminate="True" Width="160" Height="6" />
+                    <TextBlock x:Name="loadingText"
+                               Text="正在连接远程桌面..."
+                               Foreground="{StaticResource DsTextSecondaryBrush}"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <Border Grid.Row="3" Style="{StaticResource DsStatusBarBorderStyle}">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" VerticalAlignment="Center" Margin="0,0,8,0">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="{StaticResource DsTextMutedBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                        <Setter Property="Fill" Value="{StaticResource DsSuccessBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource DsCaptionStyle}" />
+                </StackPanel>
+                <TextBlock Text="Ctrl+Enter 连接 · Esc 断开"
+                           Style="{StaticResource DsCaptionStyle}"
+                           HorizontalAlignment="Right" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

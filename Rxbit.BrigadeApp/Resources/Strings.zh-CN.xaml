@@ -1,0 +1,345 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!-- MainWindow Menu -->
+    <sys:String x:Key="Menu_File">文件</sys:String>
+    <sys:String x:Key="Menu_ExportCsv">导出Csv</sys:String>
+    <sys:String x:Key="Menu_ExportAsc">导出Asc</sys:String>
+    <sys:String x:Key="Menu_ImportCsv">导入Csv</sys:String>
+    <sys:String x:Key="Menu_ImportAsc">导入Asc</sys:String>
+    <sys:String x:Key="Menu_OpenDir">Open Floder</sys:String>
+    <sys:String x:Key="Menu_Devices">设备</sys:String>
+    <sys:String x:Key="Menu_View">视图</sys:String>
+    <sys:String x:Key="Menu_SelectSensor">雷达模型</sys:String>
+    <sys:String x:Key="Menu_Sensor210">模型 210</sys:String>
+    <sys:String x:Key="Menu_Sensor310">模型 310</sys:String>
+    <sys:String x:Key="Menu_Advinces">高级</sys:String>
+    <sys:String x:Key="Menu_Docs">文档</sys:String>
+    <sys:String x:Key="Menu_Language">语言</sys:String>
+    <sys:String x:Key="Menu_SimpleZh">简体中文</sys:String>
+    <sys:String x:Key="Menu_English">English</sys:String>
+    <sys:String x:Key="Menu_About">关于</sys:String>
+    <sys:String x:Key="Menu_CANDevice">CAN设备</sys:String>
+    <sys:String x:Key="Menu_DataPlayback">数据回放</sys:String>
+    <sys:String x:Key="Menu_EcuFlash">ECU刷写</sys:String>
+    <sys:String x:Key="Menu_DBCParser">DBC解析</sys:String>
+    <sys:String x:Key="Eyes_Title">鸟瞰图</sys:String>
+    <sys:String x:Key="Network_Title">目标距离检测-</sys:String>
+    <sys:String x:Key="Detection_Title">Sensor信息检测</sys:String>
+    <sys:String x:Key="Detection_Ground_Speed">地面速度：</sys:String>
+    <sys:String x:Key="Detection_Voltage">电压状态:</sys:String>
+    <sys:String x:Key="Detection_Frequency">射频状态:</sys:String>
+    <sys:String x:Key="Detection_Occlusion">遮挡状态 :</sys:String>
+    <sys:String x:Key="Detection_Temperature">温度状态:</sys:String>
+    <sys:String x:Key="Detection_ReflectTime">高反射目标:</sys:String>
+    <!-- Common -->
+    <sys:String x:Key="Common_OK">确定</sys:String>
+    <sys:String x:Key="Common_Cancel">取消</sys:String>
+    <sys:String x:Key="Common_Apply">应用</sys:String>
+    <sys:String x:Key="Common_Close">关闭</sys:String>
+    <sys:String x:Key="Common_Refresh">刷新</sys:String>
+    <sys:String x:Key="Common_Start">开始</sys:String>
+    <sys:String x:Key="Common_Stop">停止</sys:String>
+    <sys:String x:Key="Common_Pause">暂停</sys:String>
+    <sys:String x:Key="Common_Clear">清空</sys:String>
+    <sys:String x:Key="Common_Add">添加</sys:String>
+    <sys:String x:Key="Common_Delete">删除</sys:String>
+    <sys:String x:Key="Common_Open">打开</sys:String>
+    <sys:String x:Key="Common_Save">保存</sys:String>
+    <sys:String x:Key="Common_Settings">设置</sys:String>
+    <sys:String x:Key="Common_Protocol">协议</sys:String>
+    <sys:String x:Key="Common_Channel">通道</sys:String>
+    <sys:String x:Key="Common_Normal">普通</sys:String>
+    <sys:String x:Key="Common_StartRecondging">开始录制报文</sys:String>
+    <sys:String x:Key="Common_StopRecondging">停止录制报文</sys:String>
+    <sys:String x:Key="Common_StartRec">开始接收报文</sys:String>
+    <sys:String x:Key="Common_StopRec">停止接收报文</sys:String>
+
+    <sys:String x:Key="Common_OnliceMode">在线</sys:String>
+    <sys:String x:Key="Common_OffliceMode">回放</sys:String>
+    <sys:String x:Key="Common_OnliceModeTip">在线模式</sys:String>
+    <sys:String x:Key="Common_OffliceModeTip">回放模式</sys:String>
+    <sys:String x:Key="Common_RecondgingTime">录制时间</sys:String>
+    <sys:String x:Key="Common_RecondgingFile">录制文件</sys:String>
+    <sys:String x:Key="Common_SelectFile">选中*.Config文件</sys:String>
+    <sys:String x:Key="Common_IuputFile">输入文件名</sys:String>
+    <sys:String x:Key="Common_SensorStatus">SensorID 状态</sys:String>
+
+    <!-- CAN Device -->
+    <sys:String x:Key="CanDevice_Title">CAN卡设备管理</sys:String>
+    <sys:String x:Key="CanDevice_DeviceType">设备类型</sys:String>
+    <sys:String x:Key="CanDevice_Deviceindex">设备索引</sys:String>
+    <sys:String x:Key="CanDevice_CANType">CAN类型</sys:String>
+    <sys:String x:Key="CanDevice_OpenDevice">打开设备</sys:String>
+    <sys:String x:Key="CanDevice_CloseDevice">关闭设备</sys:String>
+    <sys:String x:Key="CanDevice_Name">名称</sys:String>
+    <sys:String x:Key="CanDevice_Hardware">硬件</sys:String>
+    <sys:String x:Key="CanDevice_ID">ID</sys:String>
+    <sys:String x:Key="CanDevice_CAN1">CAN1</sys:String>
+    <sys:String x:Key="CanDevice_CAN2">CAN2</sys:String>
+    <sys:String x:Key="CanDevice_Protocol">协议</sys:String>
+    <sys:String x:Key="CanDevice_WorkMode">工作模式</sys:String>
+    <sys:String x:Key="CanDevice_NormalMode">正常模式</sys:String>
+    <sys:String x:Key="CanDevice_BaudRate">波特率</sys:String>
+    <sys:String x:Key="CanDevice_DataBaudRate">数据波特率</sys:String>
+    <sys:String x:Key="CanDevice_NonISO">NON_ISO</sys:String>
+
+    <!-- About -->
+    <sys:String x:Key="About_Title">关于</sys:String>
+    <sys:String x:Key="About_Version">软件版本</sys:String>
+    <sys:String x:Key="About_ReleaseDate">发布时间</sys:String>
+    <sys:String x:Key="About_Features">功能更新点</sys:String>
+    <sys:String x:Key="About_AppName">Brigade CAN雷达测试工具</sys:String>
+    <sys:String x:Key="About_Copyright">版权所有 © 2026 Brigade Electronics. 保留所有权利。</sys:String>
+
+    <!-- Data Playback -->
+    <sys:String x:Key="Playback_Title">数据回放</sys:String>
+    <sys:String x:Key="Playback_AddFile">添加文件</sys:String>
+    <sys:String x:Key="Playback_PlaybackSettings">回放设置</sys:String>
+    <sys:String x:Key="Playback_CurrentCount">当前次数</sys:String>
+    <sys:String x:Key="Playback_WaitTime">等待时间</sys:String>
+    <sys:String x:Key="Playback_SendParams">发送参数</sys:String>
+    <sys:String x:Key="Playback_Step">步长</sys:String>
+    <sys:String x:Key="Playback_Speed">回放速度</sys:String>
+    <sys:String x:Key="Playback_RepeatCount">回放次数</sys:String>
+    <sys:String x:Key="Playback_FailHandling">失败处理</sys:String>
+    <sys:String x:Key="Playback_FailStop">失败停止</sys:String>
+    <sys:String x:Key="Playback_Filter">过滤器 (PASS)</sys:String>
+    <sys:String x:Key="Playback_FrameID">帧ID</sys:String>
+    <sys:String x:Key="Playback_datas">航迹列表</sys:String>
+    <sys:String x:Key="Playback_ObjCount">目标个数:</sys:String>
+    <sys:String x:Key="Playback_FrameDir">帧方向</sys:String>
+    <sys:String x:Key="Playback_Tx">Tx</sys:String>
+    <sys:String x:Key="Playback_Rx">Rx</sys:String>
+    <sys:String x:Key="Playback_FrameType">帧类型</sys:String>
+    <sys:String x:Key="Playback_Standard">标准帧</sys:String>
+    <sys:String x:Key="Playback_Extended">扩展帧</sys:String>
+    <sys:String x:Key="Playback_FrameFormat">帧格式</sys:String>
+    <sys:String x:Key="Playback_DataFrame">数据帧</sys:String>
+    <sys:String x:Key="Playback_RemoteFrame">远程帧</sys:String>
+    <sys:String x:Key="Playback_CANType">CAN类型</sys:String>
+    <sys:String x:Key="Playback_CAN">CAN</sys:String>
+    <sys:String x:Key="Playback_CANFD">CANFD</sys:String>
+    <sys:String x:Key="Playback_DLC">DLC</sys:String>
+    <sys:String x:Key="Playback_Data">数据</sys:String>
+    <sys:String x:Key="Playback_ChannelMap">通道映射</sys:String>
+    <sys:String x:Key="Playback_SourceChannel">源通道</sys:String>
+    <sys:String x:Key="Playback_TargetChannel">目标通道</sys:String>
+    <sys:String x:Key="Playback_Status">状态</sys:String>
+    <sys:String x:Key="Playback_FileName">文件名</sys:String>
+    <sys:String x:Key="Playback_StartTime">起始时间</sys:String>
+    <sys:String x:Key="Playback_EndTime">结束时间</sys:String>
+    <sys:String x:Key="Playback_SendStatus">发送状态</sys:String>
+    <sys:String x:Key="Playback_FilePath">文件路径</sys:String>
+
+    <!-- ECU Flash -->
+    <sys:String x:Key="Ecu_Title">ECU刷写</sys:String>
+    <sys:String x:Key="Ecu_Editor">编辑器</sys:String>
+    <sys:String x:Key="Ecu_Executor">执行器</sys:String>
+    <sys:String x:Key="Ecu_CAN">CAN</sys:String>
+    <sys:String x:Key="Ecu_OpenFile">打开文件</sys:String>
+    <sys:String x:Key="Ecu_Address">地址</sys:String>
+    <sys:String x:Key="Ecu_MoreSettings">更多设置</sys:String>
+    <sys:String x:Key="Ecu_ExportRemote">导出远程刷写</sys:String>
+    <sys:String x:Key="Ecu_WriteCount">刷写次数</sys:String>
+    <sys:String x:Key="Ecu_Interval">间隔时间</sys:String>
+    <sys:String x:Key="Ecu_StartFlash">开始刷写</sys:String>
+    <sys:String x:Key="Ecu_Time">时间</sys:String>
+    <sys:String x:Key="Ecu_Type">类型</sys:String>
+    <sys:String x:Key="Ecu_FrameID">帧ID</sys:String>
+    <sys:String x:Key="Ecu_Direction">方向</sys:String>
+    <sys:String x:Key="Ecu_Length">长度</sys:String>
+    <sys:String x:Key="Ecu_DataDesc">数据/描述</sys:String>
+    <sys:String x:Key="Ecu_RealTimeSave">实时保存</sys:String>
+    <sys:String x:Key="Ecu_Export">导出</sys:String>
+    <sys:String x:Key="Ecu_ScrollDisplay">滚动显示</sys:String>
+    <sys:String x:Key="Ecu_FileBlocks">文件块</sys:String>
+    <sys:String x:Key="Ecu_Steps">步骤</sys:String>
+
+    <!-- DBC Parser -->
+    <sys:String x:Key="Dbc_Title">DBC解析</sys:String>
+    <sys:String x:Key="Dbc_SelectDevice">选择设备</sys:String>
+    <sys:String x:Key="Dbc_LoadDBC">加载DBC</sys:String>
+    <sys:String x:Key="Dbc_Index">序号</sys:String>
+    <sys:String x:Key="Dbc_Time">时间</sys:String>
+    <sys:String x:Key="Dbc_MsgName">消息名</sys:String>
+    <sys:String x:Key="Dbc_FrameIDHex">帧ID(Hex)</sys:String>
+    <sys:String x:Key="Dbc_PGNHex">PGN(Hex)</sys:String>
+    <sys:String x:Key="Dbc_SrcTargetAddr">源&amp;目标地址(Hex)</sys:String>
+    <sys:String x:Key="Dbc_FrameType">帧类型</sys:String>
+    <sys:String x:Key="Dbc_Count">计数</sys:String>
+    <sys:String x:Key="Dbc_Direction">方向</sys:String>
+    <sys:String x:Key="Dbc_Length">长度</sys:String>
+    <sys:String x:Key="Dbc_DataHex">数据(Hex)</sys:String>
+    <sys:String x:Key="Dbc_SignalName">信号名</sys:String>
+    <sys:String x:Key="Dbc_ActualValue">实际值</sys:String>
+    <sys:String x:Key="Dbc_Description">描述</sys:String>
+    <sys:String x:Key="Dbc_RawValue">原始值</sys:String>
+    <sys:String x:Key="Dbc_MinValue">最小值</sys:String>
+    <sys:String x:Key="Dbc_MaxValue">最大值</sys:String>
+    <sys:String x:Key="Dbc_AvgValue">平均值</sys:String>
+    <sys:String x:Key="Dbc_Factor">转换比例</sys:String>
+    <sys:String x:Key="Dbc_Offset">转换偏移</sys:String>
+    <sys:String x:Key="Dbc_StartBit">起始位</sys:String>
+    <sys:String x:Key="Dbc_LoadedDBC">已加载的DBC文件</sys:String>
+    <sys:String x:Key="Dbc_StandardDataFrame">标准数据帧</sys:String>
+    <sys:String x:Key="CanLiveDataTitle">CAN Live Data</sys:String>
+
+    <!-- 提示文本常量 -->
+    <sys:String x:Key="PolarRadiusTip">径向距离</sys:String>
+    <sys:String x:Key="PolarAngleTip">径向角度</sys:String>
+    <sys:String x:Key="LongitudeTip">纵向距离</sys:String>
+    <sys:String x:Key="LatgitudeTip">横向距离</sys:String>
+    <sys:String x:Key="RelativeVTip">相对速度</sys:String>
+    <sys:String x:Key="SignalTip">信号功率</sys:String>
+    <sys:String x:Key="AppearTip">外观状态</sys:String>
+    <sys:String x:Key="DetectionTip">检测状态</sys:String>
+    <sys:String x:Key="TriggerTip">触发事件</sys:String>
+    <sys:String x:Key="RadarTypeTip">雷达类型</sys:String>
+    <sys:String x:Key="MMICTip">射频状态</sys:String>
+    <sys:String x:Key="TemperaTip">温度状态</sys:String>
+    <sys:String x:Key="VoltageTip">电压状态</sys:String>
+    <sys:String x:Key="CanTip">遮挡状态</sys:String>
+    <sys:String x:Key="LatVxTip">横向速度</sys:String>
+    <sys:String x:Key="LongVyTip">纵向速度</sys:String>
+    <sys:String x:Key="ProbExistTip">置信度</sys:String>
+    <sys:String x:Key="LatAccVxTip">横向加速度</sys:String>
+    <sys:String x:Key="LongAccVyTip">纵向加速度</sys:String>
+    <sys:String x:Key="RCSTip">RCS</sys:String>
+    <sys:String x:Key="SNRTip">信噪比</sys:String>
+    <sys:String x:Key="MAGTip">信号幅度</sys:String>
+    <sys:String x:Key="LiveTip">存活时间</sys:String>
+    <sys:String x:Key="SportTip">运动状态</sys:String>
+    <sys:String x:Key="ClassTip">分类状态</sys:String>
+    <sys:String x:Key="UDS_REQ_Tip">请求地址</sys:String>
+    <sys:String x:Key="UDS_RSP_Tip">响应地址</sys:String>
+    <sys:String x:Key="UDS_Edit_Tip">启用编辑</sys:String>
+    <sys:String x:Key="OutPutPath_Tip">输出路径:</sys:String>
+    <sys:String x:Key="inPutPath_Tip">选择文件:</sys:String>
+
+    <sys:String x:Key="Number_Tip">编号</sys:String>
+    <sys:String x:Key="FuncContent_Tip">版本功能更新</sys:String>
+    <sys:String x:Key="AboutContent_Tip">更新内容</sys:String>
+
+    <sys:String x:Key="tool_Assistant">工具助手</sys:String>
+    <sys:String x:Key="tool_Conversion">文件转换 Brigade 工具</sys:String>
+    <sys:String x:Key="tool_CRCVerify">CRC 校验</sys:String>
+    
+    <system:String x:Key="Ecuboot_UseTimesTip">用时：{0}分{1}秒{2}毫秒</system:String>
+    <system:String x:Key="Ecuboot_DelaytimeTip">延时</system:String>
+    <system:String x:Key="Ecuboot_ExexuteFlashTip">正在烧录程序中...</system:String>
+    <system:String x:Key="Ecuboot_LoadingHexTip">正在加载Hex文件...</system:String>
+    <system:String x:Key="Ecuboot_StartFlashTip">开始烧录中...</system:String>
+    <system:String x:Key="Ecuboot_StopFlashTip">停止烧录中...</system:String>
+    <system:String x:Key="Ecuboot_FlashingFailedTip">文件烧录失败…</system:String>
+    <system:String x:Key="Ecuboot_UpgradeTip">雷达升级完成</system:String>
+    <system:String x:Key="Ecuboot_NoDllip">当前文件夹没有对应 DLL 文件</system:String>
+    <system:String x:Key="Ecuboot_FlashNoExistTip">当前文件夹 Flash 驱动文件不存在</system:String>
+    <system:String x:Key="Ecuboot_FlashParserErrorTip">当前文件夹 Flash 驱动文件无效或文件格式异常</system:String>
+    <system:String x:Key="Ecuboot_AppFlashTip">当前文件夹 App 文件不存在</system:String>
+    <system:String x:Key="Ecuboot_Flow1Tip">进入扩展模式</system:String>
+    <system:String x:Key="Ecuboot_Flow2Tip">检查预编程条件</system:String>
+    <system:String x:Key="Ecuboot_Flow3Tip">关闭 DTC 诊断</system:String>
+    <system:String x:Key="Ecuboot_Flow4Tip">关闭非诊断通信</system:String>
+    <system:String x:Key="Ecuboot_Flow5Tip">进入编程模式</system:String>
+    <system:String x:Key="Ecuboot_Flow6Tip">ECU 解锁</system:String>
+    <system:String x:Key="Ecuboot_Flow7Tip">Flash 驱动下载</system:String>
+    <system:String x:Key="Ecuboot_Flow8Tip">CRC 校验</system:String>
+    <system:String x:Key="Ecuboot_Flow9Tip">写入指纹信息</system:String>
+    <system:String x:Key="Ecuboot_Flow10Tip">App 文件下载</system:String>
+    <system:String x:Key="Ecuboot_Flow11Tip">CRC 校验</system:String>
+    <system:String x:Key="Ecuboot_Flow12Tip">依赖性检查</system:String>
+    <system:String x:Key="Ecuboot_Flow13Tip">ECU 重置</system:String>
+    <system:String x:Key="Ecuboot_Flow14Tip">诊断会话控制</system:String>
+    <system:String x:Key="Ecuboot_Flow15Tip">控制 DTC 设置</system:String>
+    <system:String x:Key="Ecuboot_Flow16Tip">通讯控制</system:String>
+    <system:String x:Key="Ecuboot_Flow21Tip">进入默认会话</system:String>
+    <system:String x:Key="Ecuboot_Flow22Tip">延时</system:String>
+    <system:String x:Key="Ecuboot_Flow23Tip">启动例程控制</system:String>
+    <system:String x:Key="Ecuboot_Flow24Tip">获取例程结果</system:String>
+    <system:String x:Key="Ecuboot_Flow25Tip">停止例程</system:String>
+    <system:String x:Key="Ecuboot_Flow26Tip">按标识符写入数据</system:String>
+    <system:String x:Key="Ecuboot_Flow27Tip">按标识符读取数据</system:String>
+    <system:String x:Key="Ecuboot_Flow28Tip">清除诊断信息</system:String>
+    <system:String x:Key="Ecuboot_Flow30Tip">计算CRC校验码异常</system:String>
+    <system:String x:Key="Ecuboot_Flow31Tip">CRC校验失败</system:String>
+    <system:String x:Key="Ecuboot_Flow32Tip">APPCRC校验失败</system:String>
+    <system:String x:Key="Ecuboot_CRCTip">计算CRC</system:String>
+    
+    <!-- 传感器参数中文串，逗号分隔 -->
+    <sys:String x:Key="SensorParamStr">SensorID,目标ID,目标距离(极半径),目标角度(极角),纵向距离,横向距离,目标相对速度,目标信号功率(dB),目标外观状态,触发事件,检测标志,标识符,电压状态,射频状态,高温状态,遮挡状态</sys:String>
+    <!-- 目标报文参数中文串，逗号分隔 -->
+    <sys:String x:Key="ObjectMsgParamStr">SensorID,帧ID,目标总数,地表车速,标识符,传感器5,传感器6,电压状态,射频状态,高温状态,遮挡状态,目标ID,目标距离(极半径),目标角度(极角),纵向距离,横向距离,横向相对速度,纵向相对速度,置信度,存活时间,RCS,信号幅度,信噪比,横向加速度,纵向加速度,目标运动属性,目标分类</sys:String>
+    <x:Array x:Key="LogInfo" Type="{x:Type system:String}">
+        <system:String>新增鸟瞰图航迹目标检测功能</system:String>
+        <system:String>新增SensorID配置和App固件升级功能</system:String>
+        <system:String>新增Sensor模型距离检测功能</system:String>
+        <system:String>新增Sensor模型详细信息检测功能</system:String>
+        <system:String>新增CAN报文检测功能</system:String>
+        <system:String>新增Can卡设备配置管理功能</system:String>
+        <system:String>新增Sensor 路径配置功能</system:String>
+        <system:String>新增CAN信息转3XX或2XX 航迹信息功能</system:String>
+        <system:String>新增bin转hex工具转换功能</system:String>
+        <system:String>新增bin转hex工具转换功能【2026/07/13】</system:String>
+    </x:Array>
+
+    <x:Array x:Key="MoveInfo" Type="{x:Type system:String}">
+        <system:String>未知</system:String>
+        <system:String>径向远离</system:String>
+        <system:String>径向靠近</system:String>
+        <system:String>向左横穿</system:String>
+        <system:String>向右横穿</system:String>
+        <system:String>静态</system:String>
+        <system:String>停止</system:String>
+    </x:Array>
+    <x:Array x:Key="Alivedecs" Type="{x:Type system:String}">
+        <system:String>维持存活</system:String>
+        <system:String>有跟踪目标</system:String>
+        <system:String>传感器未配置</system:String>
+        <system:String>预留</system:String>
+    </x:Array>
+
+    <x:Array x:Key="ClsassCate" Type="{x:Type system:String}">
+        <system:String>Unknown</system:String>
+        <system:String>VRU</system:String>
+        <system:String>CAR</system:String>
+    </x:Array>
+
+    <x:Array x:Key="RepeatInfo" Type="{x:Type system:String}">
+        <system:String>重新检测</system:String>
+        <system:String>新检测</system:String>
+    </x:Array>
+    <x:Array x:Key="VaildInfo" Type="{x:Type system:String}">
+        <system:String>有效</system:String>
+        <system:String>无效</system:String>
+    </x:Array>
+    <!-- 全部中文表头数组 -->
+    <x:Array x:Key="Header3xx" Type="{x:Type sys:String}">
+        <sys:String>半径</sys:String>
+        <sys:String>角度</sys:String>
+        <sys:String>坐标 X</sys:String>
+        <sys:String>坐标 Y</sys:String>
+        <sys:String>相对速度</sys:String>
+        <sys:String>信号功率 (dB)</sys:String>
+        <sys:String>对象 ID</sys:String>
+        <sys:String>对象外观状态</sys:String>
+        <sys:String>触发事件</sys:String>
+        <sys:String>检测标志</sys:String>
+        <sys:String>标识符</sys:String>
+    </x:Array>
+    <x:Array x:Key="Header2xx" Type="{x:Type sys:String}">
+        <sys:String>相对速度_X</sys:String>
+        <sys:String>相对速度_Y</sys:String>
+        <sys:String>置信度</sys:String>
+        <sys:String>存活时间</sys:String>
+        <sys:String> RCS</sys:String>
+        <sys:String>信号幅度</sys:String>
+        <sys:String>信噪比</sys:String>
+        <sys:String>纵向加速度</sys:String>
+        <sys:String>横向加速度</sys:String>
+        <sys:String>运动属性</sys:String>
+        <sys:String>分类</sys:String>
+        <sys:String>高反射目标</sys:String>
+    </x:Array>
+</ResourceDictionary>

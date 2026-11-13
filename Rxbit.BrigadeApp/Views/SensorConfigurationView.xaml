@@ -1,0 +1,257 @@
+﻿<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.SensorConfigurationView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 mc:Ignorable="d"
+                 Title="Sensor Configuration"
+                 Height="520"
+                 Width="700"
+                 DataContext="{Binding Path=SensorConfigVM,Source={StaticResource Locator}}"
+                 Style="{StaticResource {x:Type Base:WindowBase}}">
+
+    <Grid Background="#1a1a2e"
+          Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <!-- Title / Version row -->
+        <Grid Grid.Row="0"
+              Margin="20 0"
+              Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <Rectangle Width="24"
+                           Height="24"
+                           Fill="#00d9ff"
+                           RadiusX="6"
+                           RadiusY="6"
+                           Margin="0 0 12 0">
+                    <Rectangle.Effect>
+                        <DropShadowEffect Color="#00d9ff"
+                                          BlurRadius="10"
+                                          Opacity="0.6" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <TextBlock Text="Sensor Configuration"
+                           FontSize="24"
+                           FontStyle="Normal"
+                           FontWeight="Bold"
+                           Foreground="#ffffff"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+
+            <TextBlock Grid.Column="2"
+                       Text=""
+                       FontSize="12"
+                       Foreground="#ffffff"
+                       VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- Separator -->
+        <Border Grid.Row="1"
+                Height="1"
+                Background="#2a2a3e"
+                Margin="0 5" />
+
+        <!-- Channel config -->
+        <Border Grid.Row="2"
+                Margin="20 10"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <StackPanel>
+                <!-- Header -->
+                <Border Background="#0f3460"
+                        CornerRadius="8 8 0 0"
+                        Padding="16 12">
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Rectangle Width="3"
+                                   Height="16"
+                                   Fill="#00d9ff"
+                                   Margin="0 0 12 0" />
+                        <TextBlock Text="Sensor Configuration"
+                                   Foreground="#00d9ff"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Content -->
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"
+                                          MinWidth="120" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Row 0: Manufacturer -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Sensor Change ID:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                        <ComboBox ItemsSource="{Binding Sensors}"
+                                  Width="180"
+                                  DisplayMemberPath="Desc"
+                                  HorizontalAlignment="Left"
+                                  SelectedItem="{Binding SelectSensor,Mode=TwoWay}"
+                                  VerticalAlignment="Center"
+                                  Margin="0 8"
+                                  Height="35"
+                                  Padding="10 5"
+                                  Style="{StaticResource SensorComboBoxStyle}" />
+                        <Button Content="Switch SensorID"
+                                Padding="10 2"
+                                Height="34"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Margin="20 5"
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Command="{Binding ChangeSensorCammand}" />
+                    </StackPanel>
+
+                    <!-- Row 1: Device Type -->
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Current Sensor ID:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding CurrSensor.Desc}"
+                               Foreground="#00d9ff"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <!-- Row 2: Device Index -->
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Current Can Type:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding CurrSensor.TypeDesc}"
+                               Foreground="#00d9ff"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="FirmWare Version:"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                    <StackPanel  Grid.Row="1"
+                                 Grid.Column="1"
+                                 Orientation="Horizontal">
+                        <TextBlock Text="{Binding FirmWareVersion}"
+                                   Foreground="#00d9ff"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0 8" />
+                        <Button Content="Check FirmWare"
+                                Padding="5 2"
+                                Height="34"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="20 5"
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Command="{Binding ChangeConfigCommand}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Visibility="Collapsed"
+                               Text="{Binding TipMsg}"
+                               Foreground="White"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0 8" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <TextBlock Grid.Row="3"
+                   Text="{Binding TipMsg}"
+                   FontSize="18"
+                   Margin="20 0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground"
+                            Value="Green" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSuccess}" Value="False">
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <!-- Bottom buttons -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20 5">
+            <Button Content="Save" Visibility="Collapsed"
+                    Width="100"
+                    Height="34"
+                    Margin="12 0 0 0"
+                    Style="{StaticResource RadarButtonStyle}"
+                    Command="{Binding SaveCommand}" />
+
+            <Button Content="Close"
+                    Width="100"
+                    Height="34"
+                    Margin="12 0 0 0"
+                    Style="{StaticResource RadarButtonStyle}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Command="{Binding CloseWinCommand}" />
+        </StackPanel>
+    </Grid>
+</Base:WindowBase>

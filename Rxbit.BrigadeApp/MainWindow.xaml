@@ -1,0 +1,141 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp"
+                 xmlns:views="clr-namespace:Rxbit.BrigadeApp.Views"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:vm="clr-namespace:Rxbit.BrigadeApp.ViewModels"
+                 xmlns:cv="clr-namespace:Rxbit.BrigadeApp.Converters"
+                 mc:Ignorable="d"
+                 WindowState="Maximized"
+                 DataContext="{Binding Path=MainVM,Source={StaticResource Locator}}"
+                 Title="Backsense BS-9200X Test Tool" Height="768" Width="1080"
+                 WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ExitCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Base:WindowBase.Resources>
+        <cv:NegateDoubleConverter x:Key="NegateDoubleConverter" />
+    </Base:WindowBase.Resources>
+    <Grid Background="#19192d">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <!-- 顶部工具栏 -->
+        <Grid Grid.Row="0"
+              Background="#19192d"
+              VerticalAlignment="Center">
+            <!-- 主菜单 -->
+            <Menu Grid.Column="0"
+                  Margin="0 2 0 2"
+                  Style="{DynamicResource MainMenuStyle}"
+                  ItemsSource="{Binding MainMenuItems}">
+                <Menu.ItemContainerStyle>
+                    <Style TargetType="MenuItem"
+                           BasedOn="{StaticResource MenuItemStyle}">
+                        <Setter Property="Header"
+                                Value="{Binding Header}" />
+                        <Setter Property="IsEnabled"
+                                Value="{Binding IsEnabled}" />
+                        <Setter Property="ItemsSource"
+                                Value="{Binding Children}" />
+                        <Setter Property="ItemContainerStyle">
+                            <Setter.Value>
+                                <Style TargetType="MenuItem"
+                                       BasedOn="{StaticResource SubMenuItemStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSeparator}"
+                                                     Value="True">
+                                            <Setter Property="IsEnabled"
+                                                    Value="False" />
+                                            <Setter Property="Height"
+                                                    Value="Auto" />
+                                            <Setter Property="MinWidth"
+                                                    Value="0" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="MenuItem">
+                                                        <Separator Style="{DynamicResource SubMenuSeparatorStyle}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Header"
+                                            Value="{Binding Header}" />
+                                    <Setter Property="IsEnabled"
+                                            Value="{Binding IsEnabled}" />
+                                    <Setter Property="InputGestureText"
+                                            Value="{Binding Shortcut}" />
+                                    <Setter Property="Command"
+                                            Value="{Binding DataContext.MenuItemClickCommand, RelativeSource={RelativeSource AncestorType=Menu}}" />
+                                    <Setter Property="CommandParameter"
+                                            Value="{Binding}" />
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Menu.ItemContainerStyle>
+            </Menu>
+        </Grid>
+        <!-- 主内容区域 - 嵌入鸟瞰图 -->
+        <views:RadarDisplayView Grid.Row="1" />
+
+        <!-- 底部状态栏 -->
+        <Grid Grid.Row="2" Background="#16213e" Height="34">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 状态指示 -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="8 0" 
+                        Visibility="{Binding RadarDisplayVM.IsOnLine,Source={StaticResource Locator},Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                <TextBlock VerticalAlignment="Center" Foreground="#00d9ff">
+                    <Run Text="{StaticResource Common_OnliceModeTip}"/>
+                    <Run Text="|🔗|"/>
+                    <Run Text="{StaticResource Common_SensorStatus}"/>
+                    <Run Text="|"/>
+                    <Run Text="{Binding ReplayVM.CurrentTimestamp}"/>
+                </TextBlock>
+                <ToggleButton Content="："
+                              IsChecked="{Binding Path=CanDeviceVM.IsCanConnected ,Source={StaticResource Locator}}"
+                              Height="14" Width="14"
+                              Style="{DynamicResource StateIndicatorToggle}" />
+                <Label Content="{Binding SensorTypeInfo}" Style="{DynamicResource StatusLabelStyle}" Foreground="#00d9ff"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="8 0"
+                        DataContext="{Binding RadarDisplayVM,Source={StaticResource Locator}}"
+                        Visibility="{Binding IsOnLine,Converter={StaticResource InverseToVisibilityConverter}}">
+                <TextBlock VerticalAlignment="Center" Foreground="#00d9ff">
+                    <Run Text="{StaticResource Common_OffliceModeTip}"/>
+                    <Run Text="|🎬"/>
+                    <Run Text="{StaticResource Common_RecondgingFile}"/>
+                    <Run Text="|"/>
+                    <Run Text="{Binding ReplayVM.FileName}"/>
+                    <Run Text="|"/>
+                    <Run Text="{StaticResource Common_RecondgingTime}"/>
+                    <Run Text="|"/>
+                    <Run Text="{Binding ReplayVM.CurrentTimestamp}"/>
+                </TextBlock>
+            </StackPanel>
+
+            <!-- 时间显示 -->
+            <TextBlock Grid.Column="2" Foreground="#00d9ff" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   Text="{Binding CurrentTime, StringFormat='{}{0:HH:mm:ss}'}" Margin="8 0 20 0" />
+        </Grid>
+    </Grid>
+</Base:WindowBase>

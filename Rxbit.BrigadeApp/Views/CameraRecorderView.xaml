@@ -1,0 +1,245 @@
+<Base:WindowBase x:Class="Rxbit.BrigadeApp.Views.CameraRecorderView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:Base="clr-namespace:Rxbit.BrigadeApp.Controls"
+                 xmlns:local="clr-namespace:Rxbit.BrigadeApp.Views"
+                 mc:Ignorable="d"
+                 Title="USB Camera Recording"
+                 Height="640"
+                 Width="860"
+                 WindowStartupLocation="CenterOwner"
+                 Style="{StaticResource {x:Type Base:WindowBase}}">
+
+    <Grid Background="#1a1a2e">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <Grid Grid.Row="0"
+              Margin="20 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                <Rectangle Width="24"
+                           Height="24"
+                           Fill="#00d9ff"
+                           RadiusX="6"
+                           RadiusY="6"
+                           Margin="0 0 12 0">
+                    <Rectangle.Effect>
+                        <DropShadowEffect Color="#00d9ff"
+                                          BlurRadius="10"
+                                          Opacity="0.6" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <TextBlock Text="USB Camera Recording"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#ffffff"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+
+            <Border Grid.Column="2"
+                    Padding="10 4"
+                    CornerRadius="4"
+                    VerticalAlignment="Center"
+                    Background="#16213e"
+                    BorderBrush="#2a2a3e"
+                    BorderThickness="1">
+                <TextBlock Text="{Binding RecordingStateText}"
+                           FontSize="13"
+                           FontWeight="Bold">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground"
+                                    Value="#4ade80" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRecording}"
+                                             Value="True">
+                                    <Setter Property="Foreground"
+                                            Value="#f87171" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1"
+                Height="1"
+                Background="#2a2a3e"
+                Margin="0 5" />
+
+        <!-- 设备与参数 -->
+        <Border Grid.Row="2"
+                Margin="20 10 20 0"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <Grid Margin="20 14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="Camera:"
+                           Foreground="White"
+                           FontSize="12"
+                           VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          ItemsSource="{Binding Devices}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                          Height="32"
+                          Margin="0 0 10 0"
+                          IsEnabled="{Binding CanSwitchDevice}"
+                          Style="{StaticResource SensorComboBoxStyle}" />
+                <Button Grid.Column="2"
+                        Content="Refresh"
+                        Command="{Binding RefreshDevicesCommand}"
+                        Height="32"
+                        Margin="0 0 16 0"
+                        Style="{StaticResource RadarButtonStyle}" />
+                <TextBlock Grid.Column="3"
+                           Text="FPS:"
+                           Foreground="White"
+                           FontSize="12"
+                           VerticalAlignment="Center"
+                           Margin="0 0 8 0" />
+                <ComboBox Grid.Column="4"
+                          ItemsSource="{Binding FrameRateOptions}"
+                          SelectedItem="{Binding SelectedFrameRate, Mode=TwoWay}"
+                          Height="32"
+                          Width="80"
+                          IsEnabled="{Binding CanSwitchDevice}"
+                          Style="{StaticResource SensorComboBoxStyle}" />
+            </Grid>
+        </Border>
+
+        <!-- 预览画面 -->
+        <Border Grid.Row="3"
+                Margin="20 10"
+                Background="#000000"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                ClipToBounds="True">
+            <Grid>
+                <Image Source="{Binding PreviewImage}"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality" />
+                <TextBlock Text="无摄像头预览"
+                           Foreground="#9ca3af"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PreviewImage}"
+                                             Value="{x:Null}">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <!-- 录制状态 -->
+        <Border Grid.Row="4"
+                Margin="20 0"
+                BorderBrush="#2a2a3e"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="#16213e">
+            <Grid Margin="20 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="{Binding ElapsedText}"
+                           Foreground="#ffffff"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="0 0 6 0" />
+                <TextBlock Grid.Column="1"
+                           Foreground="#9ca3af"
+                           FontSize="11"
+                           VerticalAlignment="Center"
+                           Margin="0 0 20 0">
+                    <Run Text="{Binding FrameCountText, Mode=OneWay}" />
+                    <Run Text="frames" />
+                </TextBlock>
+                <TextBlock Grid.Column="2"
+                           Text="{Binding StatusMessage}"
+                           Foreground="#00d9ff"
+                           FontSize="12"
+                           TextTrimming="CharacterEllipsis"
+                           VerticalAlignment="Center"
+                           ToolTip="{Binding StatusMessage}" />
+            </Grid>
+        </Border>
+
+        <!-- 操作按钮 -->
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20 0">
+            <Button Content="Stop Preview"
+                    Width="120"
+                    Height="34"
+                    Margin="0 0 12 0"
+                    IsEnabled="{Binding IsPreviewing}"
+                    Command="{Binding StopPreviewCommand}"
+                    Style="{StaticResource RadarButtonStyle}" />
+            <Button Content="● Start Recording"
+                    Width="150"
+                    Height="34"
+                    Margin="0 0 12 0"
+                    IsEnabled="{Binding IsIdle}"
+                    Command="{Binding StartCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+            <Button Content="■ Stop Recording"
+                    Width="150"
+                    Height="34"
+                    Margin="0 0 12 0"
+                    IsEnabled="{Binding IsRecording}"
+                    Command="{Binding StopCommand}"
+                    Style="{StaticResource RadarButtonStyle}" />
+            <Button Content="Close"
+                    Width="90"
+                    Height="34"
+                    Click="CloseButton_Click"
+                    Style="{StaticResource RadarButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</Base:WindowBase>
