@@ -1,0 +1,134 @@
+<Window x:Class="Rxbit.Brigade.HalconVision.Views.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Notification"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        Width="360" Height="Auto"
+        x:Name="RootWindow">
+    <Window.Resources>
+        <Storyboard x:Key="BlinkStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetName="BorderGlow"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1.0" To="0.3" Duration="0:0:0.6" />
+            <ColorAnimation Storyboard.TargetName="BorderGlow"
+                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                            From="#0078D4" To="#40A0FF" Duration="0:0:0.6" />
+        </Storyboard>
+
+        <Storyboard x:Key="SlideInStoryboard">
+            <DoubleAnimation Storyboard.TargetName="RootWindow"
+                             Storyboard.TargetProperty="(Window.Left)"
+                             From="{Binding ScreenRight}"
+                             To="{Binding SlideTargetLeft}"
+                             Duration="0:0:0.45">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="RootWindow"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="SlideOutStoryboard">
+            <DoubleAnimation Storyboard.TargetName="RootWindow"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:0.25" />
+        </Storyboard>
+    </Window.Resources>
+
+    <Border x:Name="BorderGlow"
+            Background="#1E293B"
+            BorderBrush="#0078D4"
+            BorderThickness="1.5"
+            CornerRadius="8"
+            Margin="8">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="20" ShadowDepth="4" Opacity="0.5" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="16,14,12,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="IconText" Grid.Column="0" Text="ℹ"
+                           FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"
+                           Foreground="#0078D4" />
+                <TextBlock x:Name="TitleText" Grid.Column="1" Text="通知"
+                           Foreground="#F1F5F9" FontSize="14" FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <Button x:Name="CloseBtn" Grid.Column="2" Content="✕"
+                        ToolTip="关闭"
+                        Height="20" Width="24"
+                        Background="Transparent" BorderThickness="0"
+                        Foreground="#94A3B8" FontSize="10" Cursor="Hand"
+                        Click="CloseBtn_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="btnBorder" Background="{TemplateBinding Background}" CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="btnBorder" Property="Background" Value="#EF4444" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+            <!-- Body -->
+            <TextBlock x:Name="MessageText" Grid.Row="1" Margin="16,6,16,0"
+                       Foreground="#CBD5E1" FontSize="13" TextWrapping="Wrap"
+                       MaxHeight="80" />
+
+            <!-- Footer -->
+            <Grid Grid.Row="2" Margin="16,10,16,14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="TimeText" Grid.Column="0" Text=""
+                           Foreground="#64748B" FontSize="11" VerticalAlignment="Center" />
+                <Button x:Name="ActionBtn" Grid.Column="1" Content="查看详情"
+                        Height="26" Padding="12,0"
+                        Background="#0078D4" BorderThickness="0"
+                        Foreground="White" FontSize="12" Cursor="Hand"
+                        Click="ActionBtn_Click" Visibility="Collapsed">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="btnBorder" Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="btnBorder" Property="Background" Value="#106EBE" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
