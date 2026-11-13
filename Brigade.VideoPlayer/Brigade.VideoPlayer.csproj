@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>..\assets\common\LOGO.ico</ApplicationIcon>
+    <AssemblyName>Brigade.VideoPlayer</AssemblyName>
+    <RootNamespace>Brigade.VideoPlayer</RootNamespace>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Description>WPF + FFmpeg 视频播放器和视频制作工具</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="**/*.png;**/*.jpg;**/*.ico" />
+    <Resource Include="..\assets\common\LOGO.png">
+      <Link>Assets\logo.png</Link>
+    </Resource>
+    <Resource Include="..\assets\common\LOGO.ico">
+      <Link>Assets\app.ico</Link>
+    </Resource>
+    <Page Include="..\Wpf.CustomControl\Themes\DesignTokens.xaml">
+      <Link>Themes\DesignTokens.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Wpf.CustomControl\Themes\ControlStyles.xaml">
+      <Link>Themes\ControlStyles.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

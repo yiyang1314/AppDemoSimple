@@ -1,0 +1,243 @@
+<UserControl x:Class="Brigade.VideoPlayer.Views.VideoMakerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="{StaticResource DsBgBrush}"
+        Foreground="{StaticResource DsTextPrimaryBrush}">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="ImageItemTemplate">
+            <Border Background="{StaticResource DsSurfaceAltBrush}"
+                    CornerRadius="{StaticResource DsRadiusSmall}"
+                    Padding="4"
+                    Margin="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="72" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="36" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Thumbnail}"
+                           Width="64" Height="44"
+                           Stretch="UniformToFill"
+                           Margin="0,0,6,0" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding FileName}"
+                               Foreground="{StaticResource DsTextPrimaryBrush}"
+                               FontSize="{StaticResource DsFontSizeCaption}"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis" />
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBox Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged, StringFormat=F1}"
+                                 Width="32"
+                                 FontSize="{StaticResource DsFontSizeCaption}"
+                                 HorizontalContentAlignment="Center" />
+                        <TextBlock Text="s"
+                                   Foreground="{StaticResource DsTextSecondaryBrush}"
+                                   FontSize="{StaticResource DsFontSizeCaption}"
+                                   VerticalAlignment="Center"
+                                   Margin="2,0,0,0" />
+                    </StackPanel>
+                    <Button Grid.Column="3"
+                            Content="×"
+                            Width="28" Height="24"
+                            FontSize="{StaticResource DsFontSizeCaption}"
+                            Background="{StaticResource DsErrorBrush}"
+                            Foreground="{StaticResource DsBgBrush}"
+                            BorderThickness="0"
+                            Command="{Binding DataContext.RemoveImageCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding .}" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="480" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource DsSurfaceBorderStyle}"
+                    Padding="12"
+                    Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Style="{StaticResource DsSectionTitleStyle}" Text="图片列表" />
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="ImageItemsControl"
+                                          ItemsSource="{Binding ImageItems}"
+                                          ItemTemplate="{StaticResource ImageItemTemplate}" />
+                        </ScrollViewer>
+                        <TextBlock Grid.Row="1"
+                                   Text="尚未导入图片，可批量导入图片或文件夹">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource DsHintTextStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=ImageItemsControl, Path=Items.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button Content="导入图片"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Padding="14,6"
+                                Command="{Binding ImportImagesCommand}" />
+                        <Button Content="导入文件夹"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Padding="14,6"
+                                Margin="8,0,0,0"
+                                Command="{Binding ImportFolderCommand}" />
+                        <Button Content="清空"
+                                Style="{StaticResource DangerButtonStyle}"
+                                Padding="14,6"
+                                Margin="8,0,0,0"
+                                Command="{Binding ClearImagesCommand}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="每张时长" Style="{StaticResource DsCaptionStyle}" />
+                        <TextBox Text="{Binding DefaultImageDuration, UpdateSourceTrigger=PropertyChanged, StringFormat=F1}"
+                                 Width="60" Margin="8,0,0,0"
+                                 HorizontalContentAlignment="Center" />
+                        <TextBlock Text="秒" Style="{StaticResource DsCaptionStyle}" Margin="4,0,0,0" />
+                        <TextBlock Text="总时长" Style="{StaticResource DsCaptionStyle}" Margin="16,0,0,0" />
+                        <TextBlock Text="{Binding TotalDurationStr}"
+                                   Foreground="{StaticResource DsAccentBrush}"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   Margin="6,0,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource DsSectionPanelStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource DsSectionTitleStyle}" Text="MP3 配乐" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Text="{Binding Mp3FileName}" IsReadOnly="True"
+                                     ToolTip="选择的配乐文件" />
+                            <Button Grid.Column="1" Content="浏览"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Padding="14,6" Margin="8,0,0,0"
+                                    Command="{Binding BrowseMp3Command}" />
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                            <TextBlock Text="配乐时长" Style="{StaticResource DsCaptionStyle}" />
+                            <TextBlock Text="{Binding Mp3DurationStr}"
+                                       Foreground="{StaticResource DsAccentBrush}"
+                                       VerticalAlignment="Center" Margin="6,0,0,0" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding AudioTrimInfo}" Style="{StaticResource DsCaptionStyle}"
+                                   TextWrapping="Wrap" Margin="0,2,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Style="{StaticResource DsSectionPanelStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource DsSectionTitleStyle}" Text="输出设置" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Text="{Binding OutputPath}" IsReadOnly="True"
+                                     ToolTip="视频输出目录" />
+                            <Button Grid.Column="1" Content="浏览"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Padding="14,6" Margin="8,0,0,0"
+                                    Command="{Binding BrowseOutputCommand}" />
+                        </Grid>
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="文件名" Style="{StaticResource DsCaptionStyle}" />
+                            <TextBox Grid.Column="1" Text="{Binding OutputFileName}" Margin="8,0,12,0" />
+                            <TextBlock Grid.Column="2" Text="分辨率" Style="{StaticResource DsCaptionStyle}" />
+                            <TextBox Grid.Column="3" Text="{Binding VideoWidth}" Width="60" Margin="8,0,4,0"
+                                     HorizontalContentAlignment="Center" />
+                            <TextBlock Grid.Column="4" Text="×" Style="{StaticResource DsCaptionStyle}" Margin="2,0" />
+                            <StackPanel Grid.Column="5" Orientation="Horizontal">
+                                <TextBox Text="{Binding VideoHeight}" Width="60" HorizontalContentAlignment="Center" />
+                                <TextBlock Text="帧率" Style="{StaticResource DsCaptionStyle}" Margin="12,0,0,0" />
+                                <TextBox Text="{Binding FrameRate}" Width="46" Margin="6,0,0,0"
+                                         HorizontalContentAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Row="2" Margin="0,4,0,12">
+                    <Button Content="生成 MP4 视频"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Command="{Binding GenerateVideoCommand}"
+                            Padding="18,8"
+                            HorizontalAlignment="Stretch" />
+                    <ProgressBar Value="{Binding GenerateProgress}" Margin="0,8,0,0" />
+                    <TextBlock Text="{Binding GenerateStatus}"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource DsCaptionStyle}"
+                               Margin="0,6,0,0" />
+                </StackPanel>
+
+                <Border Grid.Row="3"
+                        Background="#000000"
+                        BorderBrush="{StaticResource DsBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="{StaticResource DsRadiusCard}">
+                    <TextBlock Text="视频预览区域"
+                               Foreground="#5A6474"
+                               FontSize="{StaticResource DsFontSizeBodyLarge}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource DsStatusBarBorderStyle}" Margin="0,10,0,0">
+            <TextBlock Text="提示：视频时长由图片总时长决定，MP3 配乐将自动截取或循环以匹配视频时长"
+                       Style="{StaticResource DsCaptionStyle}" />
+        </Border>
+    </Grid>
+</UserControl>

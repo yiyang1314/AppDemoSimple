@@ -1,0 +1,105 @@
+<Window x:Class="Brigade.VideoPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:Brigade.VideoPlayer.Views"
+        Title="Brigade Video Player"
+        Height="750" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/app.ico"
+        Style="{StaticResource DsWindowStyle}">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+
+        <!-- 顶部导航页签（沿用 RadioButton 的互斥行为） -->
+        <Style x:Key="NavTabStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource DsTextSecondaryBrush}" />
+            <Setter Property="FontSize" Value="{StaticResource DsFontSizeBody}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Bd"
+                                Background="Transparent"
+                                CornerRadius="{StaticResource DsRadiusControl}"
+                                Padding="16,8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource DsSurfaceHoverBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DsTextPrimaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource DsSelectionBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DsAccentBrush}" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部导航栏 -->
+        <Border Grid.Row="0"
+                Background="{StaticResource DsTitleBarBrush}"
+                BorderBrush="{StaticResource DsBorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="16,0">
+            <Grid Height="56">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/Assets/logo.png" Width="26" Height="26" Margin="0,0,10,0" />
+                    <TextBlock Text="Brigade Video Player"
+                               Foreground="{StaticResource DsTextPrimaryBrush}"
+                               FontSize="{StaticResource DsFontSizeH1}"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Margin="0,0,24,0" />
+                    <RadioButton x:Name="RbPlayer"
+                                 Content="视频播放器"
+                                 GroupName="MainTab"
+                                 IsChecked="True"
+                                 Checked="RbPlayer_Checked"
+                                 Style="{StaticResource NavTabStyle}" />
+                    <RadioButton x:Name="RbMaker"
+                                 Content="视频制作"
+                                 GroupName="MainTab"
+                                 Checked="RbMaker_Checked"
+                                 Style="{StaticResource NavTabStyle}" />
+                </StackPanel>
+
+                <Border Style="{StaticResource DsBadgeBorderStyle}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="WPF · FFmpeg" Style="{StaticResource DsBadgeTextStyle}" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- 主内容区 -->
+        <Grid Grid.Row="1">
+            <views:VideoPlayerView x:Name="PlayerView" />
+            <views:VideoMakerView x:Name="MakerView" Visibility="Collapsed" />
+        </Grid>
+
+        <!-- 底部状态栏 -->
+        <Border Grid.Row="2" Style="{StaticResource DsStatusBarBorderStyle}">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="6" Height="6" Fill="{StaticResource DsSuccessBrush}"
+                         VerticalAlignment="Center" Margin="0,0,8,0" />
+                <TextBlock Text="Brigade Video Player v1.0 · 基于 WPF + FFmpeg + MVVM"
+                           Style="{StaticResource DsCaptionStyle}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
