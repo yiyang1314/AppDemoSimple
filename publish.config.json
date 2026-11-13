@@ -1,0 +1,8 @@
+{
+  "_comment": "外部依赖候选路径，可追加目录或完整文件路径；支持 %ENV% 环境变量。路径不存在会被忽略。",
+  "kvaserSearchPaths": [],
+  "ffmpegSearchPaths": [
+    "D:\\my-software\\ffmpeg"
+  ],
+  "hhcSearchPaths": []
+}
