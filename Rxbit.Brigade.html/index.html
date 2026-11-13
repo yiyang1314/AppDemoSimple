@@ -1,0 +1,1833 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>使用说明文档</title><link href='file://night/mermaid.dark.css' rel='stylesheet' type='text/css' /><link href='file://night/codeblock.dark.css' rel='stylesheet' type='text/css' /><link href='file://night/sourcemode.dark.css' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+/* Flowchart variables */
+/* Sequence Diagram variables */
+/* Gantt chart variables */
+/* state colors */
+.label {
+  
+  color: #333; }
+
+.label text {
+  fill: #333; }
+
+.node rect,
+.node circle,
+.node ellipse,
+.node polygon {
+  fill: #BDD5EA;
+  stroke: #9370DB;
+  stroke-width: 1px; }
+
+.node .label {
+  text-align: center; }
+
+.node.clickable {
+  cursor: pointer; }
+
+.arrowheadPath {
+  fill: lightgrey; }
+
+.edgePath .path {
+  stroke: lightgrey;
+  stroke-width: 1.5px; }
+
+.edgeLabel {
+  background-color: #e8e8e8;
+  text-align: center; }
+
+.cluster rect {
+  fill: #6D6D65;
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-width: 1px; }
+
+.cluster text {
+  fill: #F9FFFE; }
+
+div.mermaidTooltip {
+  position: absolute;
+  text-align: center;
+  max-width: 200px;
+  padding: 2px;
+  
+  font-size: 12px;
+  background: #6D6D65;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 100; }
+
+.actor {
+  stroke: #81B1DB;
+  fill: #BDD5EA; }
+
+text.actor {
+  fill: black;
+  stroke: none; }
+
+.actor-line {
+  stroke: lightgrey; }
+
+.messageLine0 {
+  stroke-width: 1.5;
+  stroke-dasharray: '2 2';
+  stroke: lightgrey; }
+
+.messageLine1 {
+  stroke-width: 1.5;
+  stroke-dasharray: '2 2';
+  stroke: lightgrey; }
+
+#arrowhead {
+  fill: lightgrey; }
+
+.sequenceNumber {
+  fill: white; }
+
+#sequencenumber {
+  fill: lightgrey; }
+
+#crosshead path {
+  fill: lightgrey !important;
+  stroke: lightgrey !important; }
+
+.messageText {
+  fill: lightgrey;
+  stroke: none; }
+
+.labelBox {
+  stroke: #81B1DB;
+  fill: #BDD5EA; }
+
+.labelText {
+  fill: #323D47;
+  stroke: none; }
+
+.loopText {
+  fill: lightgrey;
+  stroke: none; }
+
+.loopLine {
+  stroke-width: 2;
+  stroke-dasharray: '2 2';
+  stroke: #81B1DB; }
+
+.note {
+  stroke: rgba(255, 255, 255, 0.25);
+  fill: #fff5ad; }
+
+.noteText {
+  fill: black;
+  stroke: none;
+  
+  font-size: 14px; }
+
+.activation0 {
+  fill: #f4f4f4;
+  stroke: #666; }
+
+.activation1 {
+  fill: #f4f4f4;
+  stroke: #666; }
+
+.activation2 {
+  fill: #f4f4f4;
+  stroke: #666; }
+
+/** Section styling */
+.section {
+  stroke: none;
+  opacity: 0.2; }
+
+.section0 {
+  fill: rgba(255, 255, 255, 0.3); }
+
+.section2 {
+  fill: #EAE8B9; }
+
+.section1,
+.section3 {
+  fill: white;
+  opacity: 0.2; }
+
+.sectionTitle0 {
+  fill: #F9FFFE; }
+
+.sectionTitle1 {
+  fill: #F9FFFE; }
+
+.sectionTitle2 {
+  fill: #F9FFFE; }
+
+.sectionTitle3 {
+  fill: #F9FFFE; }
+
+.sectionTitle {
+  text-anchor: start;
+  font-size: 11px;
+  text-height: 14px;
+   }
+
+/* Grid and axis */
+.grid .tick {
+  stroke: lightgrey;
+  opacity: 0.3;
+  shape-rendering: crispEdges; }
+
+.grid path {
+  stroke-width: 0; }
+
+/* Today line */
+.today {
+  fill: none;
+  stroke: #DB5757;
+  stroke-width: 2px; }
+
+/* Task styling */
+/* Default task */
+.task {
+  stroke-width: 2; }
+
+.taskText {
+  text-anchor: middle;
+   }
+
+.taskText:not([font-size]) {
+  font-size: 11px; }
+
+.taskTextOutsideRight {
+  fill: #323D47;
+  text-anchor: start;
+  font-size: 11px;
+   }
+
+.taskTextOutsideLeft {
+  fill: #323D47;
+  text-anchor: end;
+  font-size: 11px; }
+
+/* Special case clickable */
+.task.clickable {
+  cursor: pointer; }
+
+.taskText.clickable {
+  cursor: pointer;
+  fill: #003163 !important;
+  font-weight: bold; }
+
+.taskTextOutsideLeft.clickable {
+  cursor: pointer;
+  fill: #003163 !important;
+  font-weight: bold; }
+
+.taskTextOutsideRight.clickable {
+  cursor: pointer;
+  fill: #003163 !important;
+  font-weight: bold; }
+
+/* Specific task settings for the sections*/
+.taskText0,
+.taskText1,
+.taskText2,
+.taskText3 {
+  fill: #323D47; }
+
+.task0,
+.task1,
+.task2,
+.task3 {
+  fill: #BDD5EA;
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.taskTextOutside0,
+.taskTextOutside2 {
+  fill: lightgrey; }
+
+.taskTextOutside1,
+.taskTextOutside3 {
+  fill: lightgrey; }
+
+/* Active task */
+.active0,
+.active1,
+.active2,
+.active3 {
+  fill: #81B1DB;
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.activeText0,
+.activeText1,
+.activeText2,
+.activeText3 {
+  fill: #323D47 !important; }
+
+/* Completed task */
+.done0,
+.done1,
+.done2,
+.done3 {
+  stroke: grey;
+  fill: lightgrey;
+  stroke-width: 2; }
+
+.doneText0,
+.doneText1,
+.doneText2,
+.doneText3 {
+  fill: #323D47 !important; }
+
+/* Tasks on the critical line */
+.crit0,
+.crit1,
+.crit2,
+.crit3 {
+  stroke: #E83737;
+  fill: #E83737;
+  stroke-width: 2; }
+
+.activeCrit0,
+.activeCrit1,
+.activeCrit2,
+.activeCrit3 {
+  stroke: #E83737;
+  fill: #81B1DB;
+  stroke-width: 2; }
+
+.doneCrit0,
+.doneCrit1,
+.doneCrit2,
+.doneCrit3 {
+  stroke: #E83737;
+  fill: lightgrey;
+  stroke-width: 2;
+  cursor: pointer;
+  shape-rendering: crispEdges; }
+
+.milestone {
+  transform: rotate(45deg) scale(0.8, 0.8); }
+
+.milestoneText {
+  font-style: italic; }
+
+.doneCritText0,
+.doneCritText1,
+.doneCritText2,
+.doneCritText3 {
+  fill: #323D47 !important; }
+
+.activeCritText0,
+.activeCritText1,
+.activeCritText2,
+.activeCritText3 {
+  fill: #323D47 !important; }
+
+.titleText {
+  text-anchor: middle;
+  font-size: 18px;
+  fill: #323D47;
+   }
+
+g.classGroup text {
+  fill: #9370DB;
+  stroke: none;
+  
+  font-size: 10px; }
+  g.classGroup text .title {
+    font-weight: bolder; }
+
+g.classGroup rect {
+  fill: #BDD5EA;
+  stroke: #9370DB; }
+
+g.classGroup line {
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+.classLabel .box {
+  stroke: none;
+  stroke-width: 0;
+  fill: #BDD5EA;
+  opacity: 0.5; }
+
+.classLabel .label {
+  fill: #9370DB;
+  font-size: 10px; }
+
+.relation {
+  stroke: #9370DB;
+  stroke-width: 1;
+  fill: none; }
+
+#compositionStart {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#compositionEnd {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#aggregationStart {
+  fill: #BDD5EA;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#aggregationEnd {
+  fill: #BDD5EA;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#dependencyStart {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#dependencyEnd {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#extensionStart {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#extensionEnd {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+.commit-id,
+.commit-msg,
+.branch-label {
+  fill: lightgrey;
+  color: lightgrey;
+   }
+
+.pieTitleText {
+  text-anchor: middle;
+  font-size: 25px;
+  fill: #323D47;
+   }
+
+.slice {
+   }
+
+g.stateGroup text {
+  fill: #eee;
+  stroke: none;
+  font-size: 10px;
+   }
+
+g.stateGroup circle {
+  fill: white !important;
+  stroke: white !important;
+}
+
+g.stateGroup .state-title {
+  font-weight: bolder;
+  fill: black; }
+
+g.stateGroup rect {
+  fill: #ececff;
+  stroke: #9370DB; }
+
+g.stateGroup line {
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+.transition {
+  stroke: #9370DB;
+  stroke-width: 1;
+  fill: none; }
+
+.stateGroup .composit {
+  fill: #555;
+  border-bottom: 1px; }
+
+.state-note {
+  stroke: rgba(255, 255, 255, 0.25);
+  fill: #fff5ad; }
+  .state-note text {
+    fill: black;
+    stroke: none;
+    font-size: 10px; }
+
+.stateLabel .box {
+  stroke: none;
+  stroke-width: 0;
+  fill: #BDD5EA;
+  opacity: 0.5; }
+
+.stateLabel text {
+  fill: black;
+  font-size: 10px;
+  font-weight: bold;
+   }
+
+;
+/* CSS Document */
+
+/** code highlight */
+
+.cm-s-inner .cm-variable,
+.cm-s-inner .cm-operator,
+.cm-s-inner .cm-property {
+    color: #b8bfc6;
+}
+
+.cm-s-inner .cm-keyword {
+    color: #C88FD0;
+}
+
+.cm-s-inner .cm-tag {
+    color: #7DF46A;
+}
+
+.cm-s-inner .cm-attribute {
+    color: #7575E4;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid #b8bfc6;
+    z-index: 3;
+}
+
+.cm-s-inner .cm-string {
+    color: #D26B6B;
+}
+
+.cm-s-inner .cm-comment,
+.cm-s-inner.cm-comment {
+    color: #DA924A;
+}
+
+.cm-s-inner .cm-header,
+.cm-s-inner .cm-def,
+.cm-s-inner.cm-header,
+.cm-s-inner.cm-def {
+    color: #8d8df0;
+}
+
+.cm-s-inner .cm-quote,
+.cm-s-inner.cm-quote {
+    color: #57ac57;
+}
+
+.cm-s-inner .cm-hr {
+    color: #d8d5d5;
+}
+
+.cm-s-inner .cm-link {
+    color: #d3d3ef;
+}
+
+.cm-s-inner .cm-negative {
+    color: #d95050;
+}
+
+.cm-s-inner .cm-positive {
+    color: #50e650;
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #f50;
+}
+
+.cm-s-inner .cm-meta,
+.cm-s-inner .cm-qualifier {
+    color: #b7b3b3;
+}
+
+.cm-s-inner .cm-builtin {
+    color: #f3b3f8;
+}
+
+.cm-s-inner .cm-bracket {
+    color: #997;
+}
+
+.cm-s-inner .cm-atom,
+.cm-s-inner.cm-atom {
+    color: #84B6CB;
+}
+
+.cm-s-inner .cm-number {
+    color: #64AB8F;
+}
+
+.cm-s-inner .cm-variable {
+    color: #b8bfc6;
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #9FBAD5;
+}
+
+.cm-s-inner .cm-variable-3 {
+    color: #1cc685;
+}
+
+.CodeMirror-selectedtext,
+.CodeMirror-selected {
+    background: #4a89dc;
+    color: #fff !important;
+    text-shadow: none;
+}
+
+.CodeMirror-gutters {
+    border-right: none;
+}
+;
+/* CSS Document */
+
+/** markdown source **/
+.cm-s-typora-default .cm-header, 
+.cm-s-typora-default .cm-property
+{
+    color: #cebcca;
+}
+
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor{
+    border-left: 3px solid #b8bfc6;
+}
+
+.cm-s-typora-default .cm-comment {
+    color: #9FB1FF;
+}
+
+.cm-s-typora-default .cm-string {
+    color: #A7A7D9
+}
+
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number {
+    color: #848695;
+    font-style: italic;
+}
+
+.cm-s-typora-default .cm-link {
+    color: #95B94B;
+}
+
+.cm-s-typora-default .CodeMirror-activeline-background {
+    background: rgba(51, 51, 51, 0.72);
+}
+
+.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code {
+	color: #8aa1e1;
+}@import "";
+@import "";
+@import "";
+
+:root {
+    --bg-color:  #363B40;
+    --side-bar-bg-color: #2E3033;
+    --text-color: #b8bfc6;
+
+    --select-text-bg-color:#4a89dc;
+
+    --item-hover-bg-color: #0a0d16;
+    --control-text-color: #b7b7b7;
+    --control-text-hover-color: #eee;
+    --window-border: 1px solid #555;
+
+    --active-file-bg-color: rgb(34, 34, 34);
+    --active-file-border-color: #8d8df0;
+
+    --primary-color: #a3d5fe;
+
+    --active-file-text-color: white;
+    --item-hover-bg-color: #70717d;
+    --item-hover-text-color: white;
+    --primary-color: #6dc1e7;
+
+    --rawblock-edit-panel-bd: #333;
+
+    --search-select-bg-color: #428bca;
+}
+
+html {
+    font-size: 16px;
+}
+
+html,
+body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    background: #363B40;
+    background: var(--bg-color);
+    fill: currentColor;
+    line-height: 1.625rem;
+}
+
+#write {
+    max-width: 914px;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+div.code-tooltip-content {
+    color: #b8bfc6;
+    border-color: transparent;
+}
+
+div.code-tooltip,
+.md-hover-tip .md-arrow:after {
+    background: #333;
+}
+
+.popover.bottom > .arrow:after {
+    border-bottom-color: #333;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+hr {
+    height: 2px;
+    border: 0;
+    margin: 24px 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Lucida Grande", "Corbel", sans-serif;
+    font-weight: normal;
+    clear: both;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    color: #DEDEDE
+}
+
+h1 {
+    font-size: 2.5rem;
+    /* 36px */
+    line-height: 2.75rem;
+    /* 40px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    letter-spacing: -1.5px;
+}
+
+h2 {
+    font-size: 1.63rem;
+    /* 24px */
+    line-height: 1.875rem;
+    /* 30px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.17rem;
+    /* 18px */
+    line-height: 1.5rem;
+    /* 24px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 1.12rem;
+    /* 16px */
+    line-height: 1.375rem;
+    /* 22px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    color: white;
+}
+
+h5 {
+    font-size: 0.97rem;
+    /* 16px */
+    line-height: 1.25rem;
+    /* 22px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    font-weight: bold;
+}
+
+h6 {
+    font-size: 0.93rem;
+    /* 16px */
+    line-height: 1rem;
+    /* 16px */
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+@media (min-width: 980px) {
+    h3.md-focus:before,
+    h4.md-focus:before,
+    h5.md-focus:before,
+    h6.md-focus:before {
+        color: #ddd;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        position: absolute;
+        left: -1.642857143rem;
+        top: .357142857rem;
+        float: left;
+        font-size: 9px;
+        padding-left: 2px;
+        padding-right: 2px;
+        vertical-align: bottom;
+        font-weight: normal;
+        line-height: normal;
+    }
+
+    h3.md-focus:before {
+        content: 'h3';
+    }
+
+    h4.md-focus:before {
+        content: 'h4';
+    }
+
+    h5.md-focus:before {
+        content: 'h5';
+        top: 0px;
+    }
+
+    h6.md-focus:before {
+        content: 'h6';
+        top: 0px;
+    }
+}
+
+a {
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    outline: 0;
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+sup.md-footnote {
+    background-color: #555;
+    color: #ddd;
+}
+
+p {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+p,
+ul,
+dd,
+ol,
+hr,
+address,
+pre,
+table,
+iframe,
+.wp-caption,
+.wp-audio-shortcode,
+.wp-video-shortcode {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    /* 24px */
+}
+
+li > blockquote {
+	margin-bottom: 0;
+}
+
+audio:not([controls]) {
+    display: none;
+}
+
+[hidden] {
+    display: none;
+}
+
+::-moz-selection {
+    background: #4a89dc;
+    color: #fff;
+    text-shadow: none;
+}
+
+*.in-text-selection,
+::selection {
+    background: #4a89dc;
+    color: #fff;
+    text-shadow: none;
+}
+
+ul,
+ol {
+    padding: 0 0 0 1.875rem;
+    /* 30px */
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: decimal;
+}
+
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+    margin: 0;
+}
+
+b,
+th,
+dt,
+strong {
+    font-weight: bold;
+}
+
+i,
+em,
+dfn,
+cite {
+    font-style: italic;
+}
+
+blockquote {
+    padding-left: 1.875rem;
+    margin: 0 0 1.875rem 1.875rem;
+    border-left: solid 2px #474d54;
+    padding-left: 30px;
+    margin-top: 35px;
+}
+
+pre,
+code,
+kbd,
+tt,
+var {
+    background: rgba(0, 0, 0, 0.05);
+    font-size: 0.875rem;
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+kbd {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #fff;
+    background-color: #333;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+}
+
+pre.md-fences {
+    padding: 10px 10px 10px 30px;
+    margin-bottom: 20px;
+    background: #333;
+}
+
+.CodeMirror-gutters {
+    background: #333;
+    border-right: 1px solid transparent;
+}
+
+.enable-diagrams pre.md-fences[lang="sequence"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="flow"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="mermaid"] .code-tooltip {
+    bottom: -2.2em;
+    right: 4px;
+}
+
+code,
+kbd,
+tt,
+var {
+    padding: 2px 5px;
+}
+
+table {
+    max-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th,
+td {
+    padding: 5px 10px;
+    vertical-align: top;
+}
+
+a {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+hr {
+    background: #474d54;
+    /* variable */
+}
+
+h1 {
+    margin-top: 2em;
+}
+
+a {
+    color: #e0e0e0;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.md-inline-math script {
+    color: #81b1db;
+}
+
+b,
+th,
+dt,
+strong {
+    color: #DEDEDE;
+    /* variable */
+}
+
+mark {
+    background: #D3D40E;
+}
+
+blockquote {
+    color: #9DA2A6;
+}
+
+table a {
+    color: #DEDEDE;
+    /* variable */
+}
+
+th,
+td {
+    border: solid 1px #474d54;
+    /* variable */
+}
+
+.task-list {
+    padding-left: 0;
+}
+
+.md-task-list-item {
+    padding-left: 1.25rem;
+}
+
+.md-task-list-item > input {
+    top: auto;
+}
+
+.md-task-list-item > input:before {
+    content: "";
+    display: inline-block;
+    width: 0.875rem;
+    height: 0.875rem;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #b8bfc6;
+    background-color: #363B40;
+    margin-top: -0.4rem;
+}
+
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before {
+    content: '\221A';
+    /*◘*/
+    font-size: 0.625rem;
+    line-height: 0.625rem;
+    color: #DEDEDE;
+}
+
+/** quick open **/
+.auto-suggest-container {
+    border: 0px;
+    background-color: #525C65;
+}
+
+#typora-quick-open {
+    background-color: #525C65;
+}
+
+#typora-quick-open input{
+    background-color: #525C65;
+    border: 0;
+    border-bottom: 1px solid grey;
+}
+
+.typora-quick-open-item {
+    background-color: inherit;
+    color: inherit;
+}
+
+.typora-quick-open-item.active,
+.typora-quick-open-item:hover {
+    background-color: #4D8BDB;
+    color: white;
+}
+
+.typora-quick-open-item:hover {
+    background-color: rgba(77, 139, 219, 0.8);
+}
+
+.typora-search-spinner > div {
+  background-color: #fff;
+}
+
+#write pre.md-meta-block {
+    border-bottom: 1px dashed #ccc;
+    background: transparent;
+    padding-bottom: 0.6em;
+    line-height: 1.6em;
+}
+
+.btn,
+.btn .btn-default {
+    background: transparent;
+    color: #b8bfc6;
+}
+
+.ty-table-edit {
+    border-top: 1px solid gray;
+    background-color: #363B40;
+}
+
+.popover-title {
+    background: transparent;
+}
+
+.md-image>.md-meta {
+    color: #BBBBBB;
+    background: transparent;
+}
+
+.md-expand.md-image>.md-meta {
+    color: #DDD;
+}
+
+#write>h3:before,
+#write>h4:before,
+#write>h5:before,
+#write>h6:before {
+    border: none;
+    border-radius: 0px;
+    color: #888;
+    text-decoration: underline;
+    left: -1.4rem;
+    top: 0.2rem;
+}
+
+#write>h3.md-focus:before {
+    top: 2px;
+}
+
+#write>h4.md-focus:before {
+    top: 2px;
+}
+
+.md-toc-item {
+    color: #A8C2DC;
+}
+
+#write div.md-toc-tooltip {
+    background-color: #363B40;
+}
+
+.dropdown-menu .btn:hover,
+.dropdown-menu .btn:focus,
+.md-toc .btn:hover,
+.md-toc .btn:focus {
+    color: white;
+    background: black;
+}
+
+#toc-dropmenu {
+    background: rgba(50, 54, 59, 0.93);
+    border: 1px solid rgba(253, 253, 253, 0.15);
+}
+
+#toc-dropmenu .divider {
+    background-color: #9b9b9b;
+}
+
+.outline-expander:before {
+    top: 2px;
+}
+
+#typora-sidebar {
+    box-shadow: none;
+    border-right: 1px dashed;
+    border-right: none;
+}
+
+.sidebar-tabs {
+    border-bottom:0;
+}
+
+#typora-sidebar:hover .outline-title-wrapper {
+    border-left: 1px dashed;
+}
+
+.outline-title-wrapper .btn {
+    color: inherit;
+}
+
+.outline-item:hover {
+    border-color: #363B40;
+    background-color: #363B40;
+    color: white;
+}
+
+h1.md-focus .md-attr,
+h2.md-focus .md-attr,
+h3.md-focus .md-attr,
+h4.md-focus .md-attr,
+h5.md-focus .md-attr,
+h6.md-focus .md-attr,
+.md-header-span .md-attr {
+    color: #8C8E92;
+    display: inline;
+}
+
+.md-comment {
+    color: #5a95e3;
+    opacity: 1;
+}
+
+.md-inline-math svg {
+    color: #b8bfc6;
+}
+
+#math-inline-preview .md-arrow:after {
+    background: black;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    border: 0;
+}
+
+.modal-title {
+    font-size: 1.5em;
+}
+
+.modal-content input {
+    background-color: rgba(26, 21, 21, 0.51);
+    color: white;
+}
+
+.modal-content .input-group-addon {
+    color: white;
+}
+
+.modal-backdrop {
+    background-color: rgba(174, 174, 174, 0.7);
+}
+
+.modal-content .btn-primary {
+    border-color: var(--primary-color);
+}
+
+.md-table-resize-popover {
+    background-color: #333;
+}
+
+.form-inline .input-group .input-group-addon {
+    color: white;
+}
+
+#md-searchpanel {
+    border-bottom: 1px dashed grey;
+}
+
+/** UI for electron */
+
+.context-menu,
+#spell-check-panel,
+#footer-word-count-info {
+    background-color: #42464A;
+}
+
+.context-menu.dropdown-menu .divider,
+.dropdown-menu .divider {
+    background-color: #777777;
+}
+
+footer {
+    color: inherit;
+}
+
+@media (max-width: 1000px) {
+    footer {
+        border-top: none;
+    }
+    footer:hover {
+        color: inherit;
+    }
+}
+
+#file-info-file-path .file-info-field-value:hover {
+    background-color: #555;
+    color: #dedede;
+}
+
+.megamenu-content,
+.megamenu-opened header {
+    background: var(--bg-color);
+}
+
+.megamenu-menu-panel h2,
+.megamenu-menu-panel h1,
+.long-btn {
+    color: inherit;
+}
+
+.megamenu-menu-panel input[type='text'] {
+    background: inherit;
+    border: 0;
+    border-bottom: 1px solid;
+}
+
+#recent-file-panel-action-btn {
+    background: inherit;
+    border: 1px grey solid;
+}
+
+.megamenu-menu-panel .dropdown-menu > li > a {
+    color: inherit;
+    background-color: #2F353A;
+    text-decoration: none;
+}
+
+.megamenu-menu-panel table td:nth-child(1) {
+    color: inherit;
+    font-weight: bold;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(1) {
+    color: white;
+}
+
+.modal-footer .btn-default, 
+.modal-footer .btn-primary,
+.modal-footer .btn-default:not(:hover) {
+    border: 1px solid;
+    border-color: transparent;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    color: white;
+    border: 1px solid #ddd;
+    background-color: inherit;
+}
+
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: transparent !important;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: inherit;
+}
+
+.megamenu-menu-panel .btn {
+    border: 1px solid #eee;
+    background: transparent;
+}
+
+.mouse-hover .toolbar-icon.btn:hover,
+#w-full.mouse-hover,
+#w-pin.mouse-hover {
+    background-color: inherit;
+}
+
+.typora-node::-webkit-scrollbar {
+    width: 5px;
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical {
+    background: rgba(250, 250, 250, 0.3);
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(250, 250, 250, 0.5);
+}
+
+#w-unpin {
+    background-color: #4182c4;
+}
+
+#top-titlebar, #top-titlebar * {
+    color: var(--item-hover-text-color);
+}
+
+.typora-sourceview-on #toggle-sourceview-btn,
+#footer-word-count:hover,
+.ty-show-word-count #footer-word-count {
+    background: #333333;
+}
+
+#toggle-sourceview-btn:hover {
+    color: #eee;
+    background: #333333;
+}
+
+/** focus mode */
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) * {
+    color: #686868 !important;
+}
+
+.on-focus-mode .md-end-block:not(.md-focus) img,
+.on-focus-mode .md-task-list-item:not(.md-focus-container)>input {
+    opacity: #686868 !important;
+}
+
+.on-focus-mode li[cid]:not(.md-focus-container){
+    color: #686868;
+}
+
+.on-focus-mode .md-fences.md-focus .CodeMirror-code>*:not(.CodeMirror-activeline) *,
+.on-focus-mode .CodeMirror.cm-s-inner:not(.CodeMirror-focused) * {
+    color: #686868 !important;
+}
+
+.on-focus-mode .md-focus,
+.on-focus-mode .md-focus-container {
+    color: #fff;
+}
+
+.on-focus-mode #typora-source .CodeMirror-code>*:not(.CodeMirror-activeline) * {
+    color: #686868 !important;
+}
+
+
+/*diagrams*/
+#write .md-focus .md-diagram-panel {
+    border: 1px solid #ddd;
+    margin-left: -1px;
+    width: calc(100% + 2px);
+}
+
+/*diagrams*/
+#write .md-focus.md-fences-with-lineno .md-diagram-panel {
+    margin-left: auto;
+}
+
+.md-diagram-panel-error {
+    color: #f1908e;
+}
+
+.active-tab-files #info-panel-tab-file,
+.active-tab-files #info-panel-tab-file:hover,
+.active-tab-outline #info-panel-tab-outline,
+.active-tab-outline #info-panel-tab-outline:hover {
+    color: #eee;
+}
+
+.sidebar-footer-item:hover,
+.footer-item:hover {
+    background: inherit;
+    color: white;
+}
+
+.ty-side-sort-btn.active,
+.ty-side-sort-btn:hover,
+.selected-folder-menu-item a:after {
+    color: white;
+}
+
+#sidebar-files-menu {
+    border:solid 1px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.79);
+    background-color: var(--bg-color);
+}
+
+.file-list-item {
+    border-bottom:none;
+}
+
+.file-list-item-summary {
+    opacity: 1;
+}
+
+.file-list-item.active:first-child {
+    border-top: none;
+}
+
+.file-node-background {
+    height: 32px;
+}
+
+.file-library-node.active>.file-node-content,
+.file-list-item.active {
+    color: white;
+    color: var(--active-file-text-color);
+}
+
+.file-library-node.active>.file-node-background{
+    background-color: rgb(34, 34, 34);
+    background-color: var(--active-file-bg-color);
+}
+.file-list-item.active {
+    background-color: rgb(34, 34, 34);
+    background-color: var(--active-file-bg-color);
+}
+
+#ty-tooltip {
+    background-color: black;
+    color: #eee;
+}
+
+.md-task-list-item>input {
+    margin-left: -1.3em;
+    margin-top: 0.3rem;
+    -webkit-appearance: none;
+}
+
+.md-mathjax-midline {
+    background-color: #57616b;
+    border-bottom: none;
+}
+
+footer.ty-footer {
+    border-color: #656565;
+}
+
+.ty-preferences .btn-default {
+    background: transparent;
+}
+.ty-preferences .btn-default:hover {
+    background: #57616b;
+}
+
+.ty-preferences select {
+    border: 1px solid #989698;
+    height: 21px;
+}
+
+.ty-preferences .nav-group-item.active {
+    background: var(--item-hover-bg-color);
+}
+
+.ty-preferences input[type="search"] {
+    border-color: #333;
+    background: #333;
+    line-height: 22px;
+    border-radius: 6px;
+    color: white;
+}
+
+.ty-preferences input[type="search"]:focus {
+    box-shadow: none;
+}
+
+[data-is-directory="true"] .file-node-content {
+    margin-bottom: 0;
+}
+
+.file-node-title {
+    line-height: 22px;
+}
+
+.html-for-mac .file-node-open-state, .html-for-mac .file-node-icon {
+    line-height: 26px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(230, 230, 230, 0.30);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgba(230, 230, 230, 0.50);
+}
+
+#typora-sidebar:hover div.sidebar-content-content::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(230, 230, 230, 0.30);
+}
+
+.nav-group-item:active {
+    background-color: #474d54;
+}
+
+.md-search-hit {
+    background: rgba(199, 140, 60, 0.81);
+    color: #eee;
+}
+
+.md-search-hit * {
+    color: #eee;
+}
+
+#md-searchpanel input {
+    color: white;
+}
+
+
+</style>
+</head>
+<body class='typora-export os-windows' >
+<div  id='write'  class = 'is-node'><h1><a name="backsense-bs-9200x-测试工具-使用说明" class="md-header-anchor"></a><span>Backsense BS-9200X 测试工具 使用说明</span></h1><h2><a name="概述" class="md-header-anchor"></a><span>概述</span></h2><p><span>Backsense BS-9200X 测试工具是基于 .NET Framework 4.8 的雷达传感器测试软件，用于雷达目标检测、CAN 总线通信和 ECU 刷写等功能。</span></p><hr /><h2><a name="1-启动与-can-设备配置" class="md-header-anchor"></a><span>1 启动与 CAN 设备配置</span></h2><h3><a name="11-can-tools-页面" class="md-header-anchor"></a><span>1.1 CAN Tools 页面</span></h3><p><span>启动程序后，首先进入 CAN 设备配置页面：</span></p><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133206836.png" referrerpolicy="no-referrer" alt="image-20260716133206836"></p><p><strong><span>区域说明：</span></strong></p><figure><table><thead><tr><th style='text-align:center;' ><span>编号</span></th><th><span>区域</span></th><th><span>功能说明</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>1</span></td><td><span>CAN 配置区域</span></td><td><span>设置 CAN 设备连接参数</span></td></tr><tr><td style='text-align:center;' ><span>2</span></td><td><span>设备操作按钮</span></td><td><span>打开/关闭 CAN 设备连接</span></td></tr></tbody></table></figure><p><strong><span>配置项说明：</span></strong></p><figure><table><thead><tr><th><span>配置项</span></th><th><span>说明</span></th><th><span>可选值</span></th></tr></thead><tbody><tr><td><span>Manufacturer</span></td><td><span>CAN 设备制造商</span></td><td><span>GCAN、ZLGCAN、PEAK、创芯科技等</span></td></tr><tr><td><span>Device Type</span></td><td><span>设备型号</span></td><td><span>如 GCAN USBCAN FD</span></td></tr><tr><td><span>Device Index</span></td><td><span>设备索引</span></td><td><span>0、1、2...</span></td></tr><tr><td><span>Channel</span></td><td><span>通道号</span></td><td><span>0、1</span></td></tr><tr><td><span>CAN Protocol</span></td><td><span>通信协议</span></td><td><span>CAN、CANFD</span></td></tr><tr><td><span>Baud Rate</span></td><td><span>波特率</span></td><td><span>500k、1M 等</span></td></tr><tr><td><span>Data Baud Rate</span></td><td><span>数据波特率（CANFD）</span></td><td><span>2M、5M 等</span></td></tr><tr><td><span>Resistance</span></td><td><span>终端电阻</span></td><td><span>使能、禁用</span></td></tr></tbody></table></figure><p><strong><span>操作步骤：</span></strong></p><ol start='' ><li><span>选择 CAN 设备制造商和型号</span></li><li><span>设置设备索引和通道号</span></li><li><span>选择通信协议（CAN 或 CANFD）</span></li><li><span>设置波特率参数</span></li><li><span>设置终端电阻（如需）</span></li><li><span>点击 </span><strong><span>Open Device</span></strong><span>（编号2）打开 CAN 设备连接</span></li><li><span>点击 </span><strong><span>Close Device</span></strong><span>（编号2）关闭 CAN 设备连接</span></li></ol><hr /><h2><a name="2-主界面" class="md-header-anchor"></a><span>2 主界面</span></h2><h3><a name="21-主窗口布局" class="md-header-anchor"></a><span>2.1 主窗口布局</span></h3><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133221756.png" referrerpolicy="no-referrer" alt="image-20260716133221756"></p><p><strong><span>区域说明：</span></strong></p><figure><table><thead><tr><th style='text-align:center;' ><span>编号</span></th><th><span>区域</span></th><th><span>功能说明</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>1</span></td><td><span>Select Sensor</span></td><td><span>选择传感器 CAN ID</span></td></tr><tr><td style='text-align:center;' ><span>2</span></td><td><span>Sensor Configuration</span></td><td><span>打开传感器配置页面</span></td></tr></tbody></table></figure><ul><li><span>菜单模块</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260714164106880.png" referrerpolicy="no-referrer" alt="image-20260714164106880"></p><p><strong><span>菜单栏说明：</span></strong></p><figure><table><thead><tr><th><span>菜单</span></th><th><span>功能</span></th></tr></thead><tbody><tr><td><span>Files</span></td><td><span>文件操作（保存配置、打开路径等）</span></td></tr><tr><td><span>Configuration</span></td><td><span>配置管理（CAN 设备、UDS、传感器）</span></td></tr><tr><td><span>View</span></td><td><span>视图切换（鸟瞰视图、检测信息、网络摘要、CAN 实时数据）</span></td></tr><tr><td><span>Tools</span></td><td><span>工具（文件工具、刷写工具、转换工具）</span></td></tr><tr><td><span>Help</span></td><td><span>帮助文档和关于</span></td></tr></tbody></table></figure><h3><a name="22-files-菜单选项" class="md-header-anchor"></a><span>2.2 Files 菜单选项</span></h3><figure><table><thead><tr><th><span>选项</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>Save Config</span></td><td><span>保存当前配置</span></td></tr><tr><td><span>Open Software WorkDir</span></td><td><span>打开软件工作目录</span></td></tr><tr><td><span>Open FlashDir</span></td><td><span>打开刷写文件目录</span></td></tr><tr><td><span>Open Recording Path</span></td><td><span>打开录制文件路径</span></td></tr><tr><td><span>Open Logs Path</span></td><td><span>打开日志文件路径</span></td></tr><tr><td><span>Open Setting Path</span></td><td><span>打开配置文件路径</span></td></tr><tr><td><span>Exit</span></td><td><span>退出程序</span></td></tr></tbody></table></figure><h3><a name="23-configuration-菜单选项" class="md-header-anchor"></a><span>2.3 Configuration 菜单选项</span></h3><figure><table><thead><tr><th><span>选项</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>CAN Device Configuration</span></td><td><span>CAN 设备配置</span></td></tr><tr><td><span>Uds Configuration</span></td><td><span>UDS 协议配置</span></td></tr><tr><td><span>Sensor Configuration</span></td><td><span>传感器配置</span></td></tr></tbody></table></figure><h3><a name="24-view-菜单选项" class="md-header-anchor"></a><span>2.4 View 菜单选项</span></h3><figure><table><thead><tr><th><span>选项</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>Birds Eye View</span></td><td><span>鸟瞰视图，可视化显示目标位置</span></td></tr><tr><td><span>Detection &amp; Sensor Info</span></td><td><span>检测与传感器信息，显示传感器参数数据</span></td></tr><tr><td><span>Network Summary</span></td><td><span>网络摘要，显示所有传感器的网络状态</span></td></tr><tr><td><span>CAN Live Data</span></td><td><span>CAN 实时数据，显示 CAN 总线原始消息日志</span></td></tr></tbody></table></figure><h3><a name="25-tools-菜单选项" class="md-header-anchor"></a><span>2.5 Tools 菜单选项</span></h3><figure><table><thead><tr><th><span>选项</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>File Tools</span></td><td><span>文件工具</span></td></tr><tr><td><span>Asst to Brigade</span></td><td><span>Brigade 辅助工具</span></td></tr><tr><td><span>Convertor Tools</span></td><td><span>转换工具</span></td></tr></tbody></table></figure><h3><a name="26-help-菜单选项" class="md-header-anchor"></a><span>2.6 Help 菜单选项</span></h3><figure><table><thead><tr><th><span>选项</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>About</span></td><td><span>关于软件</span></td></tr><tr><td><span>Docs</span></td><td><span>帮助文档</span></td></tr></tbody></table></figure><hr /><h3><a name="27-sensor-配置" class="md-header-anchor"></a><span>2.7 Sensor 配置</span></h3><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133339021.png" referrerpolicy="no-referrer" alt="image-20260716133339021"></p><p><strong><span>操作步骤：</span></strong></p><ol start='' ><li><span>在 </span><strong><span>Select Sensor</span></strong><span>（编号1）下拉框中选择传感器（如 0x310）</span></li><li><span>点击 </span><strong><span>Sensor Configuration</span></strong><span>（编号2）进入传感器配置页面</span></li><li><span>通过菜单栏切换不同的功能视图</span></li></ol><p><strong><span>传感器选择详情：</span></strong></p><p><span>传感器列表需点击下拉箭头打开，包含 </span><strong><span>&quot;None&quot;</span></strong><span> 选项和所有可用 Sensor ID，按两组分类：</span></p><figure><table><thead><tr><th><span>分组</span></th><th><span>范围</span></th><th><span>协议</span></th></tr></thead><tbody><tr><td><strong><span>CAN Type 1 · 3xx</span></strong></td><td><code>0x310</code><span>、</span><code>0x320</code><span>、</span><code>0x330</code><span>、</span><code>0x340</code><span> …</span></td><td><span>Gen1 传感器</span></td></tr><tr><td><strong><span>CAN Type 2 · 2xx</span></strong></td><td><code>0x210</code><span>、</span><code>0x220</code><span>、</span><code>0x230</code><span> …</span></td><td><span>Gen2 传感器</span></td></tr></tbody></table></figure><p><span>选择任意 ID（非 None）后：</span></p><ul><li><span>状态栏变为 </span><strong><span>绿色</span></strong><span>，显示：</span><code>Line | Gen2 Type 2 | 1 | 50 ms cycle</code><span>（传感器线 · 类型 · 帧 · 周期时间）及时间戳</span></li><li><strong><code>Sensor Configuration</code></strong><span> 按钮出现</span></li></ul><blockquote><p><span>💡 切换传感器时，已打开的数据窗口会立即重新指向新选中的 CAN ID。</span></p></blockquote><p><strong><span>View 菜单窗口管理：</span></strong></p><p><span>四个数据窗口可同时打开进行交叉参考，菜单中 </span><strong><span>勾选（✓）</span></strong><span> 表示窗口已打开，窗口可自由拖动、缩放和关闭。</span></p><figure><table><thead><tr><th><span>菜单项</span></th><th><span>打开窗口</span></th></tr></thead><tbody><tr><td><span>▢ Birds Eye View</span></td><td><span>雷达俯视图</span></td></tr><tr><td><span>▢ Detection &amp; Sensor Info</span></td><td><span>参数表（每检测对象一列）</span></td></tr><tr><td><span>▢ Network Summary</span></td><td><span>全部 16 个传感器基础 ID 的 X/Y 坐标</span></td></tr><tr><td><span>▢ CAN Live Data</span></td><td><span>带时间戳的原始 CAN 帧日志</span></td></tr></tbody></table></figure><blockquote><p><span>💡 在任一窗口中选择目标，其他窗口会同步高亮（跨窗口联动）。</span></p></blockquote><hr /><h2><a name="3-传感器配置" class="md-header-anchor"></a><span>3 传感器配置</span></h2><h3><a name="31-sensor-configuration-页面" class="md-header-anchor"></a><span>3.1 Sensor Configuration 页面</span></h3><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133404069.png" referrerpolicy="no-referrer" alt="image-20260716133404069"></p><p><strong><span>功能说明：</span></strong></p><figure><table><thead><tr><th style='text-align:center;' ><span>编号</span></th><th><span>按钮/区域</span></th><th><span>功能说明</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>1</span></td><td><span>Check FirmWare</span></td><td><span>检查固件版本</span></td></tr><tr><td style='text-align:center;' ><span>2</span></td><td><span>Switch SensorID</span></td><td><span>切换传感器 ID</span></td></tr><tr><td style='text-align:center;' ><span>3</span></td><td><span>Update FirmWare</span></td><td><span>更新固件版本</span></td></tr><tr><td style='text-align:center;' ><span>4</span></td><td><span>Save</span></td><td><span>保存配置</span></td></tr><tr><td style='text-align:center;' ><span>5</span></td><td><span>Close</span></td><td><span>关闭页面</span></td></tr></tbody></table></figure><p><strong><span>显示信息：</span></strong></p><figure><table><thead><tr><th><span>信息项</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>Sensor Change ID</span></td><td><span>目标传感器 CAN ID（下拉选择）</span></td></tr><tr><td><span>FirmWare Version</span></td><td><span>当前固件版本号</span></td></tr><tr><td><span>Current Sensor ID</span></td><td><span>当前传感器 CAN ID</span></td></tr><tr><td><span>Current Sensor Type</span></td><td><span>当前传感器类型（Gen1Type/Gen2Type）</span></td></tr><tr><td><span>Current Can Type</span></td><td><span>当前 CAN 类型</span></td></tr></tbody></table></figure><p><strong><span>操作步骤：</span></strong></p><ol start='' ><li><span>在 </span><strong><span>Sensor Change ID</span></strong><span> 下拉框中选择目标传感器 ID</span></li><li><span>点击 </span><strong><span>Check FirmWare</span></strong><span>（编号1）检查固件版本</span></li><li><span>点击 </span><strong><span>Switch SensorID</span></strong><span>（编号2）切换传感器</span></li><li><span>点击 </span><strong><span>Update FirmWare</span></strong><span>（编号3）更新固件（见 3.2 节）</span></li><li><span>点击 </span><strong><span>Save</span></strong><span>（编号4）保存配置</span></li><li><span>点击 </span><strong><span>Close</span></strong><span>（编号5）关闭配置页面</span></li></ol><hr /><h3><a name="32-upgrade-firmware-configuration-页面" class="md-header-anchor"></a><span>3.2 Upgrade FirmWare Configuration 页面</span></h3><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133437749.png" referrerpolicy="no-referrer" alt="image-20260716133437749"></p><p><strong><span>区域说明：</span></strong></p><figure><table><thead><tr><th><span>区域</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>ECU Flow</span></td><td><span>ECU 流程状态</span></td></tr><tr><td><span>Flow Message</span></td><td><span>流程消息（0/18）</span></td></tr><tr><td><span>Flash Progress</span></td><td><span>Flash 刷写进度（0%-100%）</span></td></tr><tr><td><span>App Progress</span></td><td><span>应用程序刷写进度（0%-100%）</span></td></tr><tr><td><span>File Blocks</span></td><td><span>文件块进度（0/20）</span></td></tr><tr><td><span>Tip Message</span></td><td><span>提示消息</span></td></tr><tr><td><span>Error UdsCode</span></td><td><span>UDS 错误码</span></td></tr></tbody></table></figure><p><strong><span>操作按钮：</span></strong></p><figure><table><thead><tr><th><span>按钮</span></th><th><span>功能</span></th></tr></thead><tbody><tr><td><span>Upgrade FirmWare</span></td><td><span>开始固件升级</span></td></tr><tr><td><span>Close</span></td><td><span>关闭升级页面</span></td></tr></tbody></table></figure><p><strong><span>操作步骤：</span></strong></p><ol start='' ><li><span>从 Sensor Configuration 页面点击 </span><strong><span>Update FirmWare</span></strong><span> 进入</span></li><li><span>确认固件文件已准备好</span></li><li><span>点击 </span><strong><span>Upgrade FirmWare</span></strong><span> 开始升级</span></li><li><span>监控进度条和提示消息</span></li><li><span>升级完成后点击 </span><strong><span>Close</span></strong><span> 关闭页面</span></li></ol><hr /><h2><a name="4-鸟瞰视图" class="md-header-anchor"></a><span>4 鸟瞰视图</span></h2><h3><a name="41-birds-eye-view-页面" class="md-header-anchor"></a><span>4.1 Birds Eye View 页面</span></h3><blockquote><p><span>打开鸟瞰图， 接收目标，和报文录制</span></p></blockquote><ul><li><span>2XX</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133733634.png" referrerpolicy="no-referrer" alt="image-20260716133733634"></p><ul><li><span>3XX</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133547859.png" referrerpolicy="no-referrer" alt="image-20260716133547859"></p><p><strong><span>区域说明：</span></strong></p><figure><table><thead><tr><th style='text-align:center;' ><span>编号</span></th><th><span>区域</span></th><th><span>功能说明</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>1</span></td><td><span>控制面板（Control Panel）</span></td><td><span>控制雷达扫描和录制</span></td></tr><tr><td style='text-align:center;' ><span>2</span></td><td><span>鸟瞰视图坐标系</span></td><td><span>可视化显示目标位置，红色圆圈为雷达位置</span></td></tr><tr><td style='text-align:center;' ><span>3</span></td><td><span>目标列表（Radar Data Lists）</span></td><td><span>显示检测到的目标信息，包含帧头和对象计数</span></td></tr><tr><td style='text-align:center;' ><span>4</span></td><td><span>目标详情面板</span></td><td><span>显示选中目标的完整属性信息</span></td></tr></tbody></table></figure><p><strong><span>控制面板按钮说明（编号1）：</span></strong></p><figure><table><thead><tr><th><span>按钮</span></th><th><span>功能</span></th></tr></thead><tbody><tr><td><span>Start Recvi</span></td><td><span>启动雷达扫描（开始接收数据）</span></td></tr><tr><td><span>Stop Recvi</span></td><td><span>停止雷达扫描（停止接收数据）</span></td></tr><tr><td><span>Start Recording</span></td><td><span>开始录制雷达数据到文件</span></td></tr><tr><td><span>Stop Recording</span></td><td><span>停止录制雷达数据</span></td></tr></tbody></table></figure><p><strong><span>目标列表字段说明（编号3）：</span></strong></p><p><span>列表标题栏显示当前帧信息：</span><code>Frame ID:0 Object Count:7</code></p><figure><table><thead><tr><th><span>字段</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>ID</span></td><td><span>目标编号（1、2、3...）</span></td></tr><tr><td><span>Type</span></td><td><span>目标 CAN ID（如 0x310、0x311）</span></td></tr><tr><td><span>X(m)</span></td><td><span>X 坐标（米，正值=东方向）</span></td></tr><tr><td><span>Y(m)</span></td><td><span>Y 坐标（米，正值=北方向）</span></td></tr><tr><td><span>Rad(m)</span></td><td><span>径向距离（米，距雷达的直线距离）</span></td></tr><tr><td><span>Angle(°)</span></td><td><span>角度（度，0°=正前方）</span></td></tr></tbody></table></figure><p><strong><span>鸟瞰视图图例（编号2）：</span></strong></p><p><span>右上角图例说明：</span></p><figure><table><thead><tr><th><span>颜色</span></th><th><span>含义</span></th></tr></thead><tbody><tr><td><span>绿色方块</span></td><td><span>动态目标（Moving）</span></td></tr><tr><td><span>白色方块</span></td><td><span>静态目标（Static）</span></td></tr><tr><td><span>青色方块</span></td><td><span>当前选中目标（Selected）</span></td></tr><tr><td><span>红色圆圈</span></td><td><span>雷达本体位置（坐标原点）</span></td></tr><tr><td><span>蓝色网格线</span></td><td><span>坐标参考线（每格5米/10米）</span></td></tr><tr><td><span>青色十字</span></td><td><span>坐标轴方向（+X东/+Y北）</span></td></tr></tbody></table></figure><p><strong><span>检测区域范围：</span></strong></p><p><span>鸟瞰图覆盖 </span><strong><span>±8m（横向）× 65m（距离）</span></strong><span> 的检测区域，传感器位于原点（红色圆点）。</span></p><p><strong><span>视觉样式：</span></strong></p><figure><table><thead><tr><th><span>元素</span></th><th><span>颜色/符号</span></th><th><span>含义</span></th></tr></thead><tbody><tr><td><span>传感器</span></td><td><span>红色圆点（底部中心）</span></td><td><span>雷达位置/原点</span></td></tr><tr><td><span>对象（未选中）</span></td><td><span>灰色方块</span></td><td><span>已检测目标</span></td></tr><tr><td><span>对象（已选中）</span></td><td><span>青色（aqua）方块</span></td><td><span>当前选中目标</span></td></tr><tr><td><span>网格标签</span></td><td><code>±8m</code><span>（左右）和 </span><code>0..60m</code><span>（顶部）</span></td><td><span>坐标轴刻度</span></td></tr><tr><td><span>对象ID标签</span></td><td><span>白色数字标签（方块上方）</span></td><td><span>目标编号（如 01、02、03）</span></td></tr><tr><td><span>窗口标题</span></td><td><code>Birds Eye View</code><span>（左上角X关闭）</span></td><td><span>浮动面板</span></td></tr></tbody></table></figure><p><strong><span>交互行为：</span></strong></p><ul><li><span>对象初始为灰色，</span><strong><span>选中后变为青色</span></strong></li><li><span>点击鸟瞰图中的对象，或在其他窗口中选择目标行/列，</span><strong><span>所有窗口同步高亮</span></strong><span>该目标（跨窗口联动）</span></li></ul><p><strong><span>目标详情面板字段说明（编号4）：</span></strong></p><figure><table><thead><tr><th><span>字段</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>Type</span></td><td><span>传感器类型（Gen1Type/Gen2Type）</span></td></tr><tr><td><span>CanID</span></td><td><span>目标 CAN ID（十六进制）</span></td></tr><tr><td><span>ID</span></td><td><span>目标序号</span></td></tr><tr><td><span>纵向距离</span></td><td><span>Y 方向距离（米）</span></td></tr><tr><td><span>横向距离</span></td><td><span>X 方向距离（米）</span></td></tr><tr><td><span>经向距离</span></td><td><span>雷达直线距离（米）</span></td></tr><tr><td><span>径向角度</span></td><td><span>方位角（度）</span></td></tr><tr><td><span>相对速度</span></td><td><span>目标相对雷达速度（km/h）</span></td></tr><tr><td><span>信号功率</span></td><td><span>信号强度（dB）</span></td></tr><tr><td><span>外观状态</span></td><td><span>目标检测状态（新检测/重新检测）</span></td></tr><tr><td><span>触发事件</span></td><td><span>追踪状态（维持存活/新检测/有跟踪目标）</span></td></tr><tr><td><span>检测状态</span></td><td><span>有效/无效</span></td></tr><tr><td><span>雷达类型</span></td><td><span>雷达型号（如 BS-9000）</span></td></tr><tr><td><span>电压状态</span></td><td><span>传感器电压状态（OK/异常）</span></td></tr><tr><td><span>射频状态</span></td><td><span>射频模块状态（OK/异常）</span></td></tr><tr><td><span>温度状态</span></td><td><span>传感器温度状态（OK/异常）</span></td></tr><tr><td><span>遮挡状态</span></td><td><span>传感器遮挡状态（OK/异常）</span></td></tr></tbody></table></figure><p><strong><span>底部状态栏：</span></strong></p><figure><table><thead><tr><th><span>项目</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>已选中目标</span></td><td><span>显示当前选中的目标 ID 和类型</span></td></tr><tr><td><span>雷达就绪</span></td><td><span>指示雷达通信是否正常连接</span></td></tr></tbody></table></figure><p><strong><span>操作步骤：</span></strong></p><ol start='' ><li><span>点击 </span><strong><span>Start Recvi</span></strong><span> 按钮（编号1）启动雷达扫描</span></li><li><span>在目标列表（编号3）中查看检测到的目标及数量</span></li><li><span>在鸟瞰视图（编号2）中查看目标位置分布（黄色方块为选中目标）</span></li><li><span>点击目标列表中的某一行，该目标变为黄色，同时显示完整属性（编号4）</span></li><li><span>需要录制数据时点击 </span><strong><span>Start Recording</span></strong><span> 按钮</span></li><li><span>底部状态栏显示当前选中目标的简要信息</span></li></ol><hr /><h2><a name="5-检测与传感器信息" class="md-header-anchor"></a><span>5 检测与传感器信息</span></h2><h3><a name="51-detection--sensor-info-页面" class="md-header-anchor"></a><span>5.1 Detection &amp; Sensor Info 页面</span></h3><p><span>页面标题栏：</span><code>Detection &amp; Sensor Info - 0x310</code><span>（-后为当前传感器 CAN ID），右上角有 </span><strong><span>Pause</span></strong><span> 暂停开关。</span></p><ul><li><span>3XX</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260714164945620.png" referrerpolicy="no-referrer" alt="image-20260716133805721"></p><ul><li><span>2XX</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133805721.png" referrerpolicy="no-referrer" alt="image-20260716133805721"></p><p><strong><span>区域说明：</span></strong></p><figure><table><thead><tr><th><span>区域</span></th><th><span>功能说明</span></th></tr></thead><tbody><tr><td><span>Frame Info</span></td><td><span>帧信息和传感器状态</span></td></tr><tr><td><span>Data List</span></td><td><span>传感器参数数据表（按列显示各目标参数）</span></td></tr><tr><td><span>Pause 开关</span></td><td><span>暂停/恢复实时数据更新（绿色=运行中，灰色=暂停）</span></td></tr><tr><td><span>底部状态栏</span></td><td><code>Detection &amp; Sensor Info - Parameter Table</code><span> 标签提示</span></td></tr></tbody></table></figure><p><strong><span>Frame Info 字段说明：</span></strong></p><figure><table><thead><tr><th><span>字段</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>Frame ID</span></td><td><span>当前帧 ID（如 0）</span></td></tr><tr><td><span>Object Count</span></td><td><span>本帧检测到的目标数量（如 10）</span></td></tr><tr><td><span>Voltage Fault</span></td><td><span>电压故障状态（OK/异常）</span></td></tr><tr><td><span>Radio Frequency Fault</span></td><td><span>射频故障状态（OK/异常）</span></td></tr><tr><td><span>Temperature Fault</span></td><td><span>温度故障状态（OK/异常）</span></td></tr><tr><td><span>Occlusion Fault</span></td><td><span>遮挡故障状态（OK/异常）</span></td></tr></tbody></table></figure><p><strong><span>Data List 字段说明：</span></strong></p><figure><table><thead><tr><th><span>字段</span></th><th><span>说明</span></th><th><span>单位</span></th></tr></thead><tbody><tr><td><span>Sensor Parameter</span></td><td><span>传感器参数名称（行名）</span></td><td><span>-</span></td></tr><tr><td><span>unit(m)</span></td><td><span>参数单位列</span></td><td><span>-</span></td></tr><tr><td><span>ID 01 ~ ID 16</span></td><td><span>各目标（列）对应的参数值，背景高亮=当前选中目标</span></td><td><span>视参数而定</span></td></tr></tbody></table></figure><p><strong><span>参数列表（Gen1 - 3XX）及典型值：</span></strong></p><p><span>表格按行显示参数，按列显示各检测目标。每个目标为一列，参数名称为行名。</span></p><figure><table><thead><tr><th><span>参数组</span></th><th><span>参数名称</span></th><th><span>说明</span></th><th><span>单位</span></th><th><span>典型取值</span></th></tr></thead><tbody><tr><td><strong><span>空间</span></strong></td><td><span>Sensor Parameter（表头）</span></td><td><span>参数名称行头</span></td><td><span>-</span></td><td><span>-</span></td></tr><tr><td>&nbsp;</td><td><span>Object Distance</span></td><td><span>目标距雷达直线距离</span></td><td><span>m</span></td><td><span>0.00 ~ 200+</span></td></tr><tr><td>&nbsp;</td><td><span>Object Angle</span></td><td><span>目标方位角（0°=正前方）</span></td><td><span>Deg</span></td><td><span>-180 ~ +180</span></td></tr><tr><td>&nbsp;</td><td><span>X Coordinate</span></td><td><span>X 坐标（横向/东向）</span></td><td><span>m</span></td><td><span>-100 ~ +100</span></td></tr><tr><td>&nbsp;</td><td><span>Y Coordinate</span></td><td><span>Y 坐标（纵向/北向）</span></td><td><span>m</span></td><td><span>0 ~ +200</span></td></tr><tr><td>&nbsp;</td><td><span>Relative X Speed</span></td><td><span>X 方向相对速度</span></td><td><span>KPH</span></td><td><span>负=靠近，正=远离</span></td></tr><tr><td><strong><span>信号</span></strong></td><td><span>Object Signal Level</span></td><td><span>接收信号强度</span></td><td><span>dB</span></td><td><span>-40 ~ +20</span></td></tr><tr><td>&nbsp;</td><td><span>Object Appearance Status</span></td><td><span>外观/出现状态</span></td><td><span>-</span></td><td><span>新检测、重新检测</span></td></tr><tr><td>&nbsp;</td><td><span>Object Trigger Event</span></td><td><span>触发事件</span></td><td><span>-</span></td><td><span>维持存活、新检测、有跟踪目标</span></td></tr><tr><td><strong><span>标志</span></strong></td><td><span>Detection Flag</span></td><td><span>检测标志</span></td><td><span>-</span></td><td><span>有效、无效</span></td></tr><tr><td>&nbsp;</td><td><span>Identification Flag</span></td><td><span>识别标志</span></td><td><span>-</span></td><td><span>BS-9000、77GHz Radar</span></td></tr><tr><td><strong><span>传感器级故障</span></strong></td><td><span>Voltage Fault</span></td><td><span>电压故障状态</span></td><td><span>-</span></td><td><span>OK / NG</span></td></tr><tr><td>&nbsp;</td><td><span>MMIC Fault</span></td><td><span>MMIC故障状态</span></td><td><span>-</span></td><td><span>OK / NG</span></td></tr><tr><td>&nbsp;</td><td><span>High Temperature Fault</span></td><td><span>高温故障状态</span></td><td><span>-</span></td><td><span>OK / NG</span></td></tr><tr><td>&nbsp;</td><td><span>CAN Fault</span></td><td><span>CAN通信故障状态</span></td><td><span>-</span></td><td><span>OK / NG</span></td></tr></tbody></table></figure><p><strong><span>参数列表（Gen2 - 2XX）：</span></strong></p><p><span>选择 </span><strong><span>Gen2 / Type 2（2xx范围）</span></strong><span> 传感器时，表格自动扩展为新一代参数集，除包含Gen1参数外，还新增以下参数：</span></p><figure><table><thead><tr><th><span>参数组</span></th><th><span>新增参数名称</span></th><th><span>说明</span></th><th><span>单位</span></th></tr></thead><tbody><tr><td><strong><span>雷达特征</span></strong></td><td><span>Object RCS</span></td><td><span>雷达截面积</span></td><td><span>m²</span></td></tr><tr><td>&nbsp;</td><td><span>Object Magnitude</span></td><td><span>信号幅度</span></td><td><span>n/a</span></td></tr><tr><td>&nbsp;</td><td><span>Object SNR</span></td><td><span>信噪比</span></td><td><span>dB</span></td></tr><tr><td><strong><span>运动</span></strong></td><td><span>Acceleration X</span></td><td><span>X 方向加速度</span></td><td><span>m/s²</span></td></tr><tr><td>&nbsp;</td><td><span>Acceleration Y</span></td><td><span>Y 方向加速度</span></td><td><span>m/s²</span></td></tr><tr><td>&nbsp;</td><td><span>Sport Attribute</span></td><td><span>运动属性</span></td><td><span>-（静态/人行横道/径向靠近+/径向靠近-）</span></td></tr><tr><td><strong><span>概率/航迹</span></strong></td><td><span>Relative Speed Y</span></td><td><span>Y 方向相对速度</span></td><td><span>KPH</span></td></tr><tr><td>&nbsp;</td><td><span>Existence Probability</span></td><td><span>存在概率</span></td><td><span>%</span></td></tr><tr><td>&nbsp;</td><td><span>Alive Count</span></td><td><span>存活帧数</span></td><td><span>frames</span></td></tr><tr><td>&nbsp;</td><td><span>Classification</span></td><td><span>目标分类</span></td><td><span>-（行人/卡车/自行车/车辆）</span></td></tr><tr><td><strong><span>帧级</span></strong></td><td><span>Detected Objects</span></td><td><span>检测目标数</span></td><td><span>count</span></td></tr><tr><td>&nbsp;</td><td><span>Frame ID</span></td><td><span>当前帧ID</span></td><td><span>uint</span></td></tr><tr><td>&nbsp;</td><td><span>Ground Speed</span></td><td><span>地面速度</span></td><td><span>km/h</span></td></tr><tr><td>&nbsp;</td><td><span>Sensor Error 5</span></td><td><span>传感器错误5</span></td><td><span>OK/NG</span></td></tr><tr><td>&nbsp;</td><td><span>Sensor Error 6</span></td><td><span>传感器错误6</span></td><td><span>OK/NG</span></td></tr><tr><td>&nbsp;</td><td><span>Voltage Fault</span></td><td><span>电压故障状态</span></td><td><span>OK/NG</span></td></tr></tbody></table></figure><p><strong><span>高亮联动：</span></strong></p><p><span>当前选中目标的整列背景显示为 </span><strong><span>青色（aqua）</span></strong><span>，与鸟瞰视图和网络摘要窗口同步高亮。</span></p><p><strong><span>操作说明：</span></strong></p><ul><li><span>右上角 </span><strong><span>Pause</span></strong><span> 开关：绿色=运行（实时刷新），灰色=暂停（冻结数据）</span></li><li><span>某 ID 列背景高亮（青色）=该目标为当前选中目标（与鸟瞰图、网络摘要联动）</span></li><li><span>未检测到数据的单元格显示为 </span><code>-</code></li><li><span>列水平滚动：数据列超过页面宽度时底部出现水平滚动条</span></li></ul><hr /><h2><a name="6-can-实时数据" class="md-header-anchor"></a><span>6 CAN 实时数据</span></h2><h3><a name="61-can-live-data-页面" class="md-header-anchor"></a><span>6.1 CAN Live Data 页面</span></h3><p><span>页面标题：</span><code>Can Live Data</code><span>，右上角显示累计消息计数（如 </span><strong><span>404</span></strong><span>）。</span></p><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133926358.png" referrerpolicy="no-referrer" alt="image-20260716133926358"></p><p><strong><span>页面样式：</span></strong></p><p><span>CAN Live Data 页面使用 </span><strong><span>白色背景</span></strong><span> 以提高可读性，实时滚动显示会话中所有 CAN 帧。</span></p><p><strong><span>区域说明：</span></strong></p><figure><table><thead><tr><th><span>区域</span></th><th><span>功能说明</span></th></tr></thead><tbody><tr><td><span>Clear 按钮</span></td><td><span>清除当前显示的所有 CAN 消息（清空缓冲区）</span></td></tr><tr><td><span>Export Csv 按钮</span></td><td><span>将 CAN 消息日志导出为 CSV 文件</span></td></tr><tr><td><span>消息计数器</span></td><td><span>右上角数字（如 </span><strong><span>404</span></strong><span>）= 自上次 Clear 后累计接收的报文总数</span></td></tr><tr><td><span>Pause / Resume 开关</span></td><td><span>暂停/恢复显示（绿色=运行中，灰色=暂停），暂停时后台继续接收</span></td></tr><tr><td><span>数据列表</span></td><td><span>实时滚动显示 CAN 总线原始消息，新消息追加到底部</span></td></tr><tr><td><span>垂直滚动条</span></td><td><span>向上滚动查看历史报文</span></td></tr></tbody></table></figure><p><strong><span>工具栏按钮说明：</span></strong></p><figure><table><thead><tr><th><span>按钮</span></th><th><span>功能</span></th></tr></thead><tbody><tr><td><strong><span>Pause / Resume</span></strong></td><td><span>冻结屏幕显示，后台数据接收继续进行；再次点击恢复实时滚动</span></td></tr><tr><td><strong><span>Clear</span></strong></td><td><span>一键清除列表中的所有 CAN 消息（计数器不重置，继续累加）</span></td></tr><tr><td><strong><span>Export CSV</span></strong></td><td><span>将当前列表内的报文导出为 .csv 格式文件</span></td></tr><tr><td><strong><span>Frame counter（右上角）</span></strong></td><td><span>如 </span><strong><code>312 msgs</code></strong><span> — 自上次 Clear 后捕获的总帧数</span></td></tr></tbody></table></figure><p><strong><span>数据列表字段说明：</span></strong></p><figure><table><thead><tr><th><span>字段</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><strong><span>Time</span></strong></td><td><code>hh:mm:ss.mmm</code><span> 时间戳（时:分:秒.毫秒），精确到 1ms</span></td></tr><tr><td><strong><span>Dir</span></strong></td><td><span>方向：</span><code>RX</code><span> = 接收（来自 CAN 总线），</span><code>TX</code><span> = 发送（软件发出）</span></td></tr><tr><td><strong><span>CAN ID</span></strong></td><td><span>11/29-bit CAN 标识符，十六进制（如 </span><code>0x310</code><span>、</span><code>0x311</code><span> … </span><code>0x318</code><span>）</span></td></tr><tr><td><strong><span>DLC</span></strong></td><td><span>Data Length Code，本帧有效数据字节数（通常为 </span><code>8</code><span>）</span></td></tr><tr><td><strong><span>Data (B0..B7)</span></strong></td><td><span>8 个数据字节，十六进制，空格分隔</span></td></tr><tr><td><strong><span>Message</span></strong></td><td><span>协议解码后的含义：</span><code>Object 1 — Car</code><span>、</span><code>Object 2 — Truck</code><span>、</span><code>Object 3 — Pedestrian</code><span>、</span><code>Config Frame ID = 0x310</code><span> 等</span></td></tr></tbody></table></figure><p><strong><span>Message 字段常见取值：</span></strong></p><figure><table><thead><tr><th><span>Message 文本</span></th><th><span>含义</span></th></tr></thead><tbody><tr><td><span>Object 1 — Car</span></td><td><span>对象1 目标消息（车辆）</span></td></tr><tr><td><span>Object 2 — Truck</span></td><td><span>对象2 目标消息（卡车）</span></td></tr><tr><td><span>Object 3 — Pedestrian</span></td><td><span>对象3 目标消息（行人）</span></td></tr><tr><td><span>Object 4 ~ Object 16</span></td><td><span>对象4~16 目标消息</span></td></tr><tr><td><span>Config Frame ID = 0x310</span></td><td><span>配置帧消息</span></td></tr><tr><td><span>GEN Type 1</span></td><td><span>Gen1 类型传感器消息</span></td></tr><tr><td><span>GEN Type 2</span></td><td><span>Gen2 类型传感器消息</span></td></tr></tbody></table></figure><p><strong><span>操作说明：</span></strong></p><ol start='' ><li><span>通过 </span><strong><span>View</span></strong><span> → </span><strong><span>CAN Live Data</span></strong><span> 打开页面，消息自动开始实时滚动显示</span></li><li><span>打开期间右上角数字为累计接收报文数（持续累加）</span></li><li><span>数据过多时拖动右侧垂直滚动条向上翻阅历史</span></li><li><span>点击 </span><strong><span>Clear</span></strong><span> 清空列表（适合对比前后数据）</span></li><li><span>点击 </span><strong><span>Export Csv</span></strong><span> 导出当前列表数据（建议先 Clear 再采集再导出）</span></li><li><span>需冻结当前画面时，点击右上角 </span><strong><span>Pause</span></strong><span> 暂停更新</span></li></ol><hr /><h2><a name="7-网络摘要" class="md-header-anchor"></a><span>7 网络摘要</span></h2><h3><a name="71-network-summary-页面" class="md-header-anchor"></a><span>7.1 Network Summary 页面</span></h3><p><span>页面标题栏：</span><code>Network Summary - 3XX</code><span>（-后为当前传感器类型 Gen1/Gen2），右上角有 </span><strong><span>Pause</span></strong><span> 暂停开关。</span></p><ul><li><span>2XX</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260716133854145.png" referrerpolicy="no-referrer" alt="image-20260716133854145"></p><ul><li><span>3XX</span></li></ul><p><img src="../assets/Rxbit.BrigadeApp/docs/image-20260714165039625.png" referrerpolicy="no-referrer" alt="Network Summary 3XX"></p><p><span>网络摘要页面汇总显示同一总线上 </span><strong><span>所有 16 个传感器基础 CAN ID</span></strong><span> 的 X/Y 坐标数据，可同时观察多个传感器和多个目标。该页面支持 </span><strong><span>3xx（Gen1）</span></strong><span> 和 </span><strong><span>2xx（Gen2）</span></strong><span> 两种类型传感器同时显示在同一网格中。</span></p><p><strong><span>布局说明：</span></strong></p><ul><li><span>每个基础 CAN ID 占用 </span><strong><span>两行</span></strong><span>：一行 </span><strong><code>X</code></strong><span> 行（X 坐标）+ 一行 </span><strong><code>Y</code></strong><span> 行（Y 坐标）</span></li><li><span>列结构：</span><code>CANID X/Y</code><span> 标识列 + </span><code>unit(m)</code><span> 单位列 + </span><code>ID 01 ~ ID 08</code><span> 目标数据列（每检测对象一列）</span></li><li><span>单元格内容：实时坐标值（单位：米），无数据时显示 </span><strong><span>&quot;—&quot;</span></strong></li></ul><p><strong><span>表格字段说明：</span></strong></p><figure><table><thead><tr><th><span>列名</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><span>CANID X/Y</span></td><td><span>传感器 CAN ID（如 0x310、0x311...），每个 ID 有两行（X、Y）</span></td></tr><tr><td><span>unit(m)</span></td><td><span>数据单位：全部为 m（米）</span></td></tr><tr><td><span>ID 01 ~ ID 08</span></td><td><span>该 CAN ID 下的第 1~8 号目标的 X/Y 坐标</span></td></tr></tbody></table></figure><p><strong><span>典型数据解读（3XX 示例）：</span></strong></p><ul><li><span>行 </span><code>0x310 X</code><span> → ID 01 列值 </span><code>4.25</code><span>：ID=0x310 的传感器第 1 号目标 X 坐标为 4.25 米</span></li><li><span>行 </span><code>0x311 Y</code><span> → ID 02 列值 </span><code>55.25</code><span>：ID=0x311 的传感器第 2 号目标 Y 坐标为 55.25 米</span></li><li><span>空值单元格显示 </span><strong><span>&quot;—&quot;</span></strong><span>：该传感器该目标无数据</span></li></ul><p><strong><span>高亮规则：</span></strong></p><figure><table><thead><tr><th><span>高亮样式</span></th><th><span>含义</span></th></tr></thead><tbody><tr><td><strong><span>青色列</span></strong></td><td><span>当前选中对象列（与鸟瞰图、检测信息窗口同步）</span></td></tr><tr><td><strong><span>高亮行</span></strong><span>（背景更亮）</span></td><td><span>当前连接传感器的行（实时数据行）</span></td></tr><tr><td><strong><span>&quot;—&quot;</span></strong><span> 单元格</span></td><td><span>传感器未在线或该目标无数据</span></td></tr></tbody></table></figure><blockquote><p><span>💡 这是唯一可以查看 </span><strong><span>当前选中传感器以外其他传感器数据</span></strong><span> 的窗口，便于快速检查整个车载雷达网络状态。</span></p></blockquote><p><strong><span>操作步骤：</span></strong></p><ol start='' ><li><span>通过 </span><strong><span>View</span></strong><span> → </span><strong><span>Network Summary</span></strong><span> 打开页面</span></li><li><span>页面自动加载所有 CAN 传感器的 X/Y 坐标数据</span></li><li><span>拖动水平滚动条可查看 ID 01~ID 16 全部目标</span></li><li><span>拖动垂直滚动条可查看所有 CAN ID</span></li><li><span>点击右上角 </span><strong><span>Pause</span></strong><span> 开关可暂停数据刷新</span></li><li><span>选中某目标后，对应单元格与鸟瞰视图、检测信息页同步高亮</span></li></ol><p><strong><span>多传感器切换说明：</span></strong></p><p><span>表格中每个传感器占两行（X/Y）：</span></p><ul><li><span>0x310 → X、Y 两行</span></li><li><span>0x311 → X、Y 两行</span></li><li><span>0x320~0x380 → 依此类推</span></li></ul><p><span>通过垂直滚动可浏览总线上所有 32 个（或更多）CAN ID 的坐标信息。</span></p><hr /><h2><a name="72-多窗口数据联动说明" class="md-header-anchor"></a><span>7.2 多窗口数据联动说明</span></h2><p><span>软件支持同时打开多个分析窗口，同一目标（同一 SensorID + 同一对象 ID）在 </span><strong><span>三个窗口之间同步高亮</span></strong><span>，便于多维度联合分析。</span></p><p><strong><span>联动窗口（从左到右）：</span></strong></p><figure><table><thead><tr><th><span>窗口名称</span></th><th><span>标题栏</span></th><th><span>高亮样式</span></th><th><span>联动方式</span></th></tr></thead><tbody><tr><td><span>① 鸟瞰视图</span></td><td><span>Birds Eye View</span></td><td><span>黄色方块（Selected）</span></td><td><span>点击目标列表 / 鸟瞰图中某个对象</span></td></tr><tr><td><span>② 检测信息页</span></td><td><span>Detection &amp; Sensor Info</span></td><td><span>青色整列背景（选中目标列）</span></td><td><span>列 ID 与选中目标 ID 对应</span></td></tr><tr><td><span>③ 网络摘要页</span></td><td><span>Network Summary</span></td><td><span>青色单元格（对应行列）</span></td><td><span>对应 CAN ID 行 + 对应对象 ID 列</span></td></tr></tbody></table></figure><p><strong><span>联动示例（参考多窗口联动图）：</span></strong></p><ol start='' ><li><span>在 </span><strong><span>鸟瞰视图（左）</span></strong><span> 点击目标列表第 2 行（ID=02），鸟瞰图中该目标变为黄色方块 →</span></li><li><span>同步到 </span><strong><span>检测信息页（中）</span></strong><span>：ID 02 列整列变为青色高亮，显示该目标全部参数 →</span></li><li><span>同步到 </span><strong><span>网络摘要页（右）</span></strong><span>：对应 CAN ID 行的 ID 02 列单元格变为青色高亮 →</span></li><li><span>切换选中目标时，三个窗口同步刷新高亮位置（约 50ms 级实时同步）</span></li></ol><p><strong><span>使用建议：</span></strong></p><figure><table><thead><tr><th><span>场景</span></th><th><span>操作</span></th></tr></thead><tbody><tr><td><span>快速定位某个异常目标</span></td><td><span>先在 ③ 网络摘要 中找到数值异常的单元格，双击即可自动跳到 ① 鸟瞰图 并选中</span></td></tr><tr><td><span>对比两个目标参数</span></td><td><span>在 ② 检测信息页 中通过列对比，同时 ① 鸟瞰图 确认两者空间位置</span></td></tr><tr><td><span>查看网络整体分布</span></td><td><span>使用 ③ 网络摘要 总览所有 CAN ID + 所有目标，再钻取到 ① ② 中详查</span></td></tr><tr><td><span>问题排查</span></td><td><span>在 CAN Live Data 中定位到某条 Object→X 消息，按 CAN ID + 对象 ID 可在另外三窗口中定位对应对象</span></td></tr></tbody></table></figure><p><strong><span>注意事项：</span></strong></p><ul><li><span>联动基于 </span><code>SensorID + 对象ID</code><span> 组合键，若两目标 ID 相同但传感器不同，不会误联动</span></li><li><strong><span>Pause</span></strong><span> 状态下联动仍然有效（冻结的只是数据刷新，不是选择联动）</span></li><li><span>选择鸟瞰图中的目标会自动切页，前提是三个窗口均处于打开状态</span></li></ul><hr /><h2><a name="8-操作流程示例" class="md-header-anchor"></a><span>8 操作流程示例</span></h2><h3><a name="81-完整测试流程" class="md-header-anchor"></a><span>8.1 完整测试流程</span></h3><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1. 启动程序</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">2. 配置 CAN 设备（CAN Tools 页面）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 选择设备制造商和型号</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 设置通道参数和波特率</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 设置终端电阻</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── 点击 Open Device 打开连接</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">3. 进入主界面</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── 在 Select Sensor 中选择传感器</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">4. 配置传感器（可选）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 点击 Sensor Configuration</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 检查固件版本（Check FirmWare）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 切换传感器 ID（Switch SensorID）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── 更新固件（Update FirmWare，如需要）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">5. 查看鸟瞰视图</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 点击 Start Recvi 按钮启动扫描</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── 查看目标列表和位置</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── 录制数据（如需要）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">6. 查看检测信息</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── 切换到 Detection &amp; Sensor Info 页面</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 442px;"></div><div class="CodeMirror-gutters" style="display: none; height: 442px;"></div></div></div></pre><h3><a name="82-ecu-刷写流程" class="md-header-anchor"></a><span>8.2 ECU 刷写流程</span></h3><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1. 通过 Configuration → Sensor Configuration 打开传感器配置</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">2. 点击 Update FirmWare 进入升级页面</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">3. 确认固件文件已准备好</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">4. 点击 Upgrade FirmWare 开始刷写</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── ECU Flow 流程执行</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── Flash Progress 刷写进度</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ├── App Progress 应用进度</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── File Blocks 文件块传输</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; ↓</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">5. 刷写完成</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; └── 验证固件版本（Check FirmWare）</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 258px;"></div><div class="CodeMirror-gutters" style="display: none; height: 258px;"></div></div></div></pre><hr /><h2><a name="9-常见问题" class="md-header-anchor"></a><span>9 常见问题</span></h2><h3><a name="91-can-设备连接失败" class="md-header-anchor"></a><span>9.1 CAN 设备连接失败</span></h3><p><strong><span>可能原因：</span></strong></p><ul><li><span>设备驱动未安装或版本不兼容</span></li><li><span>设备未正确连接到电脑</span></li><li><span>设备索引或通道号设置错误</span></li><li><span>波特率设置与设备不匹配</span></li></ul><p><strong><span>解决方法：</span></strong></p><ol start='' ><li><span>确认 CAN 设备驱动已正确安装</span></li><li><span>检查设备物理连接</span></li><li><span>尝试更换设备索引或通道号</span></li><li><span>确认波特率设置正确</span></li></ol><h3><a name="92-雷达数据不显示" class="md-header-anchor"></a><span>9.2 雷达数据不显示</span></h3><p><strong><span>可能原因：</span></strong></p><ul><li><span>CAN 设备未打开</span></li><li><span>传感器未连接或未上电</span></li><li><span>传感器 ID 设置错误</span></li><li><span>数据协议不匹配</span></li></ul><p><strong><span>解决方法：</span></strong></p><ol start='' ><li><span>确认 CAN Tools 页面已点击 Open Device</span></li><li><span>检查传感器硬件连接</span></li><li><span>确认传感器 ID 选择正确</span></li><li><span>确认传感器类型（Gen1/Gen2）正确</span></li></ol><h3><a name="93-目标检测异常" class="md-header-anchor"></a><span>9.3 目标检测异常</span></h3><p><strong><span>可能原因：</span></strong></p><ul><li><span>雷达参数配置不当</span></li><li><span>环境干扰</span></li><li><span>传感器故障</span></li></ul><p><strong><span>解决方法：</span></strong></p><ol start='' ><li><span>检查传感器配置参数</span></li><li><span>确认测试环境无干扰源</span></li><li><span>通过 Sensor Configuration 检查传感器状态</span></li></ol><h3><a name="94-固件升级失败" class="md-header-anchor"></a><span>9.4 固件升级失败</span></h3><p><strong><span>可能原因：</span></strong></p><ul><li><span>CAN 通信不稳定</span></li><li><span>固件文件损坏</span></li><li><span>ECU 未进入刷写模式</span></li></ul><p><strong><span>解决方法：</span></strong></p><ol start='' ><li><span>检查 CAN 设备连接状态</span></li><li><span>确认固件文件完整性</span></li><li><span>重启 ECU 并重新尝试</span></li></ol><hr /><h2><a name="10-技术支持" class="md-header-anchor"></a><span>10 技术支持</span></h2><p><span>如遇到无法解决的问题，请联系技术支持团队并提供以下信息：</span></p><ol start='' ><li><span>错误信息截图</span></li><li><span>CAN 设备型号和配置参数</span></li><li><span>传感器类型和 CAN ID</span></li><li><span>日志文件（位于程序运行目录的 Logs 文件夹）</span></li></ol><hr /><p><strong><span>版本</span></strong><span>: V1.0.0</span><br/><strong><span>版权</span></strong><span>: Copyright © HP 2026</span></p></div>
+</body>
+</html>
