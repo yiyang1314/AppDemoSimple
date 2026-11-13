@@ -1,0 +1,138 @@
+<UserControl x:Class="Rxbit.Brigade.ZcanPro.Views.EcuFlashView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:Rxbit.Brigade.ZcanPro.Views"
+             Background="#E8EDF3"
+             d:DesignHeight="600" d:DesignWidth="1140"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="EFHeader" Color="#4472C4" />
+        <SolidColorBrush x:Key="EFTabActive" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="EFTabInactive" Color="#C7D7EE" />
+        <SolidColorBrush x:Key="EFTabHot" Color="#D9E5F4" />
+        <SolidColorBrush x:Key="EFTabExecutor" Color="#305496" />
+        <SolidColorBrush x:Key="EFBorder" Color="#4472C4" />
+
+        <Style x:Key="EFTabBtnEditor" TargetType="RadioButton">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="14,6" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Bd"
+                                Background="{StaticResource EFTabInactive}"
+                                CornerRadius="4,4,0,0"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                BorderBrush="{StaticResource EFBorder}"
+                                BorderThickness="1,1,1,0">
+                            <ContentPresenter Content="{TemplateBinding Content}" RecognizesAccessKey="True"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource EFTabHot}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource EFTabActive}" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource EFBorder}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EFTabBtnExecutor" TargetType="RadioButton" BasedOn="{StaticResource EFTabBtnEditor}">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Bd"
+                                Background="{StaticResource EFTabExecutor}"
+                                CornerRadius="4,4,0,0"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="6,0,0,0"
+                                BorderBrush="{StaticResource EFTabExecutor}"
+                                BorderThickness="1,1,1,0">
+                            <ContentPresenter Content="{TemplateBinding Content}" RecognizesAccessKey="True"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#3D64A8" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource EFTabActive}" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource EFBorder}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部 Tab 栏 -->
+        <Grid Grid.Row="0" Background="{StaticResource EFHeader}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="4" />
+            </Grid.RowDefinitions>
+            <!-- 窗口标题栏 -->
+            <Grid Grid.Row="0" Background="{StaticResource EFHeader}" Height="26">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="ECU刷新" Foreground="White" FontWeight="Bold" FontSize="13"
+                           VerticalAlignment="Center" Margin="10,0,0,0" />
+                <!-- 右侧窗口控制按钮模拟（仅展示样式，真正控制由 MdiChildWindow 标题栏提供） -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,6,0">
+                    <Button Content="?" Width="24" Height="20" Background="Transparent" Foreground="White"
+                            FontSize="12" BorderThickness="0" Cursor="Hand" VerticalAlignment="Center"/>
+                    <Button Content="—" Width="24" Height="20" Background="Transparent" Foreground="White"
+                            FontSize="12" BorderThickness="0" Cursor="Hand" VerticalAlignment="Center"/>
+                    <Button Content="▢" Width="24" Height="20" Background="Transparent" Foreground="White"
+                            FontSize="10" BorderThickness="0" Cursor="Hand" VerticalAlignment="Center"/>
+                    <Button Content="✕" Width="24" Height="20" Background="Transparent" Foreground="White"
+                            FontSize="12" BorderThickness="0" Cursor="Hand" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+            <!-- 下方 Tab 按钮 -->
+            <Grid Grid.Row="1" Background="{StaticResource EFHeader}" Height="30" VerticalAlignment="Top" Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="TabEditor" Grid.Column="1" GroupName="EFTab"
+                             Style="{StaticResource EFTabBtnEditor}" Content="编辑器 - Public2944_APP_UP -前雷达魔方芯.zflash"
+                             IsChecked="True" VerticalAlignment="Stretch" Height="26" Margin="0" />
+                <RadioButton x:Name="TabExecutor" Grid.Column="2" GroupName="EFTab"
+                             Style="{StaticResource EFTabBtnExecutor}" Content="执行器"
+                             VerticalAlignment="Stretch" Height="26" />
+            </Grid>
+        </Grid>
+
+        <!-- 主体内容 -->
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <ContentControl x:Name="EditorHolder" Visibility="Visible" Margin="6,0,6,6" />
+            <ContentControl x:Name="ExecutorHolder" Visibility="Collapsed" Margin="6,0,6,6" />
+        </Grid>
+    </Grid>
+</UserControl>

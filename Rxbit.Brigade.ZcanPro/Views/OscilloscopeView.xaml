@@ -1,0 +1,106 @@
+<UserControl x:Class="Rxbit.Brigade.ZcanPro.Views.OscilloscopeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             Background="#0D0D1A">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="OscBgBrush" Color="#0D0D1A" />
+        <SolidColorBrush x:Key="OscGridBrush" Color="#1A1A2E" />
+        <SolidColorBrush x:Key="OscBorderBrush" Color="#3A7BD5" />
+        <SolidColorBrush x:Key="OscAccentBrush" Color="#FFD93D" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 工具栏 -->
+        <Border Grid.Row="0" Background="#16162A" Padding="8,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- 左侧：通道选择 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="{Binding Title}" Foreground="#CCC" FontSize="12" VerticalAlignment="Center" Margin="0,0,16,0" />
+
+                    <TextBlock Text="通道:" Foreground="#888" FontSize="11" VerticalAlignment="Center" Margin="0,0,4,0" />
+                    <ComboBox ItemsSource="{Binding ChannelOptions}" SelectedItem="{Binding SelectedChannel}"
+                              Width="60" Height="22" Background="#0D0D1A" Foreground="#CCC"
+                              BorderBrush="#3A7BD5"  FontSize="11" />
+
+                    <Separator Margin="12,0" />
+
+                    <TextBlock Text="触发:" Foreground="#888" FontSize="11" VerticalAlignment="Center" Margin="0,0,4,0" />
+                    <ComboBox Width="70" Height="22" Background="#0D0D1A" Foreground="#CCC"
+                              BorderBrush="#3A7BD5"  FontSize="11">
+                        <ComboBoxItem Content="自动" IsSelected="True" />
+                        <ComboBoxItem Content="正常" />
+                        <ComboBoxItem Content="单次" />
+                    </ComboBox>
+
+                    <Separator Margin="12,0" />
+
+                    <TextBlock Text="时基:" Foreground="#888" FontSize="11" VerticalAlignment="Center" Margin="0,0,4,0" />
+                    <ComboBox Width="60" Height="22" Background="#0D0D1A" Foreground="#CCC"
+                              BorderBrush="#3A7BD5"  FontSize="11">
+                        <ComboBoxItem Content="10ms" />
+                        <ComboBoxItem Content="20ms" IsSelected="True" />
+                        <ComboBoxItem Content="50ms" />
+                        <ComboBoxItem Content="100ms" />
+                        <ComboBoxItem Content="500ms" />
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- 右侧：控制按钮 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button Content="▶ 运行" Command="{Binding StartCommand}"
+                            Height="24" Padding="8,0" Background="#2D5A2D" Foreground="#FFF" BorderThickness="0" FontSize="11" Cursor="Hand" />
+                    <Button Content="⏸ 停止" Command="{Binding StopCommand}"
+                            Height="24" Padding="8,0" Background="#5A2D2D" Foreground="#FFF" BorderThickness="0" FontSize="11" Cursor="Hand" Margin="4,0,0,0" />
+                    <Button Content="📷 捕获" Command="{Binding CaptureCommand}"
+                            Height="24" Padding="8,0" Background="#2D3A5A" Foreground="#FFF" BorderThickness="0" FontSize="11" Cursor="Hand" Margin="4,0,0,0" />
+                    <Button Content="⟲ 重置" Command="{Binding ResetCommand}"
+                            Height="24" Padding="8,0" Background="#3A3A3A" Foreground="#FFF" BorderThickness="0" FontSize="11" Cursor="Hand" Margin="4,0,0,0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 图表区域 -->
+        <Grid Grid.Row="1" Background="{StaticResource OscBgBrush}">
+            <Border BorderBrush="{StaticResource OscBorderBrush}" BorderThickness="1" Margin="8">
+                <lvc:CartesianChart Series="{Binding Series}"
+                                    XAxes="{Binding XAxes}"
+                                    YAxes="{Binding YAxes}"
+                                    Background="{StaticResource OscBgBrush}" />
+            </Border>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <Border Grid.Row="2" Background="#16162A" Padding="8,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" Fill="#00D4AA" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding StatusText}" Foreground="#00D4AA" FontSize="11" VerticalAlignment="Center" Margin="6,0,12,0" />
+                    <TextBlock Text="采样率: 1 MSa/s" Foreground="#888" FontSize="11" Margin="0,0,12,0" />
+                    <TextBlock Text="预触发: 50%" Foreground="#888" FontSize="11" Margin="0,0,12,0" />
+                    <TextBlock Text="记录长度: 10000 点" Foreground="#888" FontSize="11" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="CH1: 2.5 V/div" Foreground="#FFC832" FontSize="11" Margin="0,0,12,0" />
+                    <TextBlock Text="CH2: 2.5 V/div" Foreground="#32C8FF" FontSize="11" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

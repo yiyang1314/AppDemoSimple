@@ -1,0 +1,258 @@
+<Window x:Class="Rxbit.Brigade.ZcanPro.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:Rxbit.Brigade.ZcanPro.Views"
+        xmlns:vm="clr-namespace:Rxbit.Brigade.ZcanPro.ViewModels"
+        Title="ZCAN Pro - CAN 总线分析仪" Height="780" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/app.ico"
+        FontFamily="{StaticResource DsFontFamily}"
+        WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <DropShadowEffect x:Key="DropShadowEffect1" Color="#000000" BlurRadius="8" ShadowDepth="4" Opacity="0.35" />
+
+        <SolidColorBrush x:Key="ZcanBgBrush" Color="#F0F2F5" />
+        <SolidColorBrush x:Key="ZcanHeaderBrush" Color="#1F2937" />
+        <SolidColorBrush x:Key="ZcanAccentBrush" Color="#0078D4" />
+        <SolidColorBrush x:Key="ZcanGreenBrush" Color="#10B981" />
+        <SolidColorBrush x:Key="ZcanRedBrush" Color="#EF4444" />
+        <SolidColorBrush x:Key="ZcanBorderBrush" Color="#E5E7EB" />
+        <SolidColorBrush x:Key="ZcanTextBrush" Color="#1F2937" />
+        <SolidColorBrush x:Key="ZcanMutedTextBrush" Color="#6B7280" />
+
+        <Style x:Key="ZcanToolBarButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#374151" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#E5E7EB" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#D1D5DB" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ZcanNavButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#D1D5DB" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="14,10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,0,0,0" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#374151" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource ZcanAccentBrush}" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 深色导航栏 Menu 样式 -->
+        <Style x:Key="ZcanNavMenu" TargetType="Menu">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#D1D5DB" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Menu">
+                        <Border Background="{TemplateBinding Background}" Padding="0">
+                            <StackPanel IsItemsHost="True" Orientation="Horizontal" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ZcanNavMenuItem" TargetType="MenuItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#D1D5DB" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="14,10" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                                CornerRadius="0" IsHitTestVisible="True">
+                            <Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,0,0,0" />
+                                    <TextBlock Grid.Column="1" Text="▼" FontSize="8" VerticalAlignment="Center" Margin="4,0,8,0" Foreground="#9CA3AF" />
+                                </Grid>
+                                <Popup x:Name="PART_Popup" IsOpen="{Binding IsSubMenuOpen, RelativeSource={RelativeSource AncestorType=MenuItem}}"
+                                       AllowsTransparency="True" PopupAnimation="Slide" PlacementTarget="{Binding ElementName=border}"
+                                       Placement="Bottom" HorizontalOffset="0" VerticalOffset="0" Focusable="False">
+                                    <Border Background="#2B3444" BorderBrush="#3A4556" BorderThickness="1" CornerRadius="4" Margin="0,2,0,0" Padding="0,4"
+                                            Effect="{StaticResource DropShadowEffect1}">
+                                        <StackPanel IsItemsHost="True" />
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#374151" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ZcanNavSubMenuItem" TargetType="MenuItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#E5E7EB" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="24,8,16,8" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Icon, RelativeSource={RelativeSource AncestorType=MenuItem}}" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="13" />
+                                <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3A4556" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部导航栏 -->
+        <Border Grid.Row="0" Background="{StaticResource ZcanHeaderBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo + 主菜单 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Background="#111827">
+                        <Image Source="/Assets/logo.png" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <TextBlock Text="ZCAN Pro" FontSize="14" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <Button Content="设备管理" Style="{StaticResource ZcanNavButton}" Tag="devices" Click="NavButton_Click" />
+                    <Button Style="{StaticResource ZcanNavButton}" Tag="seneeed" >
+                        <!-- 新建视图：带下拉子菜单 -->
+                        <Menu Style="{StaticResource ZcanNavMenu}" VerticalAlignment="Center">
+                            <MenuItem Style="{StaticResource ZcanNavMenuItem}" Header="新建视图" Icon="">
+                                <MenuItem Style="{StaticResource ZcanNavSubMenuItem}" Header="示波器视图" Icon="◫" Click="NewOscilloscope_Click" />
+                                <MenuItem Style="{StaticResource ZcanNavSubMenuItem}" Header="数据面板" Icon="▤" Click="NewDataPanel_Click" />
+                                <MenuItem Style="{StaticResource ZcanNavSubMenuItem}" Header="ECU Flash 刷写" Icon="⤓" Click="NewEcuFlash_Click" />
+                            </MenuItem>
+                        </Menu>
+                     </Button>
+
+                    <Button Content="发送数据" Style="{StaticResource ZcanNavButton}" Tag="send" Click="NavButton_Click" />
+                    <Button Content="通道利用率" Style="{StaticResource ZcanNavButton}" Tag="usage" Click="NavButton_Click" />
+                    <Button Content="高级功能" Style="{StaticResource ZcanNavButton}" Tag="advanced" Click="NavButton_Click" />
+                    <Button Content="工具" Style="{StaticResource ZcanNavButton}" Tag="tools" Click="NavButton_Click" />
+                    <Button Content="设置 &amp; 帮助" Style="{StaticResource ZcanNavButton}" Tag="settings" Click="NavButton_Click" />
+                </StackPanel>
+
+                <!-- 右侧操作按钮 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="8,0">
+                    <Button Content="连接" Height="26" Padding="12,0" Background="{StaticResource ZcanGreenBrush}" Foreground="White" BorderThickness="0" FontSize="12" Cursor="Hand" VerticalAlignment="Center" />
+                    <Button Content="断开" Height="26" Padding="12,0" Background="#6B7280" Foreground="White" BorderThickness="0" FontSize="12" Cursor="Hand" VerticalAlignment="Center" Margin="6,0,0,0" />
+                    <Separator Margin="8,4" />
+                    <Button Content="示波器视图" Click="NewOscilloscope_Click"
+                            Style="{StaticResource ZcanToolBarButton}" VerticalAlignment="Center" />
+                    <Button Content="数据面板" Click="NewDataPanel_Click"
+                            Style="{StaticResource ZcanToolBarButton}" VerticalAlignment="Center" />
+                    <Button Content="ECU Flash 刷写" Click="NewEcuFlash_Click"
+                            Style="{StaticResource ZcanToolBarButton}" VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- MDI 内容区 -->
+        <Grid Grid.Row="1" Background="{StaticResource ZcanBgBrush}" x:Name="ContentGrid">
+            <Canvas x:Name="MdiCanvas" Background="{StaticResource ZcanBgBrush}" />
+        </Grid>
+
+        <!-- 底部状态栏 -->
+        <StatusBar Grid.Row="2" Background="{StaticResource ZcanHeaderBrush}">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" Fill="{StaticResource ZcanGreenBrush}" />
+                    <TextBlock Text=" 已连接" Foreground="#D1D5DB" FontSize="11" VerticalAlignment="Center" />
+                </StackPanel>
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="CAN 1: 500 Kbps" Foreground="#9CA3AF" FontSize="11" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="消息数: 27,611" Foreground="#9CA3AF" FontSize="11" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusActiveView" Text="活动视图: 无" Foreground="#9CA3AF" FontSize="11" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="ZCAN Pro v2.1.0" Foreground="#9CA3AF" FontSize="11" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

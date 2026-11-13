@@ -1,0 +1,222 @@
+<UserControl x:Class="Rxbit.Brigade.ZcanPro.Views.EcuFlashExecutorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#E9EEF5"
+             d:DesignHeight="580" d:DesignWidth="1120"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ExAccent" Color="#2B579A" />
+        <SolidColorBrush x:Key="ExPrimary" Color="#0078D4" />
+        <SolidColorBrush x:Key="ExBorder" Color="#B7CBDD" />
+        <SolidColorBrush x:Key="ExItemBg" Color="#5F7FAE" />
+        <SolidColorBrush x:Key="ExItemSubText" Color="#DCE5F1" />
+        <SolidColorBrush x:Key="ExPanelBg" Color="#FFFFFF" />
+
+        <Style x:Key="ExBtn" TargetType="Button">
+            <Setter Property="Height" Value="26" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="BorderBrush" Value="{StaticResource ExBorder}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#E3F0FF" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource ExPrimary}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#C6E0FF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExPrimaryBtn" TargetType="Button" BasedOn="{StaticResource ExBtn}">
+            <Setter Property="Background" Value="{StaticResource ExPrimary}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource ExPrimary}" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="24" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="BorderBrush" Value="{StaticResource ExBorder}" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="24" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="{StaticResource ExBorder}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部：通道/文件/地址/刷写控制 -->
+        <Border Grid.Row="0" Background="{StaticResource ExPanelBg}"
+                BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,0,1" Padding="8,6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <!-- 通道选择 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="通道：" FontSize="12" VerticalAlignment="Center" />
+                    <ComboBox Width="90" SelectedIndex="0">
+                        <ComboBoxItem Content="CAN 1" />
+                        <ComboBoxItem Content="CAN 2" />
+                        <ComboBoxItem Content="CAN FD" />
+                    </ComboBox>
+                    <TextBox Text="" Width="100" Margin="4,0" IsEnabled="False" />
+                </StackPanel>
+                <!-- 文件路径 + 打开按钮 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBox Text="H:/Movies/周写脚本/Public2944_APP_UP -前雷达魔方芯.zflash"
+                             HorizontalContentAlignment="Left" IsReadOnly="True" Background="#F5F7FB" />
+                    <Button Content="打开文件" Style="{StaticResource ExBtn}" Margin="4,0" />
+                    <TextBlock Text="地址：" FontSize="12" VerticalAlignment="Center" Margin="8,0,0,0" />
+                    <TextBox Text="791" Width="50" />
+                    <TextBox Text="7df" Width="50" Margin="3,0" />
+                    <TextBox Text="799" Width="50" />
+                    <Button Content="更多设置" Style="{StaticResource ExBtn}" Margin="4,0" />
+                    <Button Content="导出远程刷写包" Style="{StaticResource ExBtn}" Margin="4,0" />
+                </StackPanel>
+                <!-- 刷写次数 + 时间 + 开始按钮 -->
+                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Text="刷写次数：" FontSize="12" VerticalAlignment="Center" />
+                    <TextBox Text="1" Width="60" />
+                    <RepeatButton Content="▲" Width="18" Height="12" FontSize="8" Margin="2,0,0,0" BorderBrush="{StaticResource ExBorder}" Background="White" />
+                    <RepeatButton Content="▼" Width="18" Height="12" FontSize="8" BorderBrush="{StaticResource ExBorder}" Background="White" VerticalAlignment="Top" Margin="0,-12,4,0" />
+                    <TextBlock Text="间隔时间：" FontSize="12" VerticalAlignment="Center" Margin="6,0,0,0" />
+                    <TextBox Text="0s" Width="50" />
+                    <RepeatButton Content="▲" Width="18" Height="12" FontSize="8" Margin="2,0,0,0" BorderBrush="{StaticResource ExBorder}" Background="White" />
+                    <RepeatButton Content="▼" Width="18" Height="12" FontSize="8" BorderBrush="{StaticResource ExBorder}" Background="White" VerticalAlignment="Top" Margin="0,-12,4,0" />
+                    <Button Content="开始刷写" Style="{StaticResource ExPrimaryBtn}" Margin="8,0,0,0" Width="90" Background="#167116" BorderBrush="#167116" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 中部：三栏 -->
+        <Grid Grid.Row="1" Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" MinWidth="300" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" MinWidth="340" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 左栏：操作步骤列表 -->
+            <Border Grid.Column="0" Background="White" BorderBrush="{StaticResource ExBorder}" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="StepListScroll">
+                    <ItemsControl x:Name="StepItemsControl" />
+                </ScrollViewer>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Width="4" Background="Transparent" />
+
+            <!-- 中栏：文件块进度列表 -->
+            <Border Grid.Column="2" Background="White" BorderBrush="{StaticResource ExBorder}" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="FileBlockScroll">
+                    <ItemsControl x:Name="FileBlockItemsControl" Margin="4" />
+                </ScrollViewer>
+            </Border>
+
+            <GridSplitter Grid.Column="3" Width="4" Background="Transparent" />
+
+            <!-- 右栏：刷写日志 -->
+            <Border Grid.Column="4" Background="White" BorderBrush="{StaticResource ExBorder}" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!-- 日志表头 -->
+                    <Border Grid.Row="0" Background="#F0F4F8" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,0,1">
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,1,0" Padding="4,4">
+                            <TextBlock Text="时间" FontSize="11" FontWeight="Bold" Foreground="#444" />
+                        </Border>
+                        <Border Grid.Column="1" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,1,0" Padding="4,4">
+                            <TextBlock Text="类型" FontSize="11" FontWeight="Bold" Foreground="#444" />
+                        </Border>
+                        <Border Grid.Column="2" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,1,0" Padding="4,4">
+                            <TextBlock Text="帧ID" FontSize="11" FontWeight="Bold" Foreground="#444" />
+                        </Border>
+                        <Border Grid.Column="3" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,1,0" Padding="4,4">
+                            <TextBlock Text="方向" FontSize="11" FontWeight="Bold" Foreground="#444" />
+                        </Border>
+                        <Border Grid.Column="4" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,0,1,0" Padding="4,4">
+                            <TextBlock Text="长度" FontSize="11" FontWeight="Bold" Foreground="#444" />
+                        </Border>
+                        <Border Grid.Column="5" Padding="4,4">
+                            <TextBlock Text="数据/描述" FontSize="11" FontWeight="Bold" Foreground="#444" />
+                        </Border>
+                        </Grid>
+                    </Border>
+                    <!-- 日志列表 -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" x:Name="LogScroll">
+                        <ItemsControl x:Name="LogItemsControl" />
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 底部：日志控制按钮 -->
+        <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource ExBorder}" BorderThickness="0,1,0,0" Padding="6,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Button Content="清空" Style="{StaticResource ExBtn}" Margin="0,0,6,0" />
+                    <Button Content="实时保存" Style="{StaticResource ExBtn}" Margin="0,0,6,0" />
+                    <Button Content="导出" Style="{StaticResource ExBtn}" />
+                    <CheckBox Content="滚动显示" IsChecked="True" Margin="12,0,0,0" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Foreground="#666" FontSize="11" VerticalAlignment="Center">
+                    <Run Text="就绪" />
+                </TextBlock>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
