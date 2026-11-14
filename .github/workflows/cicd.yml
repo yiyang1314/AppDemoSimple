@@ -71,7 +71,7 @@ jobs:
           $packageDir = Join-Path $env:RUNNER_TEMP "release-package"
           New-Item -ItemType Directory -Path $packageDir -Force | Out-Null
 
-          $zipName = "Rxbit.BrigadeApp-$version-win-x64.zip"
+          $zipName = "Rxbit.BrigadeApp-$version-win-net48.zip"
           $zipPath = Join-Path $packageDir $zipName
           Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $zipPath -CompressionLevel Optimal
 
