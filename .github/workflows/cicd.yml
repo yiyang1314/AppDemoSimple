@@ -1,0 +1,113 @@
+name: Windows CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cicd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build WPF application
+    runs-on: windows-2022
+    outputs:
+      version: ${{ steps.package.outputs.VERSION }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        shell: pwsh
+        run: |
+          nuget restore ".\Rxbit.BrigadeApp\Rxbit.BrigadeApp.sln" -NonInteractive -PackagesDirectory ".\Rxbit.BrigadeApp\packages"
+          if ($LASTEXITCODE -ne 0) { throw "NuGet restore failed with exit code $LASTEXITCODE" }
+
+      - name: Build solution (Release)
+        shell: pwsh
+        run: |
+          msbuild ".\Rxbit.BrigadeApp\Rxbit.BrigadeApp.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /m /nr:false /verbosity:minimal
+          if ($LASTEXITCODE -ne 0) { throw "MSBuild failed with exit code $LASTEXITCODE" }
+
+      - name: Package EXE and ZIP
+        id: package
+        shell: pwsh
+        run: |
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE "Rxbit.BrigadeApp\bin\Release"
+          if (-not (Test-Path $publishDir)) {
+            throw "Build output directory not found: $publishDir"
+          }
+
+          $exe = Get-ChildItem -Path $publishDir -Filter "*.exe" -File -Recurse | Select-Object -First 1
+          if (-not $exe) {
+            throw "No EXE was produced under $publishDir"
+          }
+
+          if ($env:GITHUB_REF -like "refs/tags/*") {
+            $version = $env:GITHUB_REF_NAME -replace '^v', ''
+          } else {
+            $version = "0.0.0-ci.$env:GITHUB_RUN_NUMBER"
+          }
+
+          $packageDir = Join-Path $env:RUNNER_TEMP "release-package"
+          New-Item -ItemType Directory -Path $packageDir -Force | Out-Null
+
+          $zipName = "Rxbit.BrigadeApp-$version-win-x64.zip"
+          $zipPath = Join-Path $packageDir $zipName
+          Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $zipPath -CompressionLevel Optimal
+
+          "VERSION=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "ZIP_PATH=$zipPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "EXE_PATH=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+          Write-Host "Version: $version"
+          Write-Host "EXE: $($exe.FullName)"
+          Write-Host "ZIP: $zipPath"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rxbit.BrigadeApp-${{ steps.package.outputs.VERSION }}
+          path: |
+            ${{ steps.package.outputs.ZIP_PATH }}
+            ${{ steps.package.outputs.EXE_PATH }}
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: windows-2022
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: Rxbit.BrigadeApp-${{ needs.build.outputs.version }}
+          path: release-assets
+
+      - name: Publish release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Rxbit.BrigadeApp ${{ github.ref_name }}
+          generate_release_notes: true
+          files: release-assets/*
